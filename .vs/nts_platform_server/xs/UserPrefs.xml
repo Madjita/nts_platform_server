@@ -1,0 +1,72 @@
+﻿<Properties StartupConfiguration="{F807A3F1-228D-43F4-985D-8697DAD5A12F}|Default">
+  <MonoDevelop.Ide.ItemProperties.nts__platform__server PreferredExecutionTarget="/Applications/Firefox.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="nts_platform_server/Program.cs">
+    <Files>
+      <File FileName="nts_platform_server/Controllers/WeatherForecastController.cs" Line="22" Column="10" />
+      <File FileName="nts_platform_server/Program.cs" Line="16" Column="1" />
+      <File FileName="nts_platform_server/Startup.cs" Line="102" Column="28" />
+      <File FileName="nts_platform_server/Properties/launchSettings.json" Line="24" Column="74" />
+      <File FileName="nts_platform_server/Controllers/ExelController.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/appsettings.Development.json" Line="1" Column="1" />
+      <File FileName="nts_platform_server/WeatherForecast.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Exel/Exel.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Middleware/SecureJwtMiddleware.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Auth.JWT/AuthorizeAttribute.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/appsettings.json" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Models/AuthenticateResponse.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Auth.JWT/UserHelper.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Models/AuthenticateRequest.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Models/CompanyModel.cs" Line="6" Column="41" />
+      <File FileName="nts_platform_server/Models/UserModel.cs" Line="13" Column="42" />
+      <File FileName="nts_platform_server/Entities/DocHour.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/UserProfile.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/nts_platform_server.csproj" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Entities/Hour.cs" Line="25" Column="19" />
+      <File FileName="nts_platform_server/Entities/ErrorViewModel.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Entities/ContactProject.cs" Line="10" Column="11" />
+      <File FileName="nts_platform_server/Entities/Contact.cs" Line="10" Column="10" />
+      <File FileName="nts_platform_server/Entities/BaseEntity.cs" Line="6" Column="28" />
+      <File FileName="../../../../../../usr/local/share/dotnet/sdk/5.0.408/Sdks/Microsoft.NET.Sdk.Razor/build/netstandard2.0/Sdk.Razor.CurrentVersion.targets" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Entities/Role.cs" Line="11" Column="11" />
+      <File FileName="nts_platform_server/Data/Context.cs" Line="76" Column="16" />
+      <File FileName="nts_platform_server/Models/ProjectModel.cs" Line="4" Column="18" />
+      <File FileName="nts_platform_server/Entities/UserProject.cs" Line="12" Column="33" />
+      <File FileName="nts_platform_server/Services/CompanyService.cs" Line="125" Column="51" />
+      <File FileName="nts_platform_server/Services/IUserService.cs" Line="17" Column="35" />
+      <File FileName="nts_platform_server/Controllers/AuthorizeController.cs" Line="32" Column="1" />
+      <File FileName="nts_platform_server/Controllers/ProjectController.cs" Line="39" Column="10" />
+      <File FileName="nts_platform_server/Services/UserService.cs" Line="25" Column="28" />
+      <File FileName="nts_platform_server/Entities/User.cs" Line="27" Column="1" />
+      <File FileName="nts_platform_server/Entities/Project.cs" Line="49" Column="29" />
+      <File FileName="nts_platform_server/Services/DocHourseService.cs" Line="59" Column="14" />
+      <File FileName="nts_platform_server/Controllers/WeekController.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="nts_platform_server" expanded="True">
+            <Node name="nts_platform_server" expanded="True">
+              <Node name="Auth.JWT" expanded="True" />
+              <Node name="Controllers" expanded="True" />
+              <Node name="Data" expanded="True" />
+              <Node name="Entities" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Services" expanded="True" />
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+</Properties>

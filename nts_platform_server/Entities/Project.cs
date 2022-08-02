@@ -46,6 +46,7 @@ namespace nts_platform_server.Entities
         public Status Status { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
+        public string Descriptions { get; set; }
         public List<UserProject> UserProjects { get; set; }
         public List<ContactProject> ContactProjects { get; set; }
 

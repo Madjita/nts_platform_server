@@ -37,18 +37,22 @@ namespace nts_platform_server.Entities
     public class Project : BaseEntity
     {
         //public int Id { get; set; }
-        public int Number { get; set; }
-        public string Title { get; set; }
-        public int Progress { get; set; }
-        public bool Done { get; set; }
-        public int MaxHour { get; set; }
-        public int ActualHour { get; set; }
-        public Status Status { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        public string Descriptions { get; set; }
-        public List<UserProject> UserProjects { get; set; }
-        public List<ContactProject> ContactProjects { get; set; }
+        public int Number { get; set; }          // Позиция номера проекта по очереди добавления
+        public string Code { get; set; }         // Код проекта может быть с символами
+        public string Title { get; set; }        // Название проекта
+        public int Progress { get; set; }        // Прогресс в процентах
+        public bool Done { get; set; }           // Выполенн или нет
+        public int MaxHour { get; set; }         // Максимальное количество часов
+        public int ActualHour { get; set; }      // Актуальное количество часов
+        public Status Status { get; set; }       // Статус проекта ( план, в работе, в архиве)
+        public DateTime Start { get; set; }      // Дата начала
+        public DateTime End { get; set; }        // Дата  фактического завершения
+        public string Descriptions { get; set; } // Дополнительная информация о проекте
+        public User user { get; set; }           // Тот кто создал проект
+
+
+        public List<UserProject> UserProjects { get; set; }       // Список рабочих относящихся к проекту
+        public List<ContactProject> ContactProjects { get; set; } // Список контактов относящихся к проекту
 
         public Project()
         {

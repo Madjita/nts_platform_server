@@ -66,7 +66,7 @@ namespace nts_platform_server.Controllers
         [HttpDelete("projects")]
         public async Task<IActionResult> DeleteProjectAsync(ProjectModel newProject)
         {
-            var response = await _projectService.RemoveAsync(newProject.NameProject);
+            var response = await _projectService.RemoveCodeAsync(newProject.Code);
 
             if (response == null)
             {

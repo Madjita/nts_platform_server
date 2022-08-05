@@ -19,7 +19,7 @@ namespace nts_platform_server.Services
         Task<IEnumerable<Object>> AddUserProjectAsync(UserProjectModelList newUserProjectModelList);
 
 
-        Task<Project> RemoveAsync(string name);
+        Task<IEnumerable<Object>> RemoveCodeAsync(string name);
         Company GetById(int id);
         Task<Project> Find(string name);
     }
@@ -77,7 +77,7 @@ namespace nts_platform_server.Services
                 var addedCompany = await _projectRepository.Add(newProject);
 
 
-                newProject.Number = (int)newProject.Id;
+                newProject.indexAdd = (int)newProject.Id;
 
                 await _projectRepository.Update(newProject);
                 return await Task.FromResult(GetAll());
@@ -86,14 +86,14 @@ namespace nts_platform_server.Services
             return null;
         }
 
-        public async Task<Project> RemoveAsync(string name)
+        public async Task<IEnumerable<Object>> RemoveCodeAsync(string Code)
         {
-            var check = _projectRepository.Get().Where(x => x.Title == name).FirstOrDefault();
+            var check = _projectRepository.Get().Where(x => x.Code == Code).FirstOrDefault();
 
             if (check != null)
             {
                 var removedCompany = await _projectRepository.Remove(check);
-                return await Task.FromResult(check);
+                return await Task.FromResult(GetAll());
             }
 
             return null;
@@ -109,10 +109,10 @@ namespace nts_platform_server.Services
                     e.Title,
                     e.ActualHour,
                     e.MaxHour,
-                    e.Start,
-                    e.End,
+                    DateStart = e.Start,
+                    DateStop = e.End,
                     e.Description,
-                    e.Number,
+                    e.indexAdd,
                     Status = Enum.GetName(e.Status.GetType(), e.Status),
                     Users = e.UserProjects
                             .OrderBy(item => item.User.FirstName)

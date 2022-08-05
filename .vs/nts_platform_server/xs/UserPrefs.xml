@@ -1,7 +1,9 @@
 ﻿<Properties StartupConfiguration="{F807A3F1-228D-43F4-985D-8697DAD5A12F}|Default">
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.nts__platform__server PreferredExecutionTarget="/Applications/Firefox.app" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench ActiveDocument="nts_platform_server/Services/UserService.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="nts_platform_server/Controllers/ProjectController.cs">
     <Files>
       <File FileName="nts_platform_server/Controllers/WeatherForecastController.cs" Line="22" Column="10" />
       <File FileName="nts_platform_server/Program.cs" Line="14" Column="37" />
@@ -22,25 +24,28 @@
       <File FileName="nts_platform_server/Entities/DocHour.cs" Line="1" Column="1" />
       <File FileName="nts_platform_server/UserProfile.cs" Line="1" Column="1" />
       <File FileName="nts_platform_server/nts_platform_server.csproj" Line="1" Column="1" />
-      <File FileName="nts_platform_server/Entities/Hour.cs" Line="25" Column="19" />
+      <File FileName="nts_platform_server/Entities/Hour.cs" Line="15" Column="35" />
       <File FileName="nts_platform_server/Entities/ErrorViewModel.cs" Line="1" Column="1" />
       <File FileName="nts_platform_server/Entities/ContactProject.cs" Line="10" Column="11" />
       <File FileName="nts_platform_server/Entities/Contact.cs" Line="10" Column="10" />
       <File FileName="nts_platform_server/Entities/BaseEntity.cs" Line="6" Column="28" />
       <File FileName="../../../../../../usr/local/share/dotnet/sdk/5.0.408/Sdks/Microsoft.NET.Sdk.Razor/build/netstandard2.0/Sdk.Razor.CurrentVersion.targets" Line="1" Column="1" />
       <File FileName="nts_platform_server/Entities/Role.cs" Line="11" Column="11" />
-      <File FileName="nts_platform_server/Data/Context.cs" Line="76" Column="16" />
-      <File FileName="nts_platform_server/Models/ProjectModel.cs" Line="4" Column="18" />
-      <File FileName="nts_platform_server/Entities/UserProject.cs" Line="12" Column="33" />
+      <File FileName="nts_platform_server/Data/Context.cs" Line="28" Column="15" />
+      <File FileName="nts_platform_server/Entities/UserProject.cs" Line="11" Column="29" />
       <File FileName="nts_platform_server/Services/CompanyService.cs" Line="125" Column="51" />
-      <File FileName="nts_platform_server/Services/IUserService.cs" Line="11" Column="30" />
-      <File FileName="nts_platform_server/Controllers/AuthorizeController.cs" Line="32" Column="53" />
-      <File FileName="nts_platform_server/Controllers/ProjectController.cs" Line="84" Column="1" />
-      <File FileName="nts_platform_server/Services/UserService.cs" Line="37" Column="49" />
-      <File FileName="nts_platform_server/Entities/User.cs" Line="27" Column="1" />
-      <File FileName="nts_platform_server/Entities/Project.cs" Line="49" Column="29" />
+      <File FileName="nts_platform_server/Services/IUserService.cs" Line="16" Column="26" />
+      <File FileName="nts_platform_server/Controllers/AuthorizeController.cs" Line="58" Column="1" />
+      <File FileName="nts_platform_server/Services/UserService.cs" Line="131" Column="1" />
       <File FileName="nts_platform_server/Services/DocHourseService.cs" Line="59" Column="14" />
       <File FileName="nts_platform_server/Controllers/WeekController.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Models/UserProjectModel.cs" Line="15" Column="29" />
+      <File FileName="nts_platform_server/Entities/Week.cs" Line="53" Column="45" />
+      <File FileName="nts_platform_server/Services/ProjectService.cs" Line="22" Column="38" />
+      <File FileName="nts_platform_server/Controllers/ProjectController.cs" Line="69" Column="1" />
+      <File FileName="nts_platform_server/Entities/Project.cs" Line="50" Column="24" />
+      <File FileName="nts_platform_server/Services/IEfRepository.cs" Line="17" Column="26" />
+      <File FileName="nts_platform_server/Services/EfRepository.cs" Line="11" Column="42" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -68,14 +73,9 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/AuthorizeController.cs" relfile="nts_platform_server/Controllers/AuthorizeController.cs" line="86" column="1" />
-      <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/AuthorizeController.cs" relfile="nts_platform_server/Controllers/AuthorizeController.cs" line="131" column="1" />
       <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/AuthorizeController.cs" relfile="nts_platform_server/Controllers/AuthorizeController.cs" line="146" column="1" />
-      <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/ProjectController.cs" relfile="nts_platform_server/Controllers/ProjectController.cs" line="46" column="1" />
-      <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/ProjectController.cs" relfile="nts_platform_server/Controllers/ProjectController.cs" line="69" column="1" />
       <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/WeekController.cs" relfile="nts_platform_server/Controllers/WeekController.cs" line="35" column="1" />
-      <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Services/UserService.cs" relfile="nts_platform_server/Services/UserService.cs" line="78" column="1" />
+      <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/ProjectController.cs" relfile="nts_platform_server/Controllers/ProjectController.cs" line="84" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.nts__platform__server PreferredExecutionTarget="/Applications/Firefox.app" />
-  <MultiItemStartupConfigurations />
 </Properties>

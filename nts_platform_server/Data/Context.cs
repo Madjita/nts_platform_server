@@ -24,8 +24,8 @@ namespace nts_platform_server.Data
         public Context(DbContextOptions<Context> options)
         : base(options)
         {
-            //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+           // Database.EnsureDeleted();
+           // Database.EnsureCreated();
         }
 
        
@@ -60,8 +60,8 @@ namespace nts_platform_server.Data
 
 
 
-
-          /* modelBuilder.Entity<Role>().HasData(
+            /*
+           modelBuilder.Entity<Role>().HasData(
            new Role[]
            {
                 new Role{Id =1,Title= "admin"},

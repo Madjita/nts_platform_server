@@ -37,7 +37,7 @@ namespace nts_platform_server.Entities
     public class Project : BaseEntity
     {
         //public int Id { get; set; }
-        public int Number { get; set; }          // Позиция номера проекта по очереди добавления
+        public int indexAdd { get; set; }          // Позиция номера проекта по очереди добавления
         public string Code { get; set; }         // Код проекта может быть с символами
         public string Title { get; set; }        // Название проекта
         public int Progress { get; set; }        // Прогресс в процентах

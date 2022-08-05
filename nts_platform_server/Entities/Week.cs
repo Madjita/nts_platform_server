@@ -50,5 +50,8 @@ namespace nts_platform_server.Entities //Хранит данные по всем
         public virtual UserProject UserProject { get; set; }
 
 
+        public virtual User User { get; set; } // информация кто добавил данную почасовку на неделю
+
+
     }
 }

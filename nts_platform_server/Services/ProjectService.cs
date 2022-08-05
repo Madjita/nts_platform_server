@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using nts_platform_server.Entities;
@@ -43,17 +45,41 @@ namespace nts_platform_server.Services
 
         public async Task<IEnumerable<Object>> AddAsync(ProjectModel newProjectModel)
         {
-            var check = _projectRepository.Get().Select(x => x.Title == newProjectModel.Name).FirstOrDefault();
+            var check = _projectRepository.Get().Select(x => x.Title == newProjectModel.NameProject).FirstOrDefault();
 
             if (!check)
             {
                 var newProject= new Project();
-                newProject.Title = newProjectModel.Name;
+                newProject.Code = newProjectModel.Code;
+                newProject.Title = newProjectModel.NameProject;
                 newProject.MaxHour = newProjectModel.MaxHours;
-                newProject.Status = Status.plan;
+                newProject.Status = newProjectModel.Status;
+                newProject.Description = newProjectModel.Description;
+
+                try
+                {
+                    newProject.Start = XmlConvert.ToDateTime(newProjectModel.DateStart, XmlDateTimeSerializationMode.Utc);
+                    newProject.End = XmlConvert.ToDateTime(newProjectModel.DateStop, XmlDateTimeSerializationMode.Utc);
+
+                   // newProject.Start = DateTimeOffset.TryParse(newProjectModel.DateStart, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out DateTimeOffset result);
+                   // newProject.End = DateTimeOffset.TryParse(newProjectModel.DateStop, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var result);
+
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("e = ", e.ToString());
+                }
+
+               
+                newProject.EnginerCreater = _userRepository.Get().Where(x => x.Email == newProjectModel.EnginerCreaterEmail).FirstOrDefault();
 
 
                 var addedCompany = await _projectRepository.Add(newProject);
+
+
+                newProject.Number = (int)newProject.Id;
+
+                await _projectRepository.Update(newProject);
                 return await Task.FromResult(GetAll());
             }
 
@@ -79,11 +105,14 @@ namespace nts_platform_server.Services
             var companies = _projectRepository.Get()
                 .OrderBy(x => x.Title)
                 .Select(e => new {
+                    e.Code,
                     e.Title,
                     e.ActualHour,
                     e.MaxHour,
                     e.Start,
                     e.End,
+                    e.Description,
+                    e.Number,
                     Status = Enum.GetName(e.Status.GetType(), e.Status),
                     Users = e.UserProjects
                             .OrderBy(item => item.User.FirstName)

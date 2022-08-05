@@ -14,5 +14,6 @@ namespace nts_platform_server.Services
         T GetById(long id);
         Task<long> Add(T entity);
         Task<long> Remove(T entity);
+        Task<long> Update(T entity);
     }
 }

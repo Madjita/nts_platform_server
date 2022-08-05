@@ -61,7 +61,7 @@ namespace nts_platform_server.Data
 
 
 
-         /*  modelBuilder.Entity<Role>().HasData(
+          /* modelBuilder.Entity<Role>().HasData(
            new Role[]
            {
                 new Role{Id =1,Title= "admin"},

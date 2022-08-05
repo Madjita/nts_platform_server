@@ -40,14 +40,14 @@ namespace nts_platform_server.Controllers
 
 
         [Authorize]
-        [HttpPost("projects")]
-        public async Task<IActionResult> PostAddCompanysAsync(ProjectModel newProject)
+        [HttpPost("addProject")]
+        public async Task<IActionResult> PostAddProjectAsync(ProjectModel newProject)
         {
             if (newProject != null)
             {
-                if (newProject.Name == null)
+                if (newProject.NameProject == null)
                 {
-                    return BadRequest(new { message = "Company allrady added!" });
+                    return BadRequest(new { message = "Project allrady added!" });
                 }
             }
 
@@ -55,7 +55,7 @@ namespace nts_platform_server.Controllers
 
             if (response == null)
             {
-                return BadRequest(new { message = "Company allrady added!" });
+                return BadRequest(new { message = "Project allrady added!" });
             }
 
 
@@ -66,7 +66,7 @@ namespace nts_platform_server.Controllers
         [HttpDelete("projects")]
         public async Task<IActionResult> DeleteProjectAsync(ProjectModel newProject)
         {
-            var response = await _projectService.RemoveAsync(newProject.Name);
+            var response = await _projectService.RemoveAsync(newProject.NameProject);
 
             if (response == null)
             {

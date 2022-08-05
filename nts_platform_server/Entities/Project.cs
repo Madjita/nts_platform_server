@@ -47,8 +47,8 @@ namespace nts_platform_server.Entities
         public Status Status { get; set; }       // Статус проекта ( план, в работе, в архиве)
         public DateTime Start { get; set; }      // Дата начала
         public DateTime End { get; set; }        // Дата  фактического завершения
-        public string Descriptions { get; set; } // Дополнительная информация о проекте
-        public User user { get; set; }           // Тот кто создал проект
+        public string Description { get; set; } // Дополнительная информация о проекте
+        public User EnginerCreater { get; set; }           // Тот кто создал проект
 
 
         public List<UserProject> UserProjects { get; set; }       // Список рабочих относящихся к проекту

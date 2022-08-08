@@ -76,6 +76,21 @@ namespace nts_platform_server.Controllers
             return Ok(response);
         }
 
+
+        [Authorize]
+        [HttpPut("projects")]
+        public async Task<IActionResult> EditProjectAsync([FromBody] ProjectEditModel newEditProject)
+        {
+            var response = await _projectService.EditCodeAsync(newEditProject);
+
+            if (response == null)
+            {
+                return BadRequest(new { message = "Company don't edit!" });
+            }
+
+            return Ok(response);
+        }
+
         [Route("projects/user")]
         [Authorize]
         [HttpPost("projects/user")]

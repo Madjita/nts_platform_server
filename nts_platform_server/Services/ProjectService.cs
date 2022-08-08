@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using nts_platform_server.Entities;
 using nts_platform_server.Models;
@@ -20,6 +21,7 @@ namespace nts_platform_server.Services
 
 
         Task<IEnumerable<Object>> RemoveCodeAsync(string name);
+        Task<IEnumerable<Object>> EditCodeAsync(ProjectEditModel projectEdit);
         Company GetById(int id);
         Task<Project> Find(string name);
     }
@@ -54,7 +56,7 @@ namespace nts_platform_server.Services
                 newProject.Title = newProjectModel.NameProject;
                 newProject.MaxHour = newProjectModel.MaxHours;
                 newProject.Status = newProjectModel.Status;
-                newProject.Description = newProjectModel.Description;
+                newProject.Description = newProjectModel.Descriptiron;
 
                 try
                 {
@@ -92,7 +94,7 @@ namespace nts_platform_server.Services
 
             if (check != null)
             {
-                var removedCompany = await _projectRepository.Remove(check);
+                var removedProject = await _projectRepository.Remove(check);
                 return await Task.FromResult(GetAll());
             }
 
@@ -103,6 +105,7 @@ namespace nts_platform_server.Services
         {
 
             var companies = _projectRepository.Get()
+                .Include(x=>x.EnginerCreater)
                 .OrderBy(x => x.Title)
                 .Select(e => new {
                     e.Code,
@@ -113,6 +116,7 @@ namespace nts_platform_server.Services
                     DateStop = e.End,
                     e.Description,
                     e.indexAdd,
+                    e.EnginerCreater,
                     Status = Enum.GetName(e.Status.GetType(), e.Status),
                     Users = e.UserProjects
                             .OrderBy(item => item.User.FirstName)
@@ -208,5 +212,36 @@ namespace nts_platform_server.Services
             return list;
         }
 
+        public async Task<IEnumerable<object>> EditCodeAsync(ProjectEditModel projectEdit)
+        {
+
+            if(projectEdit.NewProjectInfromation == null || projectEdit.OldProjectInfromation == null)
+            {
+                return null;
+            }
+
+            var check = _projectRepository.Get().Where(x => x.Code == projectEdit.OldProjectInfromation.Code).FirstOrDefault();
+
+            //Нашли тот объект который хотим поменять
+            if (check != null)
+            {
+                var newObject = projectEdit.NewProjectInfromation;
+
+                check.Code = newObject.Code;
+                check.Title = newObject.NameProject;
+                check.MaxHour = newObject.MaxHours;
+                check.Status = newObject.Status;
+                check.Description = newObject.Descriptiron;
+
+                check.Start = XmlConvert.ToDateTime(newObject.DateStart, XmlDateTimeSerializationMode.Utc);
+                check.End = XmlConvert.ToDateTime(newObject.DateStop, XmlDateTimeSerializationMode.Utc);
+
+
+                var editProject = await _projectRepository.Update(check);
+                return await Task.FromResult(GetAll());
+            }
+
+            return null;
+        }
     }
 }

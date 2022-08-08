@@ -9,13 +9,13 @@ namespace nts_platform_server
     {
         public UserProfile()
         {
-            CreateMap<UserModel, User>()
+            CreateMap<UserModelRegister, User>()
                 .ForMember(dst => dst.Email, opt => opt.MapFrom(src => src.Email))
                 //.ForMember(dst => dst.Username, opt => opt.MapFrom(src => src.Username))
                 .ForMember(dst => dst.Password, opt => opt.MapFrom(src => src.Password))
                 .ForMember(dst => dst.FirstName, opt => opt.MapFrom(src => src.FirstName))
-                .ForMember(dst => dst.SecondName, opt => opt.MapFrom(src => src.LastName))
-                .ForMember(dst => dst.MiddleName, opt => opt.MapFrom(src => src.Patronymic))
+                .ForMember(dst => dst.SecondName, opt => opt.MapFrom(src => src.SecondName))
+                .ForMember(dst => dst.MiddleName, opt => opt.MapFrom(src => src.MiddleName))
                 .ForMember(dst => dst.Id, opt => opt.Ignore())
                 .ForPath(dst => dst.Company.Name, opt=> opt.MapFrom(src => src.Company))
                 ;

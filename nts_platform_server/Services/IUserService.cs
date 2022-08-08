@@ -9,7 +9,7 @@ namespace nts_platform_server.Services
     public interface IUserService
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
-        Task<AuthenticateResponse> Register(UserModel userModel);
+        Task<AuthenticateResponse> Register(UserModelRegister userModel);
         IEnumerable<Object> GetAll();
         User GetById(int id);
         Task<User> RemoveAsync(string name);

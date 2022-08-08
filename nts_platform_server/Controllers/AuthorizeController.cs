@@ -38,7 +38,7 @@ namespace nts_platform_server.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserModel userModel)
+        public async Task<IActionResult> Register(UserModelRegister userModel)
         {
             var response = await _userService.Register(userModel);
 
@@ -61,7 +61,7 @@ namespace nts_platform_server.Controllers
 
         [Authorize]
         [HttpPost("users/find")]
-        public async Task<IActionResult> PostFindUserAsync(UserModel user)
+        public async Task<IActionResult> PostFindUserAsync(UserModelRegister user)
         {
             if (user == null)
             {
@@ -81,7 +81,7 @@ namespace nts_platform_server.Controllers
 
         [Authorize]
         [HttpDelete("users")]
-        public async Task<IActionResult> DeleteUserAsync(UserModel userModel)
+        public async Task<IActionResult> DeleteUserAsync(UserModelRegister userModel)
         {
             var response = await _userService.RemoveAsync(userModel.Email);
 

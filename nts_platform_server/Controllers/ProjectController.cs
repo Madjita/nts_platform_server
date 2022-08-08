@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using nts_platform_server.Auth.JWT;
+using nts_platform_server.Entities;
 using nts_platform_server.Models;
 using nts_platform_server.Services;
 
@@ -134,6 +135,29 @@ namespace nts_platform_server.Controllers
 
 
             return Ok(response);
+        }
+
+
+
+        [Route("projects/user/hours")]
+        [Authorize]
+        [HttpPost("projects/user/hours")]
+        public async Task<IActionResult> PostAddUserHoursAsync([FromBody] UserProjectModelTest newUserProject)
+        {
+            if (newUserProject == null)
+            {
+                return BadRequest(new { message = "Project hours allrady added!" });
+            }
+
+            var response = await _projectService.AddUserProjectHoursAsync(new UserProject());
+
+            if (response == null)
+            {
+                return BadRequest(new { message = "Project hours allrady added!" });
+            }
+
+
+            return Ok(true);
         }
 
     }

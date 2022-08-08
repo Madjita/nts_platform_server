@@ -73,7 +73,7 @@ namespace nts_platform_server.Services
             return authenticate;
         }
 
-        public async Task<AuthenticateResponse> Register(UserModel userModel)
+        public async Task<AuthenticateResponse> Register(UserModelRegister userModel)
         {
             var user = _userRepository
              .GetAll()

@@ -16,12 +16,16 @@ namespace nts_platform_server.Services
     {
         IEnumerable<Object> GetAll();
         Task<IEnumerable<Object>> AddAsync(ProjectModel newProjectModel);
+        Task<IEnumerable<Object>> EditCodeAsync(ProjectEditModel projectEdit);
+        Task<IEnumerable<Object>> RemoveCodeAsync(string name);
+
 
         Task<IEnumerable<Object>> AddUserProjectAsync(UserProjectModelList newUserProjectModelList);
 
+        Task<IEnumerable<Object>> AddUserProjectHoursAsync(UserProject newUserProject);
 
-        Task<IEnumerable<Object>> RemoveCodeAsync(string name);
-        Task<IEnumerable<Object>> EditCodeAsync(ProjectEditModel projectEdit);
+
+        
         Company GetById(int id);
         Task<Project> Find(string name);
     }
@@ -254,6 +258,11 @@ namespace nts_platform_server.Services
             }
 
             return null;
+        }
+
+        public Task<IEnumerable<object>> AddUserProjectHoursAsync(UserProject newUserProject)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -40,7 +40,7 @@ namespace nts_platform_server.Controllers
 
 
         [Authorize]
-        [HttpPost("addProject")]
+        [HttpPost("projects")]
         public async Task<IActionResult> PostAddProjectAsync(ProjectModel newProject)
         {
             if (newProject != null)

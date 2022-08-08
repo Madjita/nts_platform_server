@@ -56,7 +56,7 @@ namespace nts_platform_server.Services
                 newProject.Title = newProjectModel.NameProject;
                 newProject.MaxHour = newProjectModel.MaxHours;
                 newProject.Status = newProjectModel.Status;
-                newProject.Description = newProjectModel.Descriptiron;
+                newProject.Description = newProjectModel.Description;
 
                 try
                 {
@@ -94,6 +94,18 @@ namespace nts_platform_server.Services
 
             if (check != null)
             {
+
+                //Находим всех пользователей связанных с данным проектом
+                var userCheck = _userProjectRepository.Get().Where(x => x.Project.Id == check.Id).ToList();
+
+                //удаляем всех пользователей связанных с этим проектом
+                foreach(var item in userCheck)
+                {
+                    await _userProjectRepository.Remove(item);
+                }
+
+
+
                 var removedProject = await _projectRepository.Remove(check);
                 return await Task.FromResult(GetAll());
             }
@@ -231,7 +243,7 @@ namespace nts_platform_server.Services
                 check.Title = newObject.NameProject;
                 check.MaxHour = newObject.MaxHours;
                 check.Status = newObject.Status;
-                check.Description = newObject.Descriptiron;
+                check.Description = newObject.Description;
 
                 check.Start = XmlConvert.ToDateTime(newObject.DateStart, XmlDateTimeSerializationMode.Utc);
                 check.End = XmlConvert.ToDateTime(newObject.DateStop, XmlDateTimeSerializationMode.Utc);

@@ -151,7 +151,11 @@ namespace nts_platform_server.Services
             {
                 foreach (var project in item.UserProjects)
                 {
-                    project.Project.UserProjects = null;
+                    if(project.Project!= null)
+                    {
+                        project.Project.UserProjects = null;
+                    }
+                   
                     project.User.UserProjects = null;
                 }
             }

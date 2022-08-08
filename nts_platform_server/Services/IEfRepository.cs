@@ -16,5 +16,6 @@ namespace nts_platform_server.Services
         Task<long> Remove(T entity);
         Task<long> Update(T entity);
         Context GetContext();
+        Task<long> Save();
     }
 }

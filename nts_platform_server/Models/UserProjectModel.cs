@@ -16,7 +16,7 @@ namespace nts_platform_server.Models
         public virtual List<UserProjectModel> UserProjects { get; set; }
     }
 
-    public class UserProjectModelTest  //Связующая таблица почасовки, работника и проекта
+    public class UserProjectModelHours //Связующая таблица почасовки, работника и проекта
     {
         public UserModel User { get; set; }
         public ProjectModel Project { get; set; }

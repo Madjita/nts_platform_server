@@ -22,7 +22,7 @@ namespace nts_platform_server.Services
 
         Task<IEnumerable<Object>> AddUserProjectAsync(UserProjectModelList newUserProjectModelList);
 
-        Task<IEnumerable<Object>> AddUserProjectHoursAsync(UserProject newUserProject);
+        Task<IEnumerable<Object>> AddUserProjectHoursAsync(UserProjectModelHours newUserProject);
 
 
         
@@ -260,9 +260,45 @@ namespace nts_platform_server.Services
             return null;
         }
 
-        public Task<IEnumerable<object>> AddUserProjectHoursAsync(UserProject newUserProject)
+        public async Task<IEnumerable<object>> AddUserProjectHoursAsync(UserProjectModelHours newUserProject)
         {
-            throw new NotImplementedException();
+            //Найти почасовку в системе на данного юзера на данный проект
+            var check = _userProjectRepository.Get()
+                .Where(
+                x => x.User.Email == newUserProject.User.Email &&
+                x.Project.Code == newUserProject.Project.Code)
+                .Include(x=> x.Project)
+                .Include(x=> x.Weeks)
+                .FirstOrDefault();
+
+            if (check != null)
+            {
+
+                //Если почасовки нашлись проверить есть ли почасовки на данную
+
+                foreach(var week in newUserProject.Weeks)
+                {
+                    var findWeeks = check.Weeks.Where(x => x.NumberWeek == week.NumberWeek).FirstOrDefault();
+
+                    //Если нашли уже существующую почасовку, то запросить подтвердить изменение у пользователя
+                    if(findWeeks != null)
+                    {
+                        return null; //return await Task.FromResult(1);
+                    }
+                    else
+                    {
+                        check.Weeks.Add(week);
+                    }
+                }
+
+
+                await _userProjectRepository.Save();
+
+                return await Task.FromResult(GetAll());
+
+            }
+
+            return null;
         }
     }
 }

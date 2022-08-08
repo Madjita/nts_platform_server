@@ -66,5 +66,11 @@ namespace nts_platform_server.Services
             await _context.SaveChangesAsync();
             return result.Entity.Id;
         }
+
+        public async Task<long> Save()
+        {
+            await _context.SaveChangesAsync();
+            return 1;
+        }
     }
 }

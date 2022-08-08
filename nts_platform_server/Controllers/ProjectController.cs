@@ -142,14 +142,14 @@ namespace nts_platform_server.Controllers
         [Route("projects/user/hours")]
         [Authorize]
         [HttpPost("projects/user/hours")]
-        public async Task<IActionResult> PostAddUserHoursAsync([FromBody] UserProjectModelTest newUserProject)
+        public async Task<IActionResult> PostAddUserHoursAsync([FromBody] UserProjectModelHours newUserProject)
         {
             if (newUserProject == null)
             {
                 return BadRequest(new { message = "Project hours allrady added!" });
             }
 
-            var response = await _projectService.AddUserProjectHoursAsync(new UserProject());
+            var response = await _projectService.AddUserProjectHoursAsync(newUserProject);
 
             if (response == null)
             {

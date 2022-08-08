@@ -65,7 +65,7 @@ namespace nts_platform_server.Data
            new Role[]
            {
                 new Role{Id =1,Title= "admin"},
-                new Role{Id =2,Title= "enginer"},
+                new Role{Id =2,Title= "engineer"},
                 new Role{Id =3,Title= "guest"}
            });
 

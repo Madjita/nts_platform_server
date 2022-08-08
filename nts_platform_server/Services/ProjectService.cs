@@ -73,7 +73,7 @@ namespace nts_platform_server.Services
                 }
 
                
-                newProject.EnginerCreater = _userRepository.Get().Where(x => x.Email == newProjectModel.EnginerCreaterEmail).FirstOrDefault();
+                newProject.EnginerCreater = _userRepository.Get().Where(x => x.Email == newProjectModel.EngineerCreaterEmail).FirstOrDefault();
 
 
                 var addedCompany = await _projectRepository.Add(newProject);

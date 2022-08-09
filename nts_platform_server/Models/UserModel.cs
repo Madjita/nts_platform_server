@@ -26,7 +26,7 @@ namespace nts_platform_server.Models
         public string MiddleName { get; set; }
         public string Email { get; set; }
         public string Role { get; set; }
-        public virtual List<UserProjectModel> UserProjects { get; set; }
+        //public virtual List<UserProjectModel> UserProjects { get; set; }
 
     }
 }

@@ -35,15 +35,17 @@ namespace nts_platform_server.Services
         private readonly IEfRepository<Project> _projectRepository;
         private readonly IEfRepository<User> _userRepository;
         private readonly IEfRepository<UserProject> _userProjectRepository;
+        private readonly IEfRepository<Week> _userWeekRepository;
 
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
-        public ProjectService(IEfRepository<Project> projectRepository, IEfRepository<User> userRepository, IEfRepository<UserProject> userProjectRepository, IConfiguration configuration, IMapper mapper)
+        public ProjectService(IEfRepository<Week> userWeekRepository,IEfRepository<Project> projectRepository, IEfRepository<User> userRepository, IEfRepository<UserProject> userProjectRepository, IConfiguration configuration, IMapper mapper)
         {
             _projectRepository = projectRepository;
             _userRepository = userRepository;
             _userProjectRepository = userProjectRepository;
+            _userWeekRepository = userWeekRepository;
 
             _configuration = configuration;
             _mapper = mapper;
@@ -98,13 +100,55 @@ namespace nts_platform_server.Services
 
             if (check != null)
             {
-
+                var context = _userProjectRepository.GetContext();
                 //Находим всех пользователей связанных с данным проектом
-                var userCheck = _userProjectRepository.Get().Where(x => x.Project.Id == check.Id).ToList();
+                var userCheck = _userProjectRepository.Get()
+                    .Where(x => x.Project.Id == check.Id)
+                    .ToList();
+
+
+             
 
                 //удаляем всех пользователей связанных с этим проектом
-                foreach(var item in userCheck)
+                foreach (var item in userCheck)
                 {
+                    context.Entry(item).Reference(x => x.Project).Load();
+                    context.Entry(item).Reference(x => x.User).Load();
+                    context.Entry(item).Collection(x => x.Weeks).Load();
+
+
+                    //Поиск связанных почасовок
+                    foreach(var itemWeek in item.Weeks)
+                    {
+
+                        context.Entry(itemWeek).Reference(x => x.MoHour).Load();
+                        context.Entry(itemWeek).Reference(x => x.TuHour).Load();
+                        context.Entry(itemWeek).Reference(x => x.WeHour).Load();
+                        context.Entry(itemWeek).Reference(x => x.ThHour).Load();
+                        context.Entry(itemWeek).Reference(x => x.FrHour).Load();
+                        context.Entry(itemWeek).Reference(x => x.SaHour).Load();
+                        context.Entry(itemWeek).Reference(x => x.SuHour).Load();
+
+                        if(itemWeek.MoHour != null)
+                            context.Entry(itemWeek.MoHour).State = EntityState.Deleted;
+                        if (itemWeek.TuHour != null)
+                            context.Entry(itemWeek.TuHour).State = EntityState.Deleted;
+                        if (itemWeek.WeHour != null)
+                            context.Entry(itemWeek.WeHour).State = EntityState.Deleted;
+                        if (itemWeek.ThHour != null)
+                            context.Entry(itemWeek.ThHour).State = EntityState.Deleted;
+                        if (itemWeek.FrHour != null)
+                            context.Entry(itemWeek.FrHour).State = EntityState.Deleted;
+                        if (itemWeek.SaHour != null)
+                            context.Entry(itemWeek.SaHour).State = EntityState.Deleted;
+                        if (itemWeek.SuHour != null)
+                            context.Entry(itemWeek.SuHour).State = EntityState.Deleted;
+
+                        context.Entry(itemWeek).State = EntityState.Deleted;
+                       
+                    }
+
+
                     await _userProjectRepository.Remove(item);
                 }
 
@@ -141,7 +185,7 @@ namespace nts_platform_server.Services
                                 x.User.SecondName,
                                 x.User.MiddleName,
                                 x.User.Email,
-                                x.User.UserProjects,
+                                //x.User.UserProjects,
                                 Company = x.User.Company.Name,
                                 Role = x.User.Role.Title
                             })
@@ -155,7 +199,7 @@ namespace nts_platform_server.Services
             {
                 foreach (var users in item.Users)
                 {
-                    users.UserProjects.Clear();
+                    //users.UserProjects.Clear();
 
                 }
             }

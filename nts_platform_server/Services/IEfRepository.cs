@@ -12,9 +12,13 @@ namespace nts_platform_server.Services
         IQueryable<T> Get();
         List<T> GetAll();
         T GetById(long id);
+
         Task<long> Add(T entity);
         Task<long> Remove(T entity);
         Task<long> Update(T entity);
+
+
+
         Context GetContext();
         Task<long> Save();
     }

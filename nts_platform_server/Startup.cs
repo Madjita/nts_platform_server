@@ -17,6 +17,7 @@ namespace nts_platform_server
         public static DbContextOptions<Context> options;
     }
 
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -80,6 +81,7 @@ namespace nts_platform_server
 
             services.AddCors();
             services.AddControllers();
+
         }
 
 
@@ -96,6 +98,8 @@ namespace nts_platform_server
 
             });
 
+
+            // подключаем CORS
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()

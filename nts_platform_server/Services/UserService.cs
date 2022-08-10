@@ -15,7 +15,6 @@ namespace nts_platform_server.Services
     {
         private readonly IEfRepository<User> _userRepository;
         private readonly IEfRepository<Role> _roleRepository;
-
         private readonly IEfRepository<UserProject> _userProjectRepository;
 
         private readonly ICompanyService _companyService;

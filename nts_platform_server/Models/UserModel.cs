@@ -18,7 +18,6 @@ namespace nts_platform_server.Models
         public string Company { get; set; }
     }
 
-
     public class UserModel
     {
         public string FirstName { get; set; }

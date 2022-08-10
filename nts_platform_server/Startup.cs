@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -98,12 +100,18 @@ namespace nts_platform_server
 
             });
 
+           /* app.UseStaticFiles(new StaticFileOptions{
+                ServeUnknownFileTypes = true,
+                ContentTypeProvider = new FileExtensionContentTypeProvider(new Dictionary<string, string>
+                {
+                    { ".apk","application/vnd.android.package-archive"},
+                    { ".nupkg","application/zip"}
+                })
+                });*/
+
 
             // подключаем CORS
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().WithExposedHeaders("Content-Disposition"));
 
             app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(x => x.MapControllers());

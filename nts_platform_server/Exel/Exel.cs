@@ -22,7 +22,8 @@ namespace nts_platform_server
     public class Exel
     {
         IFormFile _file;
-
+        public MemoryStream stream;
+        public byte[] bytes;
 
         Dictionary<int, HPM> ListAll;
 
@@ -71,6 +72,27 @@ namespace nts_platform_server
         {
             "A","B","C","D","E","F","G",
         };
+
+        public Exel(string fileName)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            stream = new MemoryStream();
+
+            using (ExcelPackage package = new ExcelPackage(stream))
+            {
+                ExcelWorksheet _sheet = package.Workbook.Worksheets.Add("New");
+                _sheet.Cells["B2"].Value = "Company:";
+                _sheet.Cells[2, 3].Value = "NTS";
+
+                // do work here                            
+                package.SaveAs(new FileInfo(fileName));
+
+                bytes = package.GetAsByteArray();
+            }
+
+
+        }
 
 
 

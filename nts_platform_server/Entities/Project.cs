@@ -43,7 +43,31 @@ namespace nts_platform_server.Entities
         public int Progress { get; set; }        // Прогресс в процентах
         public bool Done { get; set; }           // Выполенн или нет
         public int MaxHour { get; set; }         // Максимальное количество часов
-        public int ActualHour { get; set; }      // Актуальное количество часов
+        public int ActualHour {
+
+           /* get {
+
+                int acuum = 0;
+                if(UserProjects!= null)
+                {
+                    foreach (var user in UserProjects)
+                    {
+                        if(user.Weeks != null)
+                        {
+                            foreach (var week in user.Weeks)
+                            {
+                                acuum += (int)week.SumHour;
+                            }
+                        }
+                    }
+                }
+
+               
+                return acuum;
+            }*/
+            get;set;
+            //set;
+        }      // Актуальное количество часов
         public Status Status { get; set; }       // Статус проекта ( план, в работе, в архиве)
         public DateTime Start { get; set; }      // Дата начала
         public DateTime End { get; set; }        // Дата  фактического завершения

@@ -15,41 +15,41 @@ namespace nts_platform_server.Entities //Хранит данные по всем
                 float accum = 0;
                 if(MoHour != null)
                 {
-                    if(MoHour.WorkingTime != null)
+                    if(MoHour.WTHour != null)
                     {
-                        accum += float.Parse(MoHour.WorkingTime);
+                        accum += MoHour.WTHour;
                     }
                     
                 }
                 if (TuHour != null)
                 {
-                    if (TuHour.WorkingTime != null)
-                        accum += float.Parse(TuHour.WorkingTime);
+                    if (TuHour.WTHour != null)
+                        accum += TuHour.WTHour;
                 }
                 if (WeHour != null)
                 {
-                    if (WeHour.WorkingTime != null)
-                        accum += float.Parse(WeHour.WorkingTime);
+                    if (WeHour.WTHour != null)
+                        accum += WeHour.WTHour;
                 }
                 if (ThHour != null)
                 {
-                    if (ThHour.WorkingTime != null)
-                        accum += float.Parse(ThHour.WorkingTime);
+                    if (ThHour.WTHour != null)
+                        accum += ThHour.WTHour;
                 }
                 if (FrHour != null)
                 {
-                    if (FrHour.WorkingTime != null)
-                        accum += float.Parse(FrHour.WorkingTime);
+                    if (FrHour.WTHour != null)
+                        accum += FrHour.WTHour;
                 }
                 if (SaHour != null)
                 {
-                    if (SaHour.WorkingTime != null)
-                        accum += float.Parse(SaHour.WorkingTime);
+                    if (SaHour.WTHour != null)
+                        accum += SaHour.WTHour;
                 }
                 if (SuHour != null)
                 {
-                    if (SuHour.WorkingTime != null)
-                        accum += float.Parse(SuHour.WorkingTime);
+                    if (SuHour.WTHour != null)
+                        accum += SuHour.WTHour;
                 }
 
                 return accum;

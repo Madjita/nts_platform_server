@@ -325,12 +325,20 @@ namespace nts_platform_server.Services
 
         public async Task<IEnumerable<object>> AddUserProjectHoursAsync(UserProjectModelHours newUserProject)
         {
+            var context = _userProjectRepository.GetContext();
+
             //Найти почасовку в системе на данного юзера на данный проект
             var check = _userProjectRepository.Get()
                 .Where(
                 x => x.User.Email == newUserProject.User.Email &&
                 x.Project.Code == newUserProject.Project.Code)
-                .Include(x=> x.Project)
+                .Include(x => x.Project).ThenInclude(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.MoHour)
+                .Include(x => x.Project).ThenInclude(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.TuHour)
+                .Include(x => x.Project).ThenInclude(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.WeHour)
+                .Include(x => x.Project).ThenInclude(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.ThHour)
+                .Include(x => x.Project).ThenInclude(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.FrHour)
+                .Include(x => x.Project).ThenInclude(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.SaHour)
+                .Include(x => x.Project).ThenInclude(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.SuHour)
                 .Include(x=> x.Weeks)
                 .FirstOrDefault();
 
@@ -338,6 +346,7 @@ namespace nts_platform_server.Services
             {
 
                 //Если почасовки нашлись проверить есть ли почасовки на данную
+
 
                 foreach(var week in newUserProject.Weeks)
                 {
@@ -349,49 +358,49 @@ namespace nts_platform_server.Services
                         //поменять почасовку
 
                         //ленивая загрузка часов
-                        var context = _userProjectRepository.GetContext();
+                       
                         lazyLoadingDayHours(context, findWeek);
 
                         
                         if (findWeek.MoHour != null && week.MoHour != null)
                         {
-                            findWeek.MoHour.WorkingTime = week.MoHour.WorkingTime;
+                            findWeek.MoHour.WTHour = week.MoHour.WTHour;
                             context.Entry(findWeek.MoHour).State = EntityState.Modified;
                         }
                             
                         if (findWeek.TuHour != null && week.TuHour != null)
                         {
-                            findWeek.TuHour.WorkingTime = week.TuHour.WorkingTime;
+                            findWeek.TuHour.WTHour = week.TuHour.WTHour;
                             context.Entry(findWeek.TuHour).State = EntityState.Modified;
                         }
                             
                         if (findWeek.WeHour != null && week.WeHour != null)
                         {
-                            findWeek.WeHour.WorkingTime = week.WeHour.WorkingTime;
+                            findWeek.WeHour.WTHour = week.WeHour.WTHour;
                             context.Entry(findWeek.WeHour).State = EntityState.Modified;
                         }
                             
                         if (findWeek.ThHour != null && week.ThHour != null)
                         {
-                            findWeek.ThHour.WorkingTime = week.ThHour.WorkingTime;
+                            findWeek.ThHour.WTHour = week.ThHour.WTHour;
                             context.Entry(findWeek.ThHour).State = EntityState.Modified;
                         }
                             
                         if (findWeek.FrHour != null && week.FrHour != null)
                         {
-                            findWeek.FrHour.WorkingTime = week.FrHour.WorkingTime;
+                            findWeek.FrHour.WTHour = week.FrHour.WTHour;
                             context.Entry(findWeek.FrHour).State = EntityState.Modified;
                         }
                             
                         if (findWeek.SaHour != null && week.SaHour != null)
                         {
-                            findWeek.SaHour.WorkingTime = week.SaHour.WorkingTime;
+                            findWeek.SaHour.WTHour = week.SaHour.WTHour;
                             context.Entry(findWeek.SaHour).State = EntityState.Modified;
                         }
                            
                         if (findWeek.SuHour != null && week.SuHour != null)
                         {
-                            findWeek.SuHour.WorkingTime = week.SuHour.WorkingTime;
+                            findWeek.SuHour.WTHour = week.SuHour.WTHour;
                             context.Entry(findWeek.SuHour).State = EntityState.Modified;
                         }
 
@@ -403,7 +412,29 @@ namespace nts_platform_server.Services
                     {
                         check.Weeks.Add(week);
                     }
+
+                    await _userProjectRepository.Save();
+
                 }
+
+                int acuum = 0;
+                if (check.Project.UserProjects != null)
+                {
+                    foreach (var user in check.Project.UserProjects)
+                    {
+                        if (user.Weeks != null)
+                        {
+                            foreach (var week in user.Weeks)
+                            {
+                                acuum += (int)week.SumHour;
+                            }
+                        }
+                    }
+                }
+
+                check.Project.ActualHour = acuum;
+                context.Entry(check.Project).State = EntityState.Modified;
+
 
 
                 await _userProjectRepository.Save();

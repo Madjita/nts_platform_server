@@ -364,42 +364,49 @@ namespace nts_platform_server.Services
                         if (findWeek.MoHour != null && week.MoHour != null)
                         {
                             findWeek.MoHour.WTHour = week.MoHour.WTHour;
+                            findWeek.MoHour.ActivityCode = week.MoHour.ActivityCode;
                             context.Entry(findWeek.MoHour).State = EntityState.Modified;
                         }
                             
                         if (findWeek.TuHour != null && week.TuHour != null)
                         {
                             findWeek.TuHour.WTHour = week.TuHour.WTHour;
+                            findWeek.TuHour.ActivityCode = week.TuHour.ActivityCode;
                             context.Entry(findWeek.TuHour).State = EntityState.Modified;
                         }
                             
                         if (findWeek.WeHour != null && week.WeHour != null)
                         {
                             findWeek.WeHour.WTHour = week.WeHour.WTHour;
+                            findWeek.WeHour.ActivityCode = week.WeHour.ActivityCode;
                             context.Entry(findWeek.WeHour).State = EntityState.Modified;
                         }
                             
                         if (findWeek.ThHour != null && week.ThHour != null)
                         {
                             findWeek.ThHour.WTHour = week.ThHour.WTHour;
+                            findWeek.ThHour.ActivityCode = week.ThHour.ActivityCode;
                             context.Entry(findWeek.ThHour).State = EntityState.Modified;
                         }
                             
                         if (findWeek.FrHour != null && week.FrHour != null)
                         {
                             findWeek.FrHour.WTHour = week.FrHour.WTHour;
+                            findWeek.FrHour.ActivityCode = week.FrHour.ActivityCode;
                             context.Entry(findWeek.FrHour).State = EntityState.Modified;
                         }
                             
                         if (findWeek.SaHour != null && week.SaHour != null)
                         {
                             findWeek.SaHour.WTHour = week.SaHour.WTHour;
+                            findWeek.SaHour.ActivityCode = week.SaHour.ActivityCode;
                             context.Entry(findWeek.SaHour).State = EntityState.Modified;
                         }
                            
                         if (findWeek.SuHour != null && week.SuHour != null)
                         {
                             findWeek.SuHour.WTHour = week.SuHour.WTHour;
+                            findWeek.SuHour.ActivityCode = week.SuHour.ActivityCode;
                             context.Entry(findWeek.SuHour).State = EntityState.Modified;
                         }
 

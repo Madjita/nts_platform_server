@@ -140,7 +140,9 @@ namespace nts_platform_server.Services
                 e.Email,
                 e.UserProjects,
                 Company = e.Company.Name,
-                Role = e.Role.Title
+                Role = e.Role.Title,
+                e.Photo,
+                e.Info,
             })
             .ToList();
 
@@ -210,8 +212,10 @@ namespace nts_platform_server.Services
                      e.Email,
                      e.UserProjects,
                      Company = e.Company.Name,
-                     Role = e.Role.Title
-                 }).FirstOrDefault();
+                     Role = e.Role.Title,
+                     e.Photo,
+                     e.Info,
+                }).FirstOrDefault();
 
             if (check != null)
             {
@@ -236,7 +240,9 @@ namespace nts_platform_server.Services
                    e.Email,
                    e.UserProjects,
                    Company = e.Company.Name,
-                   Role = e.Role.Title
+                   Role = e.Role.Title,
+                   e.Photo,
+                   e.Info,
                })
                .Where(x => x.UserProjects.Where(s => s.Project.Title == project).Any())
                .ToList();

@@ -113,7 +113,7 @@ namespace nts_platform_server.Controllers
             }
             
 
-            return Ok(true);
+            return Ok(_projectService.GetAll());
         }
 
         [Route("projects/usersInProject")]
@@ -146,7 +146,7 @@ namespace nts_platform_server.Controllers
         {
             if (newUserProject == null)
             {
-                return BadRequest(new { message = "Project hours allrady added!" });
+                return BadRequest(new { message = "New user project is empty!" });
             }
 
             var response = await _projectService.AddUserProjectHoursAsync(newUserProject);
@@ -157,7 +157,7 @@ namespace nts_platform_server.Controllers
             }
 
 
-            return Ok(true);
+            return Ok(response);
         }
 
     }

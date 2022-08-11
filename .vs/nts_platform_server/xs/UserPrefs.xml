@@ -1,63 +1,26 @@
 ﻿<Properties StartupConfiguration="{F807A3F1-228D-43F4-985D-8697DAD5A12F}|Default">
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/AuthorizeController.cs" relfile="nts_platform_server/Controllers/AuthorizeController.cs" line="86" column="1" />
-    <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/AuthorizeController.cs" relfile="nts_platform_server/Controllers/AuthorizeController.cs" line="146" column="1" />
-    <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/WeekController.cs" relfile="nts_platform_server/Controllers/WeekController.cs" line="35" column="1" />
-    <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/ProjectController.cs" relfile="nts_platform_server/Controllers/ProjectController.cs" line="84" column="1" />
+    <BreakpointStore>
+      <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/AuthorizeController.cs" relfile="nts_platform_server/Controllers/AuthorizeController.cs" line="81" column="1" />
+      <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/AuthorizeController.cs" relfile="nts_platform_server/Controllers/AuthorizeController.cs" line="141" column="1" />
+      <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/WeekController.cs" relfile="nts_platform_server/Controllers/WeekController.cs" line="35" column="1" />
+      <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Exel/Exel.cs" relfile="nts_platform_server/Exel/Exel.cs" line="175" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="nts_platform_server/Controllers/ProjectController.cs">
-    <Files>
-      <File FileName="nts_platform_server/Controllers/WeatherForecastController.cs" Line="22" Column="10" />
-      <File FileName="nts_platform_server/Program.cs" Line="14" Column="37" />
-      <File FileName="nts_platform_server/Startup.cs" Line="102" Column="28" />
-      <File FileName="nts_platform_server/Properties/launchSettings.json" Line="26" Column="48" />
-      <File FileName="nts_platform_server/Controllers/ExelController.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/appsettings.Development.json" Line="1" Column="1" />
-      <File FileName="nts_platform_server/WeatherForecast.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/Exel/Exel.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/Middleware/SecureJwtMiddleware.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/Auth.JWT/AuthorizeAttribute.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/appsettings.json" Line="14" Column="2" />
-      <File FileName="nts_platform_server/Models/AuthenticateResponse.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/Auth.JWT/UserHelper.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/Models/AuthenticateRequest.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/Models/CompanyModel.cs" Line="6" Column="41" />
-      <File FileName="nts_platform_server/Models/UserModel.cs" Line="13" Column="42" />
-      <File FileName="nts_platform_server/Entities/DocHour.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/UserProfile.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/nts_platform_server.csproj" Line="1" Column="1" />
-      <File FileName="nts_platform_server/Entities/Hour.cs" Line="15" Column="35" />
-      <File FileName="nts_platform_server/Entities/ErrorViewModel.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/Entities/ContactProject.cs" Line="10" Column="11" />
-      <File FileName="nts_platform_server/Entities/Contact.cs" Line="10" Column="10" />
-      <File FileName="nts_platform_server/Entities/BaseEntity.cs" Line="6" Column="28" />
-      <File FileName="../../../../../../usr/local/share/dotnet/sdk/5.0.408/Sdks/Microsoft.NET.Sdk.Razor/build/netstandard2.0/Sdk.Razor.CurrentVersion.targets" Line="1" Column="1" />
-      <File FileName="nts_platform_server/Entities/Role.cs" Line="11" Column="11" />
-      <File FileName="nts_platform_server/Data/Context.cs" Line="28" Column="15" />
-      <File FileName="nts_platform_server/Entities/UserProject.cs" Line="11" Column="29" />
-      <File FileName="nts_platform_server/Services/CompanyService.cs" Line="125" Column="51" />
-      <File FileName="nts_platform_server/Services/IUserService.cs" Line="16" Column="26" />
-      <File FileName="nts_platform_server/Controllers/AuthorizeController.cs" Line="58" Column="1" />
-      <File FileName="nts_platform_server/Services/UserService.cs" Line="131" Column="1" />
-      <File FileName="nts_platform_server/Services/DocHourseService.cs" Line="59" Column="14" />
-      <File FileName="nts_platform_server/Controllers/WeekController.cs" Line="1" Column="1" />
-      <File FileName="nts_platform_server/Models/UserProjectModel.cs" Line="15" Column="29" />
-      <File FileName="nts_platform_server/Entities/Week.cs" Line="53" Column="45" />
-      <File FileName="nts_platform_server/Services/ProjectService.cs" Line="22" Column="38" />
-      <File FileName="nts_platform_server/Controllers/ProjectController.cs" Line="69" Column="1" />
-      <File FileName="nts_platform_server/Entities/Project.cs" Line="50" Column="24" />
-      <File FileName="nts_platform_server/Services/IEfRepository.cs" Line="17" Column="26" />
-      <File FileName="nts_platform_server/Services/EfRepository.cs" Line="11" Column="42" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="nts_platform_server" expanded="True">
             <Node name="nts_platform_server" expanded="True">
+              <Node name="Dependencies" expanded="True">
+                <Node name="PackageDependencies" expanded="True" />
+              </Node>
               <Node name="Auth.JWT" expanded="True" />
               <Node name="Controllers" expanded="True" />
               <Node name="Data" expanded="True" />
               <Node name="Entities" expanded="True" />
+              <Node name="Exel" expanded="True" />
               <Node name="migrations" expanded="True" />
               <Node name="Migrations" expanded="True" />
               <Node name="Models" expanded="True" />

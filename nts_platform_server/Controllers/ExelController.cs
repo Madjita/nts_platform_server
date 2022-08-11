@@ -61,7 +61,7 @@ namespace nts_platform_server.Controllers
         [Route("projects/user/week/exel")]
         [Authorize]
         [HttpPost("projects/user/week/exel")]
-        public async Task<IActionResult> DownloadPRojectUserWeekExelAsync([FromBody] DownloadProjectUserWeekExelModel exelModel_UserProjectWeek)
+        public async Task<IActionResult> DownloadProjectUserWeekExelAsync([FromBody] DownloadProjectUserWeekExelModel exelModel_UserProjectWeek)
         {
             //Проверка на принятие данных
             if(exelModel_UserProjectWeek == null)
@@ -78,14 +78,57 @@ namespace nts_platform_server.Controllers
             }
 
 
-            int year = exelModel_UserProjectWeek.YearWeek % 100;
+            //int year = exelModel_UserProjectWeek.YearWeek % 100;
 
-            string nameFile = "cw"+year+ exelModel_UserProjectWeek.NumberWeek + "_"+ response.Project.Code + "_" + response.User.FirstName + "_" + response.User.SecondName + "_Hour_report";
-            nameFile += ".xlsx";
+           // string nameFile = "cw"+year+ exelModel_UserProjectWeek.NumberWeek + "_"+ response.Project.Code + "_" + response.User.FirstName + "_" + response.User.SecondName + "_Hour_report";
+            //nameFile += ".xlsx";
 
             string template = "template_hours1.xlsx";
-            Exel exel = new Exel(nameFile,template, response);
-            return File(exel.bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", nameFile);
+            Exel exel = new Exel();
+            var bytes = exel.createExelHour(template, response.Weeks.FirstOrDefault(),response,false);
+
+            return File(bytes.bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", bytes.fileName);
+
         }
+
+        [Route("projects/user/week/all/zip")]
+        [Authorize]
+        [HttpPost("projects/user/week/all/zip")]
+        public async Task<IActionResult> DownloadProjectUserAllWeekExelAsync([FromBody] DownloadProjectUserWeekExelModel exelModel_UserProjectWeek)
+        {
+            //Проверка на принятие данных
+            if (exelModel_UserProjectWeek == null)
+            {
+                return BadRequest(new { message = "Data model is empty!" });
+            }
+
+            //Найти данный проект и пользователя в базе
+            var response = await _projectService.FindUserProjectWeek(exelModel_UserProjectWeek);
+
+            if (response == null)
+            {
+                return BadRequest(new { message = "Don't find \"project user week\" in database!" });
+            }
+
+
+            int year = exelModel_UserProjectWeek.YearWeek % 100;
+
+            string nameFile = response.Project.Code + "_" + response.User.FirstName + "_" + response.User.SecondName + "_ALL_Hour_report";
+            nameFile += ".zip";
+
+            string template = "template_hours1.xlsx";
+            Exel exel = new Exel();
+
+
+            foreach (var week in response.Weeks)
+            {
+                exel.createExelHour(template,week,response,true);
+            }
+
+            var bytes = exel.CreateZipArchive();
+
+            return File(bytes, "application/zip", nameFile);
+        }
+
     }
 }

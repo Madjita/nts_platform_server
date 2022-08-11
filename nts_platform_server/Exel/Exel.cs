@@ -10,6 +10,10 @@ using nts_platform_server.Entities;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
+using System.IO.Compression;
+
+
+
 namespace nts_platform_server
 {
 
@@ -19,6 +23,12 @@ namespace nts_platform_server
         public string TYPE;
         public string PARAMETERS;
         public string VALUE;
+    }
+
+    public class CreateExelType
+    {
+        public byte[] bytes;
+        public string fileName;
     }
 
     public class Exel
@@ -105,7 +115,130 @@ namespace nts_platform_server
         }
 
 
-        public Exel(string fileName, string template,UserProject userProject)
+        public byte[] CreateZipArchive()
+        {
+            var stream = new MemoryStream();
+
+            string sourceFolder = @"zip"; // исходная папка
+            string zipFile = "test.zip"; // сжатый файл
+            // string targetFolder = "newtest"; // папка, куда распаковывается файл
+
+
+           
+            ZipFile.CreateFromDirectory(sourceFolder, zipFile);
+
+            //ZipFile.ExtractToDirectory(zipFile, targetFolder);
+
+
+            using (FileStream file = new FileStream("test.zip", FileMode.Open, FileAccess.Read))
+            {
+                file.CopyTo(stream);
+            }
+
+            //Очистить папку
+            DirectoryInfo dir = new DirectoryInfo(sourceFolder);
+            foreach (FileInfo f in dir.GetFiles())
+            {
+                f.Delete();
+            }
+
+            FileInfo fileInf = new FileInfo("test.zip");
+            if (fileInf.Exists)
+            {
+                fileInf.Delete();
+            }
+
+            return stream.ToArray();
+        }
+
+
+        public Exel()
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        }
+
+
+        public CreateExelType createExelHour(string template,Week week, UserProject userProject,bool zipMode)
+        {
+            //Создание даты на неделю по номеру недели
+
+            int year = week.Year % 100;
+            string fileName = "cw" + year + week.NumberWeek + "_" + userProject.Project.Code + "_" + userProject.User.FirstName + "_" + userProject.User.SecondName + "_Hour_report";
+            fileName += ".xlsx";
+
+
+            byte[] bytes = null;
+
+            var stream = new MemoryStream();
+            using (FileStream file = new FileStream(template, FileMode.Open, FileAccess.Read))
+                file.CopyTo(stream);
+
+
+            using (ExcelPackage package = new ExcelPackage(stream))
+            {
+                ExcelWorksheet _sheet = package.Workbook.Worksheets[0];
+                _sheet.Cells["A8"].Value = userProject.User.FirstName + " " + userProject.User.SecondName;
+                //_sheet.Cells[2, 3].Value = "NTS";
+
+
+                DateTime dataStartWeek = FirstDateOfWeekISO8601(week.Year, week.NumberWeek);
+
+                var data = dataStartWeek;
+                int startCell = 14;
+                string stringCell = "A" + startCell.ToString();
+                _sheet.Cells[stringCell].Value = data.ToString("dd.MM.yyyy");
+                for (int i = 1; i < 7; i++)
+                {
+                    data = data.AddDays(1);
+                    startCell++;
+                    stringCell = "A" + startCell.ToString();
+                    _sheet.Cells[stringCell].Value = data.ToString("dd.MM.yyyy");
+                }
+
+
+                _sheet.Cells["C14"].Value = userProject.Project.Code;
+                _sheet.Cells["C15"].Value = userProject.Project.Code;
+                _sheet.Cells["C16"].Value = userProject.Project.Code;
+                _sheet.Cells["C17"].Value = userProject.Project.Code;
+                _sheet.Cells["C18"].Value = userProject.Project.Code;
+                _sheet.Cells["C19"].Value = userProject.Project.Code;
+                _sheet.Cells["C20"].Value = userProject.Project.Code;
+
+                _sheet.Cells["D14"].Value = week.MoHour.ActivityCode;
+                _sheet.Cells["D15"].Value = week.TuHour.ActivityCode;
+                _sheet.Cells["D16"].Value = week.WeHour.ActivityCode;
+                _sheet.Cells["D17"].Value = week.ThHour.ActivityCode;
+                _sheet.Cells["D18"].Value = week.FrHour.ActivityCode;
+                _sheet.Cells["D19"].Value = week.SaHour.ActivityCode;
+                _sheet.Cells["D20"].Value = week.SuHour.ActivityCode;
+
+
+                _sheet.Cells["I14"].Value = week.MoHour.WTHour;
+                _sheet.Cells["I15"].Value = week.TuHour.WTHour;
+                _sheet.Cells["I16"].Value = week.WeHour.WTHour;
+                _sheet.Cells["I17"].Value = week.ThHour.WTHour;
+                _sheet.Cells["I18"].Value = week.FrHour.WTHour;
+                _sheet.Cells["I19"].Value = week.SaHour.WTHour;
+                _sheet.Cells["I20"].Value = week.SuHour.WTHour;
+
+                // do work here
+
+                if(zipMode)
+                {
+                    package.SaveAs(new FileInfo("zip/"+fileName));
+                }
+
+                bytes = package.GetAsByteArray();
+            }
+
+            return new CreateExelType
+            {
+                bytes = bytes,
+                fileName = fileName
+            };
+        }
+
+        /*public Exel(string fileName, string template,UserProject userProject)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
@@ -174,9 +307,7 @@ namespace nts_platform_server
 
                 bytes = package.GetAsByteArray();
             }
-
-
-        }
+        }*/
 
 
 

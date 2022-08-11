@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using nts_platform_server.Entities;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
@@ -73,20 +75,102 @@ namespace nts_platform_server
             "A","B","C","D","E","F","G",
         };
 
-        public Exel(string fileName)
+
+
+        public static DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
+        {
+            DateTime jan1 = new DateTime(year, 1, 1);
+            int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
+
+            // Use first Thursday in January to get first week of the year as
+            // it will never be in Week 52/53
+            DateTime firstThursday = jan1.AddDays(daysOffset);
+            var cal = CultureInfo.CurrentCulture.Calendar;
+            int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+
+            var weekNum = weekOfYear;
+            // As we're adding days to a date in Week 1,
+            // we need to subtract 1 in order to get the right date for week #1
+            if (firstWeek == 1)
+            {
+                weekNum -= 1;
+            }
+
+            // Using the first Thursday as starting week ensures that we are starting in the right year
+            // then we add number of weeks multiplied with days
+            var result = firstThursday.AddDays(weekNum * 7);
+
+            // Subtract 3 days from Thursday to get Monday, which is the first weekday in ISO8601
+            return result.AddDays(-3);
+        }
+
+
+        public Exel(string fileName, string template,UserProject userProject)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
+
             stream = new MemoryStream();
+            using (FileStream file = new FileStream(template, FileMode.Open, FileAccess.Read))
+                file.CopyTo(stream);
+
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
-                ExcelWorksheet _sheet = package.Workbook.Worksheets.Add("New");
-                _sheet.Cells["B2"].Value = "Company:";
-                _sheet.Cells[2, 3].Value = "NTS";
+                //"Hour report file"
+                //ExcelWorksheet _sheet = package.Workbook.Worksheets.Add("New");
+
+                ExcelWorksheet _sheet = package.Workbook.Worksheets[0];
+                _sheet.Cells["A8"].Value = userProject.User.FirstName + " " + userProject.User.SecondName;
+                //_sheet.Cells[2, 3].Value = "NTS";
+
+
+
+                //Создание даты на неделю по номеру недели
+                var week = userProject.Weeks.FirstOrDefault();
+
+                DateTime dataStartWeek = FirstDateOfWeekISO8601(week.Year, week.NumberWeek);
+
+                var data = dataStartWeek;
+                int startCell = 14;
+                string stringCell = "A" + startCell.ToString();
+                _sheet.Cells[stringCell].Value = data.ToString("dd.MM.yyyy");
+                for (int i=1; i < 7;i++)
+                {
+                    data = data.AddDays(1);
+                    startCell++;
+                    stringCell = "A" + startCell.ToString();
+                    _sheet.Cells[stringCell].Value = data.ToString("dd.MM.yyyy");
+                }
+
+
+                _sheet.Cells["C14"].Value = userProject.Project.Code;
+                _sheet.Cells["C15"].Value = userProject.Project.Code;
+                _sheet.Cells["C16"].Value = userProject.Project.Code;
+                _sheet.Cells["C17"].Value = userProject.Project.Code;
+                _sheet.Cells["C18"].Value = userProject.Project.Code;
+                _sheet.Cells["C19"].Value = userProject.Project.Code;
+                _sheet.Cells["C20"].Value = userProject.Project.Code;
+
+                _sheet.Cells["D14"].Value = week.MoHour.ActivityCode;
+                _sheet.Cells["D15"].Value = week.TuHour.ActivityCode;
+                _sheet.Cells["D16"].Value = week.WeHour.ActivityCode;
+                _sheet.Cells["D17"].Value = week.ThHour.ActivityCode;
+                _sheet.Cells["D18"].Value = week.FrHour.ActivityCode;
+                _sheet.Cells["D19"].Value = week.SaHour.ActivityCode;
+                _sheet.Cells["D20"].Value = week.SuHour.ActivityCode;
+
+
+                _sheet.Cells["I14"].Value = week.MoHour.WTHour;
+                _sheet.Cells["I15"].Value = week.TuHour.WTHour;
+                _sheet.Cells["I16"].Value = week.WeHour.WTHour;
+                _sheet.Cells["I17"].Value = week.ThHour.WTHour;
+                _sheet.Cells["I18"].Value = week.FrHour.WTHour;
+                _sheet.Cells["I19"].Value = week.SaHour.WTHour;
+                _sheet.Cells["I20"].Value = week.SuHour.WTHour;
 
                 // do work here                            
-                package.SaveAs(new FileInfo(fileName));
+                //package.SaveAs(new FileInfo(fileName));
 
                 bytes = package.GetAsByteArray();
             }

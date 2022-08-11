@@ -21,13 +21,14 @@ namespace nts_platform_server.Services
 
 
         Task<IEnumerable<Object>> AddUserProjectAsync(UserProjectModelList newUserProjectModelList);
-
         Task<IEnumerable<Object>> AddUserProjectHoursAsync(UserProjectModelHours newUserProject);
 
 
         
         Company GetById(int id);
         Task<Project> Find(string name);
+
+        Task<UserProject> FindUserProjectWeek(DownloadProjectUserWeekExelModel exelModel_UserProjectWeek);
     }
 
     public class ProjectService : IProjectService
@@ -346,8 +347,6 @@ namespace nts_platform_server.Services
             {
 
                 //Если почасовки нашлись проверить есть ли почасовки на данную
-
-
                 foreach(var week in newUserProject.Weeks)
                 {
                     var findWeek = check.Weeks.Where(x => x.NumberWeek == week.NumberWeek).FirstOrDefault();
@@ -444,6 +443,35 @@ namespace nts_platform_server.Services
             }
 
             return null;
+        }
+
+
+        public async Task<UserProject> FindUserProjectWeek(DownloadProjectUserWeekExelModel exelModel_UserProjectWeek)
+        {
+
+            //Найти почасовку в системе на данного юзера на данный проект
+            var check = _userProjectRepository.Get()
+                .Include(x => x.Project)
+                .Include(x => x.Weeks.Where(y => y.NumberWeek == exelModel_UserProjectWeek.NumberWeek && y.Year == exelModel_UserProjectWeek.YearWeek)).ThenInclude(x => x.MoHour)
+                .Include(x => x.Weeks.Where(y => y.NumberWeek == exelModel_UserProjectWeek.NumberWeek && y.Year == exelModel_UserProjectWeek.YearWeek)).ThenInclude(x => x.TuHour)
+                .Include(x => x.Weeks.Where(y => y.NumberWeek == exelModel_UserProjectWeek.NumberWeek && y.Year == exelModel_UserProjectWeek.YearWeek)).ThenInclude(x => x.WeHour)
+                .Include(x => x.Weeks.Where(y => y.NumberWeek == exelModel_UserProjectWeek.NumberWeek && y.Year == exelModel_UserProjectWeek.YearWeek)).ThenInclude(x => x.ThHour)
+                .Include(x => x.Weeks.Where(y => y.NumberWeek == exelModel_UserProjectWeek.NumberWeek && y.Year == exelModel_UserProjectWeek.YearWeek)).ThenInclude(x => x.FrHour)
+                .Include(x => x.Weeks.Where(y => y.NumberWeek == exelModel_UserProjectWeek.NumberWeek && y.Year == exelModel_UserProjectWeek.YearWeek)).ThenInclude(x => x.SaHour)
+                .Include(x => x.Weeks.Where(y => y.NumberWeek == exelModel_UserProjectWeek.NumberWeek && y.Year == exelModel_UserProjectWeek.YearWeek)).ThenInclude(x => x.SuHour)
+                .Include(x => x.User)
+                .Where(
+                x => x.User.Email == exelModel_UserProjectWeek.UserEmail &&
+                x.Project.Code == exelModel_UserProjectWeek.ProjectCode)
+                .FirstOrDefault();
+
+            if (check != null)
+            {
+
+                return await Task.FromResult(check);
+            }
+
+            return null;           
         }
     }
 }

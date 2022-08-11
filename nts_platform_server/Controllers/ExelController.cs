@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.Extensions.FileProviders;
 using System.Net.Http;
 using System.Net;
+using nts_platform_server.Services;
 
 namespace nts_platform_server.Controllers
 {
@@ -21,8 +22,13 @@ namespace nts_platform_server.Controllers
 
         private readonly ILogger<ExelController> _logger;
 
-        public ExelController(ILogger<ExelController> logger)
+        private readonly IProjectService _projectService;
+
+        public ExelController(ILogger<ExelController> logger, IProjectService projectService)
         {
+            _projectService = projectService;
+
+
             _logger = logger;
         }
 
@@ -55,11 +61,30 @@ namespace nts_platform_server.Controllers
         [Route("projects/user/week/exel")]
         [Authorize]
         [HttpPost("projects/user/week/exel")]
-        public IActionResult DownloadPRojectUserWeekExel([FromBody] DownloadProjectUserWeekExelModel exelModel)
+        public async Task<IActionResult> DownloadPRojectUserWeekExelAsync([FromBody] DownloadProjectUserWeekExelModel exelModel_UserProjectWeek)
         {
-            string nameFile = exelModel.UserEmail + "_" + exelModel.ProjectCode + "_" + exelModel.YearWeek + "_" + exelModel.NumberWeek;
+            //Проверка на принятие данных
+            if(exelModel_UserProjectWeek == null)
+            {
+                return BadRequest(new { message = "Data model is empty!" });
+            }
+
+            //Найти данный проект и пользователя в базе
+            var response = await _projectService.FindUserProjectWeek(exelModel_UserProjectWeek);
+
+            if(response == null)
+            {
+                return BadRequest(new { message = "Don't find \"project user week\" in database!" });
+            }
+
+
+            int year = exelModel_UserProjectWeek.YearWeek % 100;
+
+            string nameFile = "cw"+year+ exelModel_UserProjectWeek.NumberWeek + "_"+ response.Project.Code + "_" + response.User.FirstName + "_" + response.User.SecondName + "_Hour_report";
             nameFile += ".xlsx";
-            Exel exel = new Exel(nameFile);
+
+            string template = "template_hours1.xlsx";
+            Exel exel = new Exel(nameFile,template, response);
             return File(exel.bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", nameFile);
         }
     }

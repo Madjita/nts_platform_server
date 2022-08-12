@@ -202,7 +202,7 @@ namespace nts_platform_server.Services
                                 //x.User.UserProjects,
                                 Company = x.User.Company.Name,
                                 Role = x.User.Role.Title,
-                                x.Weeks
+                                Weeks = x.Weeks.OrderBy(x=> x.NumberWeek).ToList()
                             })
                             .ToList()
                 })

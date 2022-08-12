@@ -26,7 +26,7 @@ namespace nts_platform_server.Services
 
         
         Company GetById(int id);
-        Task<Project> Find(string name);
+        Task<Project> Find(string code);
 
         Task<UserProject> FindUserProjectWeek(DownloadProjectUserWeekExelModel exelModel_UserProjectWeek);
     }
@@ -233,14 +233,20 @@ namespace nts_platform_server.Services
             throw new NotImplementedException();
         }
 
-        public async Task<Project> Find(string name)
+        public async Task<Project> Find(string code)
         {
             var project = _projectRepository.Get()
-                .OrderBy(x => x.Title)
-                .Where(x => x.Title == name)
+                .OrderBy(x => x.Code)
+                .Where(x => x.Code == code)
                 .FirstOrDefault();
 
-            return await Task.FromResult(project);
+            if (project != null)
+            {
+
+                return await Task.FromResult(project);
+            }
+
+            return null;
         }
 
         public async Task<IEnumerable<object>> AddUserProjectAsync(UserProjectModelList newUserProjectModelList)

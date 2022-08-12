@@ -64,6 +64,27 @@ namespace nts_platform_server.Controllers
         }
 
         [Authorize]
+        [HttpPost("projects/find")]
+        public async Task<IActionResult> PostFindProjectAsync(ProjectModel newProject)
+        {
+            if (newProject == null)
+            {
+
+                return BadRequest(new { message = "Project model is empty!" });
+            }
+
+            var response = await _projectService.Find(newProject.Code);
+
+            if (response == null)
+            {
+                return BadRequest(new { message = "Project allrady added!" });
+            }
+
+
+            return Ok(response);
+        }
+
+        [Authorize]
         [HttpDelete("projects")]
         public async Task<IActionResult> DeleteProjectAsync(ProjectModel newProject)
         {

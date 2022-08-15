@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using nts_platform_server.Auth.JWT;
 using nts_platform_server.Data;
+using nts_platform_server.Entities;
+using nts_platform_server.Models;
 using nts_platform_server.Services;
 
 namespace nts_platform_server
@@ -36,6 +38,8 @@ namespace nts_platform_server
         {
             /*services.AddDbContext<DataContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));*/
+
+
 
             services.AddControllers();
           

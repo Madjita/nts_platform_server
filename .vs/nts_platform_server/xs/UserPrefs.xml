@@ -6,15 +6,20 @@
       <Breakpoint file="/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/Controllers/WeekController.cs" relfile="nts_platform_server/Controllers/WeekController.cs" line="35" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="nts_platform_server/Controllers/ExelController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="nts_platform_server/Startup.cs">
     <Files>
       <File FileName="nts_platform_server/Models/UserModel.cs" Line="24" Column="47" />
-      <File FileName="nts_platform_server/Controllers/ExelController.cs" Line="123" Column="48" />
+      <File FileName="nts_platform_server/Controllers/ExelController.cs" Line="90" Column="123" />
       <File FileName="nts_platform_server/Auth.JWT/JwtMiddleware.cs" Line="32" Column="1" />
-      <File FileName="nts_platform_server/Controllers/ProjectController.cs" Line="116" Column="43" />
-      <File FileName="nts_platform_server/Properties/launchSettings.json" Line="22" Column="29" />
-      <File FileName="nts_platform_server/Services/ProjectService.cs" Line="209" Column="27" />
-      <File FileName="nts_platform_server/Exel/Exel.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Controllers/ProjectController.cs" Line="87" Column="20" />
+      <File FileName="nts_platform_server/Properties/launchSettings.json" Line="24" Column="34" />
+      <File FileName="nts_platform_server/Models/ProjectModel.cs" Line="8" Column="27" />
+      <File FileName="nts_platform_server/Controllers/AuthorizeController.cs" Line="77" Column="20" />
+      <File FileName="nts_platform_server/Exel/Exel.cs" Line="205" Column="70" />
+      <File FileName="nts_platform_server/Program.cs" Line="1" Column="1" />
+      <File FileName="nts_platform_server/Startup.cs" Line="42" Column="39" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,6 +28,7 @@
             <Node name="nts_platform_server" expanded="True">
               <Node name="Controllers" expanded="True" />
               <Node name="Exel" expanded="True" />
+              <Node name="Models" expanded="True" />
               <Node name="Properties" expanded="True" />
               <Node name="Services" expanded="True" />
             </Node>
@@ -34,8 +40,6 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.nts__platform__server PreferredExecutionTarget="/Applications/Firefox.app" />
 </Properties>

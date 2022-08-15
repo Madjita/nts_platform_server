@@ -28,7 +28,7 @@ namespace nts_platform_server.Entities
         public List<UserProject> UserProjects { get; set; }
         public List<Week> Weeks { get; set; }
 
-        User ()
+        public User ()
         {
             UserProjects = new List<UserProject>();
             Weeks = new List<Week>();

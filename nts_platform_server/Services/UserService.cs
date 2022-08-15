@@ -140,7 +140,8 @@ namespace nts_platform_server.Services
                 e.Email,
                 e.UserProjects,
                 Company = e.Company.Name,
-                Role = e.Role.Title,
+                //Role = e.Role.Title,
+                e.Role,
                 e.Photo,
                 e.Info,
             })
@@ -212,7 +213,8 @@ namespace nts_platform_server.Services
                      e.Email,
                      e.UserProjects,
                      Company = e.Company.Name,
-                     Role = e.Role.Title,
+                     //Role = e.Role.Title,
+                     e.Role,
                      e.Photo,
                      e.Info,
                 }).FirstOrDefault();
@@ -240,7 +242,8 @@ namespace nts_platform_server.Services
                    e.Email,
                    e.UserProjects,
                    Company = e.Company.Name,
-                   Role = e.Role.Title,
+                   //Role = e.Role.Title,
+                   e.Role,
                    e.Photo,
                    e.Info,
                })
@@ -254,6 +257,27 @@ namespace nts_platform_server.Services
 
             return null;
             
+        }
+
+        public async Task<User> ChangeUser(UserModelChange changeUser)
+        {
+
+            var check = _userRepository.Get()
+                .Where(x => x.Email == changeUser.OldUser.Email).FirstOrDefault();
+
+
+            if (check != null)
+            {
+                check.FirstName = changeUser.NewUser.FirstName;
+                check.SecondName = changeUser.NewUser.SecondName;
+                await  _userRepository.Save();
+
+
+                return await Task.FromResult(check); ;
+            }
+
+
+            return null;
         }
     }
 }

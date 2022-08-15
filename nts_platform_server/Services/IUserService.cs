@@ -15,5 +15,7 @@ namespace nts_platform_server.Services
         Task<User> RemoveAsync(string name);
         Task<Object> Find(string email);
         Task<IEnumerable<Object>> FindUsersInProjectAsync(string project);
+        Task<User> ChangeUser(UserModelChange changeUser);
+
     }
 }

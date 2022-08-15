@@ -24,8 +24,19 @@ namespace nts_platform_server.Models
         public string SecondName { get; set; }
         public string MiddleName { get; set; }
         public string Email { get; set; }
-        public string Role { get; set; }
+        public Role Role { get; set; }
         //public virtual List<UserProjectModel> UserProjects { get; set; }
 
     }
+
+    public class UserModelExtend : UserModel
+    {
+        public string Info { get; set; }
+    }
+    public class UserModelChange
+    {
+        public UserModelExtend OldUser { get; set; }
+        public UserModelExtend NewUser { get; set; }
+    }
+
 }

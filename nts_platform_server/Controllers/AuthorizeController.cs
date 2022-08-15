@@ -89,6 +89,20 @@ namespace nts_platform_server.Controllers
         }
 
         [Authorize]
+        [HttpPut("users")]
+        public async Task<IActionResult> PutUserAsync([FromBody] UserModelChange userModel)
+        {
+            var response = await _userService.ChangeUser(userModel);
+
+            if (response == null)
+            {
+                 return BadRequest(new { message = "userModel error!" });
+            }
+
+            return Ok(response);
+        }
+
+        [Authorize]
         [HttpGet("companys")]
         public IActionResult GetAllCompanys()
         {

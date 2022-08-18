@@ -142,8 +142,6 @@ namespace nts_platform_server.Services
                 Company = e.Company.Name,
                 //Role = e.Role.Title,
                 e.Role,
-                e.Photo,
-                e.Info,
             })
             .ToList();
 
@@ -205,6 +203,7 @@ namespace nts_platform_server.Services
                 .Include(x => x.UserProjects).ThenInclude(x => x.Project)
                 .Include(x => x.UserProjects).ThenInclude(x => x.User)
                 .Include(x => x.Role)
+                .Include(x => x.Profile)
                 .Where(x => x.Email == email)
                 .Select(e => new {
                      e.FirstName,
@@ -213,10 +212,8 @@ namespace nts_platform_server.Services
                      e.Email,
                      e.UserProjects,
                      Company = e.Company.Name,
-                     //Role = e.Role.Title,
                      e.Role,
-                     e.Photo,
-                     e.Info,
+                     e.Profile,
                 }).FirstOrDefault();
 
             if (check != null)
@@ -244,8 +241,6 @@ namespace nts_platform_server.Services
                    Company = e.Company.Name,
                    //Role = e.Role.Title,
                    e.Role,
-                   e.Photo,
-                   e.Info,
                })
                .Where(x => x.UserProjects.Where(s => s.Project.Title == project).Any())
                .ToList();
@@ -263,6 +258,7 @@ namespace nts_platform_server.Services
         {
 
             var check = _userRepository.Get()
+                .Include(x => x.Profile)
                 .Where(x => x.Email == changeUser.OldUser.Email).FirstOrDefault();
 
 
@@ -270,7 +266,34 @@ namespace nts_platform_server.Services
             {
                 check.FirstName = changeUser.NewUser.FirstName;
                 check.SecondName = changeUser.NewUser.SecondName;
-                await  _userRepository.Save();
+                check.MiddleName = changeUser.NewUser.MiddleName;
+                check.Profile.Sex = changeUser.NewUser.Profile.Sex;
+                check.Profile.Date = changeUser.NewUser.Profile.Date;
+                check.Profile.PRFseries = changeUser.NewUser.Profile.PRFseries;
+                check.Profile.PRFnumber = changeUser.NewUser.Profile.PRFnumber;
+                check.Profile.PRFdatetaked = changeUser.NewUser.Profile.PRFdatetaked;
+                check.Profile.PRFdateback = changeUser.NewUser.Profile.PRFdateback;
+                check.Profile.PRFcode = changeUser.NewUser.Profile.PRFcode;
+                check.Profile.PRFtaked = changeUser.NewUser.Profile.PRFtaked;
+                check.Profile.PRFplaceborned = changeUser.NewUser.Profile.PRFplaceborned;
+                check.Profile.PRFplaceregistration = changeUser.NewUser.Profile.PRFplaceregistration;
+                check.Profile.PRFplacelived = changeUser.NewUser.Profile.PRFplacelived;
+                check.Profile.IPnumber = changeUser.NewUser.Profile.IPnumber;
+                check.Profile.IPdatetaked = changeUser.NewUser.Profile.IPdatetaked;
+                check.Profile.IPdateback = changeUser.NewUser.Profile.IPdateback;
+                check.Profile.IPcode = changeUser.NewUser.Profile.IPcode;
+                check.Profile.IPtaked = changeUser.NewUser.Profile.IPtaked;
+                check.Profile.IPplaceborned = changeUser.NewUser.Profile.IPplaceborned;
+                check.Profile.ULMnumber = changeUser.NewUser.Profile.ULMnumber;
+                check.Profile.ULMdatetaked = changeUser.NewUser.Profile.ULMdatetaked;
+                check.Profile.ULMdateback = changeUser.NewUser.Profile.ULMdateback;
+                check.Profile.ULMcode = changeUser.NewUser.Profile.ULMcode;
+                check.Profile.ULMtaked = changeUser.NewUser.Profile.ULMtaked;
+                check.Profile.ULMplaceborned = changeUser.NewUser.Profile.ULMplaceborned;
+                check.Profile.Snils = changeUser.NewUser.Profile.Snils;
+                check.Profile.INN = changeUser.NewUser.Profile.INN;
+                check.Profile.Phone = changeUser.NewUser.Profile.Phone;
+                await _userRepository.Save();
 
 
                 return await Task.FromResult(check); ;

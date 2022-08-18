@@ -5,7 +5,7 @@ using nts_platform_server.Models;
 
 namespace nts_platform_server
 {
-    public class UserProfile : Profile
+    public class UserProfile : AutoMapper.Profile
     {
         public UserProfile()
         {

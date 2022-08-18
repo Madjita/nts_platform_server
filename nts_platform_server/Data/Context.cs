@@ -19,6 +19,7 @@ namespace nts_platform_server.Data
 
         public DbSet<Week> Week { get; set; }
         public DbSet<DocHour> DocHour { get; set; }
+        public DbSet<Profile> Profile { get; set; }
 
 
         public Context(DbContextOptions<Context> options)
@@ -58,9 +59,17 @@ namespace nts_platform_server.Data
             modelBuilder.Entity<Week>()
             .HasOne(p => p.SuHour);
 
+            /*modelBuilder.Entity<User>()
+            .HasOne(a => a.Profile)
+            .WithOne(a => a.User)
+            .HasForeignKey<Profile>(c => c.User);
+
+            modelBuilder.Entity<User>()
+             .Navigation(b => b.Profile)
+             .UsePropertyAccessMode(PropertyAccessMode.Property);*/
 
 
-           /*
+/*
            modelBuilder.Entity<Role>().HasData(
            new Role[]
            {
@@ -74,7 +83,7 @@ namespace nts_platform_server.Data
           {
                 new Company{Id =1,Name= "NTS"},
           });*/
-
+            
         }
 
 

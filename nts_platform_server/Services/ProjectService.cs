@@ -171,45 +171,64 @@ namespace nts_platform_server.Services
         public IEnumerable<Object> GetAll()
         {
 
-            var companies = _projectRepository.Get()
-                .Include(x=>x.EnginerCreater)
-                .Include(x => x.UserProjects).ThenInclude(x=>x.Weeks).ThenInclude(x=>x.MoHour)
-                .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.TuHour)
-                .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.WeHour)
-                .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.ThHour)
-                .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.FrHour)
-                .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.SaHour)
-                .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.SuHour)
-                .OrderBy(x => x.Title)
-                .Select(e => new {
-                    e.Code,
-                    e.Title,
-                    e.ActualHour,
-                    e.MaxHour,
-                    DateStart = e.Start,
-                    DateStop = e.End,
-                    e.Description,
-                    e.indexAdd,
-                    e.EnginerCreater,
-                    Status = Enum.GetName(e.Status.GetType(), e.Status),
-                    Users = e.UserProjects
-                            .OrderBy(item => item.User.FirstName)
-                            .Select(x => new {
-                                x.User.FirstName,
-                                x.User.SecondName,
-                                x.User.MiddleName,
-                                x.User.Email,
-                                //x.User.UserProjects,
-                                Company = x.User.Company.Name,
-                                Role = x.User.Role.Title,
-                                Weeks = x.Weeks.OrderBy(x=> x.NumberWeek).ToList()
-                            })
-                            .ToList()
-                })
-                .ToList();
+             var companies = _projectRepository.Get()
+                 .Include(x=>x.EnginerCreater)
+                 .Include(x => x.UserProjects).ThenInclude(x=>x.Weeks).ThenInclude(x=>x.MoHour)
+                 .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.TuHour)
+                 .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.WeHour)
+                 .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.ThHour)
+                 .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.FrHour)
+                 .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.SaHour)
+                 .Include(x => x.UserProjects).ThenInclude(x => x.Weeks).ThenInclude(x => x.SuHour)
+                 .OrderBy(x => x.Title)
+                 .Select(e => new {
+                     e.Code,
+                     e.Title,
+                     e.ActualHour,
+                     e.MaxHour,
+                     DateStart = e.Start,
+                     DateStop = e.End,
+                     e.Description,
+                     e.indexAdd,
+                     e.EnginerCreater,
+                     Status = Enum.GetName(e.Status.GetType(), e.Status),
+                     Users = e.UserProjects
+                             .OrderBy(item => item.User.FirstName)
+                             .Select(x => new {
+                                 x.User.FirstName,
+                                 x.User.SecondName,
+                                 x.User.MiddleName,
+                                 x.User.Email,
+                                 //x.User.UserProjects,
+                                 Company = x.User.Company.Name,
+                                 Role = x.User.Role.Title,
+                                 Weeks = x.Weeks.OrderBy(x=> x.NumberWeek).ToList()
+                             })
+                             .ToList()
+                 })
+                 .ToList();
+            
 
 
+           /* var companies = _projectRepository.Get()
+               .Include(x => x.EnginerCreater)
+               .OrderBy(x => x.Title)
+               .Select(e => new {
+                   e.Code,
+                   e.Title,
+                   e.ActualHour,
+                   e.MaxHour,
+                   DateStart = e.Start,
+                   DateStop = e.End,
+                   e.Description,
+                   e.indexAdd,
+                   e.EnginerCreater,
+                   Status = Enum.GetName(e.Status.GetType(), e.Status),
+                   Users = new List<User>(),
+               })
+               .ToList();*/
 
+            
             foreach (var item in companies)
             {
                 foreach (var users in item.Users)

@@ -31,7 +31,7 @@ namespace nts_platform_server.Models
 
     public class UserModelExtend : UserModel
     {
-        public string Info { get; set; }
+        public Profile Profile { get; set; }
     }
     public class UserModelChange
     {

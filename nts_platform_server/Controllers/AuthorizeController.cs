@@ -92,11 +92,16 @@ namespace nts_platform_server.Controllers
         [HttpPut("users")]
         public async Task<IActionResult> PutUserAsync([FromBody] UserModelChange userModel)
         {
+            if (userModel == null)
+            {
+                return BadRequest(new { message = "userModel null!" });
+            }
+
             var response = await _userService.ChangeUser(userModel);
 
             if (response == null)
             {
-                 return BadRequest(new { message = "userModel error!" });
+                return BadRequest(new { message = "userModel error!" });
             }
 
             return Ok(response);

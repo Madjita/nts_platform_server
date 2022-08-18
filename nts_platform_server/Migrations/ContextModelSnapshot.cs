@@ -145,6 +145,100 @@ namespace nts_platform_server.Migrations
                     b.ToTable("DocHour");
                 });
 
+            modelBuilder.Entity("nts_platform_server.Entities.Profile", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("INN")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IPcode")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("IPdateback")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("IPdatetaked")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IPnumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IPplaceborned")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IPtaked")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PRFcode")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PRFdateback")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PRFdatetaked")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PRFnumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PRFplaceborned")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PRFplacelived")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PRFplaceregistration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PRFseries")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PRFtaked")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PhotoByte")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("PhotoName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Sex")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Snils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ULMcode")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ULMdateback")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ULMdatetaked")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ULMnumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ULMplaceborned")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ULMtaked")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Profile");
+                });
+
             modelBuilder.Entity("nts_platform_server.Entities.Project", b =>
                 {
                     b.Property<long>("Id")
@@ -158,7 +252,7 @@ namespace nts_platform_server.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Descriptions")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Done")
@@ -167,10 +261,10 @@ namespace nts_platform_server.Migrations
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MaxHour")
-                        .HasColumnType("int");
+                    b.Property<long?>("EnginerCreaterId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("Number")
+                    b.Property<int>("MaxHour")
                         .HasColumnType("int");
 
                     b.Property<int>("Progress")
@@ -185,12 +279,12 @@ namespace nts_platform_server.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("userId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("indexAdd")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("EnginerCreaterId");
 
                     b.ToTable("Projects");
                 });
@@ -217,9 +311,6 @@ namespace nts_platform_server.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
                     b.Property<long?>("CompanyId")
                         .HasColumnType("bigint");
 
@@ -229,23 +320,14 @@ namespace nts_platform_server.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Info")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("MiddleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Number")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Place")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("int");
 
                     b.Property<long?>("RoleId")
                         .HasColumnType("bigint");
@@ -374,13 +456,24 @@ namespace nts_platform_server.Migrations
                     b.Navigation("Week");
                 });
 
+            modelBuilder.Entity("nts_platform_server.Entities.Profile", b =>
+                {
+                    b.HasOne("nts_platform_server.Entities.User", "User")
+                        .WithOne("Profile")
+                        .HasForeignKey("nts_platform_server.Entities.Profile", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("nts_platform_server.Entities.Project", b =>
                 {
-                    b.HasOne("nts_platform_server.Entities.User", "user")
+                    b.HasOne("nts_platform_server.Entities.User", "EnginerCreater")
                         .WithMany()
-                        .HasForeignKey("userId");
+                        .HasForeignKey("EnginerCreaterId");
 
-                    b.Navigation("user");
+                    b.Navigation("EnginerCreater");
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.User", b =>
@@ -489,6 +582,8 @@ namespace nts_platform_server.Migrations
 
             modelBuilder.Entity("nts_platform_server.Entities.User", b =>
                 {
+                    b.Navigation("Profile");
+
                     b.Navigation("UserProjects");
 
                     b.Navigation("Weeks");

@@ -104,18 +104,13 @@ namespace nts_platform_server
 
             });
 
-           /* app.UseStaticFiles(new StaticFileOptions{
-                ServeUnknownFileTypes = true,
-                ContentTypeProvider = new FileExtensionContentTypeProvider(new Dictionary<string, string>
-                {
-                    { ".apk","application/vnd.android.package-archive"},
-                    { ".nupkg","application/zip"}
-                })
-                });*/
-
-
             // подключаем CORS
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().WithExposedHeaders("Content-Disposition"));
+            app.UseCors(x =>
+                        x.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin()
+                        .WithExposedHeaders("Content-Disposition")
+            );
 
             app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(x => x.MapControllers());

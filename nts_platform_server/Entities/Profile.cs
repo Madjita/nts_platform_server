@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace nts_platform_server.Entities
@@ -11,34 +12,37 @@ namespace nts_platform_server.Entities
     {
         [Key]
         [ForeignKey("User")]
-        public override long Id { get; set; }
+        [JsonIgnore]
+        public override int Id { get; set; }
 
+        //[JsonIgnore]
+        //public int UserId { get; set; }
         public User User { get; set; }
         public bool Sex { get; set; }
         public DateTime Date { get; set; }
-        public int PRFseries { get; set; }
-        public int PRFnumber { get; set; }
-        public DateTime PRFdatetaked { get; set; }
-        public DateTime PRFdateback { get; set; }
-        public int PRFcode { get; set; }
-        public string PRFtaked { get; set; }
-        public string PRFplaceborned { get; set; }
-        public string PRFplaceregistration { get; set; }
-        public string PRFplacelived { get; set; }
-        public int IPnumber { get; set; }
-        public DateTime IPdatetaked { get; set; }
-        public DateTime IPdateback { get; set; }
-        public int IPcode { get; set; }
-        public string IPtaked { get; set; }
-        public string IPplaceborned { get; set; }
-        public int ULMnumber { get; set; }
-        public DateTime ULMdatetaked { get; set; }
-        public DateTime ULMdateback { get; set; }
-        public int ULMcode { get; set; }
-        public string ULMtaked { get; set; }
-        public string ULMplaceborned { get; set; }
+        public int PrfSeries { get; set; }
+        public int PrfNumber { get; set; }
+        public DateTime PrfDateTaked { get; set; }
+        public DateTime? PrfDateBack { get; set; }
+        public int PrfCode { get; set; }
+        public string PrfTaked { get; set; }
+        public string PrfPlaceBorned { get; set; }
+        public string PrfPlaceRegistration { get; set; }
+        public string PrfPlaceLived { get; set; }
+        public int IpNumber { get; set; }
+        public DateTime IpDateTaked { get; set; }
+        public DateTime IpDateBack { get; set; }
+        public int IpCode { get; set; }
+        public string IpTaked { get; set; }
+        public string IpPlaceBorned { get; set; }
+        public int UlmNumber { get; set; }
+        public DateTime UlmDateTaked { get; set; }
+        public DateTime UlmDateBack { get; set; }
+        public int UlmCode { get; set; }
+        public string UlmTaked { get; set; }
+        public string UlmPlaceBorned { get; set; }
         public string Snils { get; set; }
-        public int INN { get; set; }
+        public int Inn { get; set; }
         public string Phone { get; set; }
         public string PhotoName { get; set; }
         public byte[] PhotoByte { get; set; }

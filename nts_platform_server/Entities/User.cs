@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using nts_platform_server.Entities;
 
@@ -14,12 +15,15 @@ namespace nts_platform_server.Entities
         public string Email { get; set; }
         public string Password { get; set; }
 
-        //public int RoleId { get; set; }
+        [JsonIgnore]
+        public int RoleId { get; set; }
         public virtual Role Role { get; set; }
 
-        //public int CompanyId { get; set; }
+        [JsonIgnore]
+        public int CompanyId { get; set; }
         public Company Company { get; set; }
 
+        [JsonIgnore]
         public int ProfileId { get; set; }
         public Profile Profile { get; set; }
         public List<UserProject> UserProjects { get; set; }

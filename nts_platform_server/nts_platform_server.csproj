@@ -31,7 +31,6 @@
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
-    <None Remove="migrations\" />
     <None Remove="BCrypt" />
     <None Remove="BCrypt.Net-Next" />
     <None Remove="BadMessage\" />
@@ -47,7 +46,6 @@
     <Folder Include="Entities\" />
     <Folder Include="Data\" />
     <Folder Include="Services\" />
-    <Folder Include="migrations\" />
     <Folder Include="BadMessage\" />
     <Folder Include="zip\" />
   </ItemGroup>

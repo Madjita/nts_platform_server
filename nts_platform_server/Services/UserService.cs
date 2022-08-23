@@ -140,7 +140,6 @@ namespace nts_platform_server.Services
                 e.Email,
                 e.UserProjects,
                 Company = e.Company.Name,
-                //Role = e.Role.Title,
                 e.Role,
             })
             .ToList();
@@ -196,6 +195,9 @@ namespace nts_platform_server.Services
             return null;
         }
 
+
+
+   
         public async Task<Object> Find(string email)
         {
             var check = _userRepository.Get()
@@ -215,6 +217,7 @@ namespace nts_platform_server.Services
                      e.Role,
                      e.Profile,
                 }).FirstOrDefault();
+
 
             if (check != null)
             {
@@ -239,7 +242,6 @@ namespace nts_platform_server.Services
                    e.Email,
                    e.UserProjects,
                    Company = e.Company.Name,
-                   //Role = e.Role.Title,
                    e.Role,
                })
                .Where(x => x.UserProjects.Where(s => s.Project.Title == project).Any())
@@ -267,31 +269,35 @@ namespace nts_platform_server.Services
                 check.FirstName = changeUser.NewUser.FirstName;
                 check.SecondName = changeUser.NewUser.SecondName;
                 check.MiddleName = changeUser.NewUser.MiddleName;
+
+                
+
+
                 check.Profile.Sex = changeUser.NewUser.Profile.Sex;
                 check.Profile.Date = changeUser.NewUser.Profile.Date;
-                check.Profile.PRFseries = changeUser.NewUser.Profile.PRFseries;
-                check.Profile.PRFnumber = changeUser.NewUser.Profile.PRFnumber;
-                check.Profile.PRFdatetaked = changeUser.NewUser.Profile.PRFdatetaked;
-                check.Profile.PRFdateback = changeUser.NewUser.Profile.PRFdateback;
-                check.Profile.PRFcode = changeUser.NewUser.Profile.PRFcode;
-                check.Profile.PRFtaked = changeUser.NewUser.Profile.PRFtaked;
-                check.Profile.PRFplaceborned = changeUser.NewUser.Profile.PRFplaceborned;
-                check.Profile.PRFplaceregistration = changeUser.NewUser.Profile.PRFplaceregistration;
-                check.Profile.PRFplacelived = changeUser.NewUser.Profile.PRFplacelived;
-                check.Profile.IPnumber = changeUser.NewUser.Profile.IPnumber;
-                check.Profile.IPdatetaked = changeUser.NewUser.Profile.IPdatetaked;
-                check.Profile.IPdateback = changeUser.NewUser.Profile.IPdateback;
-                check.Profile.IPcode = changeUser.NewUser.Profile.IPcode;
-                check.Profile.IPtaked = changeUser.NewUser.Profile.IPtaked;
-                check.Profile.IPplaceborned = changeUser.NewUser.Profile.IPplaceborned;
-                check.Profile.ULMnumber = changeUser.NewUser.Profile.ULMnumber;
-                check.Profile.ULMdatetaked = changeUser.NewUser.Profile.ULMdatetaked;
-                check.Profile.ULMdateback = changeUser.NewUser.Profile.ULMdateback;
-                check.Profile.ULMcode = changeUser.NewUser.Profile.ULMcode;
-                check.Profile.ULMtaked = changeUser.NewUser.Profile.ULMtaked;
-                check.Profile.ULMplaceborned = changeUser.NewUser.Profile.ULMplaceborned;
+                check.Profile.PrfSeries = changeUser.NewUser.Profile.PrfSeries;
+                check.Profile.PrfNumber = changeUser.NewUser.Profile.PrfNumber;
+                check.Profile.PrfDateTaked = changeUser.NewUser.Profile.PrfDateTaked;
+                check.Profile.PrfDateBack = changeUser.NewUser.Profile.PrfDateBack;
+                check.Profile.PrfCode = changeUser.NewUser.Profile.PrfCode;
+                check.Profile.PrfTaked = changeUser.NewUser.Profile.PrfTaked;
+                check.Profile.PrfPlaceBorned = changeUser.NewUser.Profile.PrfPlaceBorned;
+                check.Profile.PrfPlaceRegistration = changeUser.NewUser.Profile.PrfPlaceRegistration;
+                check.Profile.PrfPlaceLived = changeUser.NewUser.Profile.PrfPlaceLived;
+                check.Profile.IpNumber = changeUser.NewUser.Profile.IpNumber;
+                check.Profile.IpDateTaked = changeUser.NewUser.Profile.IpDateTaked;
+                check.Profile.IpDateBack = changeUser.NewUser.Profile.IpDateBack;
+                check.Profile.IpCode = changeUser.NewUser.Profile.IpCode;
+                check.Profile.IpTaked = changeUser.NewUser.Profile.IpTaked;
+                check.Profile.IpPlaceBorned = changeUser.NewUser.Profile.IpPlaceBorned;
+                check.Profile.UlmNumber = changeUser.NewUser.Profile.UlmNumber;
+                check.Profile.UlmDateTaked = changeUser.NewUser.Profile.UlmDateTaked;
+                check.Profile.UlmDateBack = changeUser.NewUser.Profile.UlmDateBack;
+                check.Profile.UlmCode = changeUser.NewUser.Profile.UlmCode;
+                check.Profile.UlmTaked = changeUser.NewUser.Profile.UlmTaked;
+                check.Profile.UlmPlaceBorned = changeUser.NewUser.Profile.UlmPlaceBorned;
                 check.Profile.Snils = changeUser.NewUser.Profile.Snils;
-                check.Profile.INN = changeUser.NewUser.Profile.INN;
+                check.Profile.Inn = changeUser.NewUser.Profile.Inn;
                 check.Profile.Phone = changeUser.NewUser.Profile.Phone;
                 await _userRepository.Save();
 

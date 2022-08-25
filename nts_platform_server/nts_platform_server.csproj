@@ -37,6 +37,7 @@
     <None Remove="Microsoft.AspNetCore.Mvc" />
     <None Remove="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
     <None Remove="zip\" />
+    <None Remove="Algorithms\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exel\" />
@@ -48,6 +49,7 @@
     <Folder Include="Services\" />
     <Folder Include="BadMessage\" />
     <Folder Include="zip\" />
+    <Folder Include="Algorithms\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="6.0.4" />

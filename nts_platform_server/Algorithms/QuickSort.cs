@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using nts_platform_server.Entities;
 
 namespace nts_platform_server.Algorithms
@@ -11,12 +12,8 @@ namespace nts_platform_server.Algorithms
         public QuickSort(T[] inputArray)
         {
 
-            //создаем объект
             Stopwatch stopwatch = new();
-            //засекаем время начала операции
             stopwatch.Start();
-            // Console.WriteLine($"Stopwatch Start:{ stopwatch.ElapsedTicks}");
-
 
             IOrderedEnumerable<T> orderedNumbers = from i in inputArray
                                  orderby i
@@ -34,53 +31,37 @@ namespace nts_platform_server.Algorithms
                                                 resultTime.Seconds,
                                                 resultTime.Milliseconds);
 
-            Console.WriteLine($"Stopwatch Stop:{resultTime.Ticks} = { elapsedTime}");
+            Console.WriteLine($"Stopwatch Stop LINQ:{resultTime.Ticks} = { elapsedTime}");
 
-
-            //foreach (T i in orderedNumbers)
-            //    Console.WriteLine(i);
-
-
-
-            //создаем объект
             stopwatch = new Stopwatch();
-            //засекаем время начала операции
             stopwatch.Start();
-            // Console.WriteLine($"Stopwatch Start:{ stopwatch.ElapsedTicks}");
 
-            if (typeof(T) == typeof(int))
-            {
-                var s = (int[])Convert.ChangeType(inputArray, typeof(int[]));
+            var s = (int[])Convert.ChangeType(inputArray, typeof(int[]));
 
-                int[] sortedArray = Sort(s, 0, inputArray.Length - 1);
+            int[] sortedArray = Sort(s, 0, inputArray.Length - 1);
 
 
-                //останавливаем счётчик
-                stopwatch.Stop();
-                //смотрим сколько миллисекунд было затрачено на выполнение
+            //останавливаем счётчик
+            stopwatch.Stop();
+            resultTime = stopwatch.Elapsed;
+            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+                                                resultTime.Hours,
+                                                resultTime.Minutes,
+                                                resultTime.Seconds,
+                                                resultTime.Milliseconds);
 
-                resultTime = stopwatch.Elapsed;
-
-                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-                                                    resultTime.Hours,
-                                                    resultTime.Minutes,
-                                                    resultTime.Seconds,
-                                                    resultTime.Milliseconds);
-
-                Console.WriteLine($"Stopwatch Stop:{resultTime.Ticks} = { elapsedTime}");
-
-                Console.WriteLine($"Sorted array: {string.Join(", ", sortedArray)}");
-
-            }
+            Console.WriteLine($"Stopwatch Stop QuickSort:{resultTime.Ticks} = { elapsedTime}");
         }
 
 
         private static string _parametr = "";
         private static Type _type = null;
+        private static PropertyInfo _propertyInfo = null;
         public QuickSort(List<T> inputArray, string parametr)
         {
             _parametr = parametr;
             _type = typeof(T);
+            _propertyInfo = _type!.GetProperty(_parametr);
 
 
 
@@ -107,31 +88,24 @@ namespace nts_platform_server.Algorithms
                                                 resultTime.Minutes,
                                                 resultTime.Seconds,
                                                 resultTime.Milliseconds);
-
-            Console.WriteLine($"Stopwatch Stop:{resultTime.Ticks} = { elapsedTime}");
+             
+            Console.WriteLine($"Stopwatch Stop LINQ:{resultTime.Ticks} = { elapsedTime}");
 
 
 
 
             //создаем объект
             stopwatch = new();
-            //засекаем время начала операции
             stopwatch.Start();
-            // Console.WriteLine($"Stopwatch Start:{ stopwatch.ElapsedTicks}");
-
             List<T> sortedArray = Sort(inputArray, 0, inputArray.Count - 1);
-            //останавливаем счётчик
             stopwatch.Stop();
-            //смотрим сколько миллисекунд было затрачено на выполнение
             resultTime = stopwatch.Elapsed;
-
             elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
                                                 resultTime.Hours,
                                                 resultTime.Minutes,
                                                 resultTime.Seconds,
                                                 resultTime.Milliseconds);
-
-            Console.WriteLine($"Stopwatch Stop:{resultTime.Ticks} = { elapsedTime}");
+            Console.WriteLine($"Stopwatch Stop QuickSort:{resultTime.Ticks} = { elapsedTime}");
 
 
         }
@@ -157,23 +131,33 @@ namespace nts_platform_server.Algorithms
         {
             int pivot = minIndex - 1;
 
-            int right = (int)_type!.GetProperty(_parametr).GetValue(array[maxIndex]);
+            int right = (int)_propertyInfo.GetValue(array[maxIndex]);
+
+            T tmp;
 
             for (int i = minIndex; i <= maxIndex; i++)
             {
-                int left = (int)_type!.GetProperty(_parametr).GetValue(array[i]);
+                //int left = (int)_type!.GetProperty(_parametr).GetValue(array[i]);
                
 
-                if (left < right)
+                if ((int)_propertyInfo.GetValue(array[i]) < right)
                 {
                     pivot++;
-                    Swap(array,pivot, i);
+                     //Swap(array,pivot, i);
+
+                    tmp = array[pivot];
+                    array[pivot] = array[i];
+                    array[i] = tmp;
                 }
 
             }
 
             pivot++;
-            Swap(array, pivot, maxIndex);
+            //Swap(array, pivot, maxIndex);
+
+            tmp = array[pivot];
+            array[pivot] = array[maxIndex];
+            array[maxIndex] = tmp;
 
             return pivot;
         }

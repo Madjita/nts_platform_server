@@ -38,6 +38,8 @@
     <None Remove="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
     <None Remove="zip\" />
     <None Remove="Algorithms\" />
+    <None Remove="iTextSharp" />
+    <None Remove="IronPdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exel\" />
@@ -72,6 +74,8 @@
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.6" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="IronPdf" Version="2022.8.8138" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />

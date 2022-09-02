@@ -90,8 +90,15 @@ namespace nts_platform_server
             services.AddControllers();
 
 
+           //test()
+
+        }
+
+
+        private void test()
+        {
             //test algorithm QuickSort
-             int[] inputArray = {
+            int[] inputArray = {
                 105, 961, 201, 845, 950,178, 782, 989, 364,984,849, 783, 440, 357, 228,
                 703, 322, 604, 381, 413,362, 711,639, 690, 744,649, 278, 731, 642, 760,
                 481, 864, 525, 570, 232,959, 219, 269, 776, 728,379, 567, 673, 195, 551,
@@ -113,19 +120,18 @@ namespace nts_platform_server
                 802, 582, 9, 683, 636, 363, 233, 310, 423, 139, 770, 679, 716, 860, 47, 561,
                 574, 475, 904, 673, 535, 971, 157, 976, 969, 976, 981, 284, 83, 634, 811, 829 };
 
-              List<Entities.Profile> profiles = new List<Entities.Profile>();
+            List<Entities.Profile> profiles = new List<Entities.Profile>();
 
-              foreach(var item in inputArray)
-              {
-                  var o = new Entities.Profile();
-                  o.Inn = item;
-                  profiles.Add(o);
-              }
+            foreach (var item in inputArray)
+            {
+                var o = new Entities.Profile();
+                o.Inn = item;
+                profiles.Add(o);
+            }
 
-              QuickSort<Entities.Profile> quickSort = new QuickSort<Entities.Profile>(profiles, "Inn");
+            QuickSort<Entities.Profile> quickSort = new QuickSort<Entities.Profile>(profiles, "Inn");
 
-              QuickSort<int> quickSort2 = new QuickSort<int>(inputArray);
-
+            QuickSort<int> quickSort2 = new QuickSort<int>(inputArray);
         }
 
 

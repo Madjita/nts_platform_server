@@ -62,9 +62,6 @@ namespace nts_platform_server.Algorithms
             _parametr = parametr;
             _type = typeof(T);
             _propertyInfo = _type!.GetProperty(_parametr);
-
-
-
             //создаем объект
             Stopwatch stopwatch = new();
             //засекаем время начала операции
@@ -77,7 +74,7 @@ namespace nts_platform_server.Algorithms
                     , null
                     , x
                     , null
-                )).ToList();
+                ));//.ToList();
             //останавливаем счётчик
             stopwatch.Stop();
             //смотрим сколько миллисекунд было затрачено на выполнение
@@ -88,12 +85,7 @@ namespace nts_platform_server.Algorithms
                                                 resultTime.Minutes,
                                                 resultTime.Seconds,
                                                 resultTime.Milliseconds);
-             
             Console.WriteLine($"Stopwatch Stop LINQ:{resultTime.Ticks} = { elapsedTime}");
-
-
-
-
             //создаем объект
             stopwatch = new();
             stopwatch.Start();
@@ -106,8 +98,6 @@ namespace nts_platform_server.Algorithms
                                                 resultTime.Seconds,
                                                 resultTime.Milliseconds);
             Console.WriteLine($"Stopwatch Stop QuickSort:{resultTime.Ticks} = { elapsedTime}");
-
-
         }
 
 

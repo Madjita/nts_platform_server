@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,7 +33,7 @@ namespace nts_platform_server
         }
 
 
-
+        private IServiceCollection _services;
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -41,6 +43,7 @@ namespace nts_platform_server
                 opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));*/
 
 
+            _services = services;
 
             services.AddControllers();
           
@@ -156,6 +159,27 @@ namespace nts_platform_server
 
             app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(x => x.MapControllers());
+
+
+            app.Run(async context =>
+            {
+                var sb = new StringBuilder();
+                sb.Append("<h1>Все сервисы</h1>");
+                sb.Append("<table>");
+                sb.Append("<tr><th>Тип</th><th>Lifetime</th><th>Реализация</th></tr>");
+                foreach (var svc in _services)
+                {
+                    sb.Append("<tr>");
+                    sb.Append($"<td>{svc.ServiceType.FullName}</td>");
+                    sb.Append($"<td>{svc.Lifetime}</td>");
+                    sb.Append($"<td>{svc.ImplementationType?.FullName}</td>");
+                    sb.Append("</tr>");
+                }
+                sb.Append("</table>");
+                context.Response.ContentType = "text/html;charset=utf-8";
+                await context.Response.WriteAsync(sb.ToString());
+            });
+
         }
     }
 }

@@ -137,11 +137,9 @@ namespace nts_platform_server.Data
         }
 
 
-
-        /*
         public async Task<int> SaveChangesAsync()
         {
             return await base.SaveChangesAsync();
-        }*/
+        }
     }
 }

@@ -172,10 +172,8 @@ namespace nts_platform_server.Controllers
             if (file == null)
                 return BadRequest(new { message = "File doesn't send!" });
 
-            Task<Entities.User> response = null;
-
        
-            response = _userService.ChangePhoto(file);            
+            var response = await _userService.ChangePhoto(file);            
             
             if (response == null)
                 return BadRequest(new { message = "File doesn't send!" });

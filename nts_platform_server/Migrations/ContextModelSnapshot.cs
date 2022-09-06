@@ -21,9 +21,9 @@ namespace nts_platform_server.Migrations
 
             modelBuilder.Entity("nts_platform_server.Entities.Company", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
@@ -35,13 +35,20 @@ namespace nts_platform_server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "NTS"
+                        });
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.Contact", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Age")
@@ -75,16 +82,16 @@ namespace nts_platform_server.Migrations
 
             modelBuilder.Entity("nts_platform_server.Entities.ContactProject", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("ContactId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("ContactId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("ProjectId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -97,9 +104,9 @@ namespace nts_platform_server.Migrations
 
             modelBuilder.Entity("nts_platform_server.Entities.DocHour", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ActivityCode")
@@ -129,8 +136,8 @@ namespace nts_platform_server.Migrations
                     b.Property<float>("WTHour")
                         .HasColumnType("real");
 
-                    b.Property<long?>("WeekId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("WeekId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Weekday")
                         .HasColumnType("nvarchar(max)");
@@ -147,58 +154,31 @@ namespace nts_platform_server.Migrations
 
             modelBuilder.Entity("nts_platform_server.Entities.Profile", b =>
                 {
-                    b.Property<long>("Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("INN")
+                    b.Property<int>("Inn")
                         .HasColumnType("int");
 
-                    b.Property<int>("IPcode")
+                    b.Property<int>("IpCode")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("IPdateback")
+                    b.Property<DateTime>("IpDateBack")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("IPdatetaked")
+                    b.Property<DateTime>("IpDateTaked")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IPnumber")
+                    b.Property<int>("IpNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("IPplaceborned")
+                    b.Property<string>("IpPlaceBorned")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IPtaked")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PRFcode")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PRFdateback")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("PRFdatetaked")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PRFnumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PRFplaceborned")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PRFplacelived")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PRFplaceregistration")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PRFseries")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PRFtaked")
+                    b.Property<string>("IpTaked")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
@@ -210,40 +190,99 @@ namespace nts_platform_server.Migrations
                     b.Property<string>("PhotoName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PrfCode")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("PrfDateBack")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PrfDateTaked")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PrfNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PrfPlaceBorned")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrfPlaceLived")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrfPlaceRegistration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PrfSeries")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PrfTaked")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Sex")
                         .HasColumnType("bit");
 
                     b.Property<string>("Snils")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ULMcode")
+                    b.Property<int>("UlmCode")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ULMdateback")
+                    b.Property<DateTime>("UlmDateBack")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ULMdatetaked")
+                    b.Property<DateTime>("UlmDateTaked")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ULMnumber")
+                    b.Property<int>("UlmNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("ULMplaceborned")
+                    b.Property<string>("UlmPlaceBorned")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ULMtaked")
+                    b.Property<string>("UlmTaked")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Profile");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(1994, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Inn = 1111,
+                            IpCode = 111,
+                            IpDateBack = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IpDateTaked = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IpNumber = 1111,
+                            IpPlaceBorned = "Гор. КРАСНОЯСРК / RUSSIA",
+                            IpTaked = "МВД 24003",
+                            Phone = "89832068482",
+                            PhotoName = "ava",
+                            PrfCode = 240003,
+                            PrfDateTaked = new DateTime(2014, 9, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PrfNumber = 652893,
+                            PrfPlaceBorned = "ГОР. МИНСК БЕЛАРУСЬ",
+                            PrfPlaceLived = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 74",
+                            PrfPlaceRegistration = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 74",
+                            PrfSeries = 414,
+                            PrfTaked = "Отделом УФМС РОССИИ ПО КРАСНОЯСРКОМУ КРАЮ В СОВЕТСКОМ Р-НЕ Г.КРАСНОЯСРКА",
+                            Sex = false,
+                            Snils = "1111",
+                            UlmCode = 111,
+                            UlmDateBack = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UlmDateTaked = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UlmNumber = 111,
+                            UlmPlaceBorned = "Гор. КРАСНОЯСРК / RUSSIA",
+                            UlmTaked = "МВД 24003"
+                        });
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.Project", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ActualHour")
@@ -261,8 +300,8 @@ namespace nts_platform_server.Migrations
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("EnginerCreaterId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("EnginerCreaterId")
+                        .HasColumnType("int");
 
                     b.Property<int>("MaxHour")
                         .HasColumnType("int");
@@ -289,11 +328,40 @@ namespace nts_platform_server.Migrations
                     b.ToTable("Projects");
                 });
 
+            modelBuilder.Entity("nts_platform_server.Entities.ReportCheck", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descriptions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PhotoByte")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("PhotoName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProjectId");
+
+                    b.ToTable("ReportChecks");
+                });
+
             modelBuilder.Entity("nts_platform_server.Entities.Role", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Title")
@@ -302,17 +370,34 @@ namespace nts_platform_server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Title = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Title = "engineer"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Title = "guest"
+                        });
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CompanyId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -329,8 +414,8 @@ namespace nts_platform_server.Migrations
                     b.Property<int>("ProfileId")
                         .HasColumnType("int");
 
-                    b.Property<long?>("RoleId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
@@ -342,20 +427,34 @@ namespace nts_platform_server.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CompanyId = 1,
+                            Email = "xok",
+                            FirstName = "Сергей",
+                            MiddleName = "Юрьевич",
+                            Password = "$2a$11$9YwzEI7eZeoMOhU8u.o4Uu.dn5BkxejtmndbSALTglheTXLNtR4qq",
+                            ProfileId = 1,
+                            RoleId = 1,
+                            SecondName = "Смоглюк"
+                        });
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.UserProject", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("ProjectId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -368,16 +467,16 @@ namespace nts_platform_server.Migrations
 
             modelBuilder.Entity("nts_platform_server.Entities.Week", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("FrHourId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("FrHourId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("MoHourId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("MoHourId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Month")
                         .HasColumnType("int");
@@ -385,26 +484,26 @@ namespace nts_platform_server.Migrations
                     b.Property<int>("NumberWeek")
                         .HasColumnType("int");
 
-                    b.Property<long?>("SaHourId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("SaHourId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("SuHourId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("SuHourId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("ThHourId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("ThHourId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("TuHourId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("TuHourId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("UserProjectId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("UserProjectId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("WeHourId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("WeHourId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -476,15 +575,26 @@ namespace nts_platform_server.Migrations
                     b.Navigation("EnginerCreater");
                 });
 
+            modelBuilder.Entity("nts_platform_server.Entities.ReportCheck", b =>
+                {
+                    b.HasOne("nts_platform_server.Entities.UserProject", null)
+                        .WithMany("ReportChecks")
+                        .HasForeignKey("UserProjectId");
+                });
+
             modelBuilder.Entity("nts_platform_server.Entities.User", b =>
                 {
                     b.HasOne("nts_platform_server.Entities.Company", "Company")
                         .WithMany("Users")
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("nts_platform_server.Entities.Role", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Company");
 
@@ -591,6 +701,8 @@ namespace nts_platform_server.Migrations
 
             modelBuilder.Entity("nts_platform_server.Entities.UserProject", b =>
                 {
+                    b.Navigation("ReportChecks");
+
                     b.Navigation("Weeks");
                 });
 #pragma warning restore 612, 618

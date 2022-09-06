@@ -11,7 +11,8 @@ namespace nts_platform_server.Entities
     {
         [Key]
         [ForeignKey("User")]
-        public override long Id { get; set; }
+        [JsonIgnore]
+        public override int Id { get; set; }
 
         public User User { get; set; }
         public bool Sex { get; set; }

@@ -53,13 +53,6 @@ namespace nts_platform_server.Entities //Хранит данные по всем
                 }
 
                 return accum;
-               /* return this.MoHour.WTHour +
-                       this.TuHour.WTHour +
-                       this.WeHour.WTHour +
-                       this.ThHour.WTHour +
-                       this.FrHour.WTHour +
-                       this.SaHour.WTHour +
-                       this.SuHour.WTHour;*/
             }
         }
         

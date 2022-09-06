@@ -64,11 +64,6 @@ namespace nts_platform_server.Data
             modelBuilder.Entity<Week>()
             .HasOne(p => p.SuHour);
 
-            modelBuilder.Entity<User>()
-            .HasOne(a => a.Profile)
-            .WithOne(a => a.User)
-            .HasForeignKey<Profile>(c => c.User);
-
 
 
             modelBuilder.Entity<Role>().HasData(

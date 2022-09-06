@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using nts_platform_server.Auth.JWT;
 using nts_platform_server.Models;
@@ -163,5 +165,42 @@ namespace nts_platform_server.Controllers
             return Ok(companys);
         }
 
+        [Authorize]
+        [HttpPost("ImportFile")]
+        public async Task<IActionResult> ImportFile([FromForm] IFormFile file)
+        {
+            if (file == null)
+                return BadRequest(new { message = "File doesn't send!" });
+
+            Task<Entities.User> response = null;
+
+       
+            response = _userService.ChangePhoto(file);            
+            
+            if (response == null)
+                return BadRequest(new { message = "File doesn't send!" });
+
+            return Ok(response);
+        }
+
+        [Authorize]
+        [HttpGet("ExportFile")]
+        public async Task<IActionResult> GetPhoto()
+        {
+
+            var response = await _userService.TakePhoto();
+
+            if (response == null)
+            {
+                return BadRequest(new { message = "User don't find!" });
+            }
+            Console.Write("Everything ok");
+
+            return Ok(new { 
+                message = "All are OK", 
+                PhotoName = response.Profile.PhotoName, 
+                PhotoByte = response.Profile.PhotoByte
+           });
+        }
     }
 }

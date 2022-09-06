@@ -25,17 +25,17 @@ namespace nts_platform_server.Data
         public Context(DbContextOptions<Context> options)
         : base(options)
         {
-          // Database.EnsureDeleted();
-           //Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
 
-       
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Add the shadow property to the model
             modelBuilder.Entity<DocHour>()
-                .HasOne(p=> p.Week);
+                .HasOne(p => p.Week);
 
 
             modelBuilder.Entity<Week>()
@@ -59,87 +59,36 @@ namespace nts_platform_server.Data
             modelBuilder.Entity<Week>()
             .HasOne(p => p.SuHour);
 
+            /*modelBuilder.Entity<User>()
+            .HasOne(a => a.Profile)
+            .WithOne(a => a.User)
+            .HasForeignKey<Profile>(c => c.User);
+
+            modelBuilder.Entity<User>()
+             .Navigation(b => b.Profile)
+             .UsePropertyAccessMode(PropertyAccessMode.Property);*/
 
 
-            modelBuilder.Entity<Role>().HasData(
+
+          /*  modelBuilder.Entity<Role>().HasData(
             new Role[]
             {
-                new Role{Id =1,Title= "admin"},
-                new Role{Id =2,Title= "engineer"},
-                new Role{Id =3,Title= "guest"}
+                  new Role{Id =1,Title= "admin"},
+                  new Role{Id =2,Title= "engineer"},
+                  new Role{Id =3,Title= "guest"}
             });
 
             modelBuilder.Entity<Company>().HasData(
             new Company[]
             {
-                new Company{Id =1,Name= "NTS"},
-            });
+                  new Company{Id =1,Name= "NTS"},
+            });*/
 
-
-            modelBuilder.Entity<Profile>().HasData(
-           new Profile[]
-           {
-                new Profile{
-                    Id = 1,
-                    Sex = false,
-                    Date = new DateTime(1994,08,18),
-                    PrfSeries = 0414,
-                    PrfNumber = 652893,
-                    PrfDateTaked = new DateTime(2014,09,03),
-                    PrfDateBack = null,
-                    PrfCode = 240003,
-                    PrfTaked = "Отделом УФМС РОССИИ ПО КРАСНОЯСРКОМУ КРАЮ В СОВЕТСКОМ Р-НЕ Г.КРАСНОЯСРКА",
-                    PrfPlaceBorned = "ГОР. МИНСК БЕЛАРУСЬ",
-                    PrfPlaceRegistration = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 74",
-                    PrfPlaceLived = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 74",
-                    IpNumber = 1111,
-                    IpDateTaked = new DateTime(),
-                    IpDateBack = new DateTime(),
-                    IpCode = 111,
-                    IpTaked = "МВД 24003",
-                    IpPlaceBorned = "Гор. КРАСНОЯСРК / RUSSIA",
-                    UlmNumber = 111,
-                    UlmDateTaked = new DateTime(),
-                    UlmDateBack = new DateTime(),
-                    UlmCode = 111,
-                    UlmTaked = "МВД 24003",
-                    UlmPlaceBorned = "Гор. КРАСНОЯСРК / RUSSIA",
-                    Snils = "1111",
-                    Inn = 1111,
-                    Phone = "89832068482",
-                    PhotoName = "ava",
-                },
-           });
-
-            modelBuilder.Entity<User>().HasData(
-            new User[]
+            /*
+            public async Task<int> SaveChangesAsync()
             {
-                new User{
-                    Id =1,
-                    FirstName= "Сергей",
-                    SecondName = "Смоглюк",
-                    MiddleName = "Юрьевич",
-                    Email = "xok",
-                    Password = BCrypt.Net.BCrypt.HashPassword("123"),
-                    ProfileId = 1,
-                    CompanyId = 1,
-                    RoleId = 1,
-            },
-            });
-
-           
-
-
-
-
+                return await base.SaveChangesAsync();
+            }*/
         }
-
-
-
-        /*
-        public async Task<int> SaveChangesAsync()
-        {
-            return await base.SaveChangesAsync();
-        }*/
     }
 }

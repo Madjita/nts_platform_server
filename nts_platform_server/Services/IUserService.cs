@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using nts_platform_server.Entities;
 using nts_platform_server.Models;
 
@@ -16,6 +17,7 @@ namespace nts_platform_server.Services
         Task<Object> Find(string email);
         Task<IEnumerable<Object>> FindUsersInProjectAsync(string project);
         Task<User> ChangeUser(UserModelChange changeUser);
-
+        Task<User> ChangePhoto(IFormFile file);
+        Task<UserModelExtend> TakePhoto();
     }
 }

@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/nts_platform_server.csproj": {}
+    "C:\\Users\\Александр\\OneDrive\\Рабочий стол\\testGit\\nts_platform_server\\nts_platform_server\\nts_platform_server.csproj": {}
   },
   "projects": {
-    "/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/nts_platform_server.csproj": {
+    "C:\\Users\\Александр\\OneDrive\\Рабочий стол\\testGit\\nts_platform_server\\nts_platform_server\\nts_platform_server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/nts_platform_server.csproj",
+        "projectUniqueName": "C:\\Users\\Александр\\OneDrive\\Рабочий стол\\testGit\\nts_platform_server\\nts_platform_server\\nts_platform_server.csproj",
         "projectName": "nts_platform_server",
-        "projectPath": "/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/nts_platform_server.csproj",
-        "packagesPath": "/Users/sergeismogliuk/.nuget/packages/",
-        "outputPath": "/Users/sergeismogliuk/Documents/Project/NTS_project/nts_platform_server/nts_platform_server/obj/",
+        "projectPath": "C:\\Users\\Александр\\OneDrive\\Рабочий стол\\testGit\\nts_platform_server\\nts_platform_server\\nts_platform_server.csproj",
+        "packagesPath": "C:\\Users\\Александр\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Александр\\OneDrive\\Рабочий стол\\testGit\\nts_platform_server\\nts_platform_server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/sergeismogliuk/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Александр\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -117,7 +119,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.301/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

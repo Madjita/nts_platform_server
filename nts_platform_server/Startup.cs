@@ -88,6 +88,7 @@ namespace nts_platform_server
             services.AddTransient<ICompanyService, CompanyService>();
             services.AddTransient<IDocHourseService, DocHourseService>();
             services.AddTransient<IProjectService, ProjectService>();
+            services.AddTransient<IReportCheckService, ReportCheckService>();
 
             services.AddCors();
             services.AddControllers();

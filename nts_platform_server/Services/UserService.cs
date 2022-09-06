@@ -14,23 +14,49 @@ using Profile = nts_platform_server.Entities.Profile;
 
 namespace nts_platform_server.Services
 {
+    public interface IUserService
+    {
+        AuthenticateResponse Authenticate(AuthenticateRequest model);
+        Task<AuthenticateResponse> Register(UserModelRegister userModel);
+        IEnumerable<Object> GetAll();
+        User GetById(int id);
+        Task<User> RemoveAsync(string name);
+        Task<Object> Find(string email);
+        Task<IEnumerable<Object>> FindUsersInProjectAsync(string project);
+        Task<User> ChangeUser(UserModelChange changeUser);
+        Task<User> ChangePhoto(IFormFile file);
+        Task<UserModelExtend> TakePhoto();
+    }
+
     public class UserService : IUserService
     {
         private readonly IEfRepository<User> _userRepository;
         private readonly IEfRepository<Role> _roleRepository;
         private readonly IEfRepository<UserProject> _userProjectRepository;
 
+        private readonly IReportCheckService _reportCeckService;
+
         private readonly ICompanyService _companyService;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
-        public UserService(IEfRepository<User> userRepository, IEfRepository<Role> roleRepository, IEfRepository<UserProject> userProjectRepository, ICompanyService companyServic, IConfiguration configuration, IMapper mapper)
+        public UserService(
+            IEfRepository<User> userRepository,
+            IEfRepository<Role> roleRepository,
+            IEfRepository<UserProject> userProjectRepository,
+
+            IReportCheckService reportCeckService,
+            ICompanyService companyServic,
+            IConfiguration configuration,
+            IMapper mapper)
         {
             _roleRepository = roleRepository;
             _userRepository = userRepository;
             _companyService = companyServic;
             _userProjectRepository = userProjectRepository;
 
+
+            _reportCeckService = reportCeckService;
 
             _configuration = configuration;
             _mapper = mapper;
@@ -331,12 +357,13 @@ namespace nts_platform_server.Services
 
         public async Task<UserModelExtend> TakePhoto() //Сервис для взятия байтов с юзер профиля
         {
+            
             var check = _userRepository.Get()
                 .Include(x => x.Profile)
                 .Select(e => new UserModelExtend
                 {
                    FirstName = e.FirstName,
-                   Id = (int)e.Id,
+                   Id = e.Id,
                    Profile = new Profile
                    {
                        PhotoName = e.Profile.PhotoName,
@@ -351,5 +378,6 @@ namespace nts_platform_server.Services
 
             return null;
         }
+
     }
 }

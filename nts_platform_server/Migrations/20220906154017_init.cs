@@ -92,10 +92,10 @@ namespace nts_platform_server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     Sex = table.Column<bool>(type: "bit", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PrfSeries = table.Column<int>(type: "int", nullable: false),
                     PrfNumber = table.Column<int>(type: "int", nullable: false),
-                    PrfDateTaked = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PrfDateTaked = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PrfDateBack = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PrfCode = table.Column<int>(type: "int", nullable: false),
                     PrfTaked = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -103,14 +103,14 @@ namespace nts_platform_server.Migrations
                     PrfPlaceRegistration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PrfPlaceLived = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IpNumber = table.Column<int>(type: "int", nullable: false),
-                    IpDateTaked = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IpDateBack = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IpDateTaked = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IpDateBack = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IpCode = table.Column<int>(type: "int", nullable: false),
                     IpTaked = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IpPlaceBorned = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UlmNumber = table.Column<int>(type: "int", nullable: false),
-                    UlmDateTaked = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UlmDateBack = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UlmDateTaked = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UlmDateBack = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UlmCode = table.Column<int>(type: "int", nullable: false),
                     UlmTaked = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UlmPlaceBorned = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -214,23 +214,32 @@ namespace nts_platform_server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ReportChecks",
+                name: "ReportCheck",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Value = table.Column<int>(type: "int", nullable: false),
                     Descriptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheckBankPhotoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheckBankPhotoByte = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    UserProjectId = table.Column<int>(type: "int", nullable: true)
+                    UserProjectId = table.Column<int>(type: "int", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BillPhotoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BillPhotoByte = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    TicketPhotoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TicketPhotoByte = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    CheckPlane_BorderTicketPhotoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CheckPlane_BorderTicketPhotoByte = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    BorderTicketPhotoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BorderTicketPhotoByte = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReportChecks", x => x.Id);
+                    table.PrimaryKey("PK_ReportCheck", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ReportChecks_UserProject_UserProjectId",
+                        name: "FK_ReportCheck_UserProject_UserProjectId",
                         column: x => x.UserProjectId,
                         principalTable: "UserProject",
                         principalColumn: "Id",
@@ -321,7 +330,7 @@ namespace nts_platform_server.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CompanyId", "Email", "FirstName", "MiddleName", "Password", "ProfileId", "RoleId", "SecondName" },
-                values: new object[] { 1, 1, "xok", "Сергей", "Юрьевич", "$2a$11$tNGvsuImMSYbToS/tTxuIOM8CrXJlG7VEFV6BHKEg2zhbQ5JKEky2", 1, 1, "Смоглюк" });
+                values: new object[] { 1, 1, "xok", "Сергей", "Юрьевич", "$2a$11$3fXqU7LnNp6FD7hCku3Onulpo1GxLH.u3NQXXQn41qYFmo.4UDvbG", 1, 1, "Смоглюк" });
 
             migrationBuilder.InsertData(
                 table: "Profile",
@@ -349,8 +358,8 @@ namespace nts_platform_server.Migrations
                 column: "EnginerCreaterId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReportChecks_UserProjectId",
-                table: "ReportChecks",
+                name: "IX_ReportCheck_UserProjectId",
+                table: "ReportCheck",
                 column: "UserProjectId");
 
             migrationBuilder.CreateIndex(
@@ -492,7 +501,7 @@ namespace nts_platform_server.Migrations
                 name: "Profile");
 
             migrationBuilder.DropTable(
-                name: "ReportChecks");
+                name: "ReportCheck");
 
             migrationBuilder.DropTable(
                 name: "Contact");

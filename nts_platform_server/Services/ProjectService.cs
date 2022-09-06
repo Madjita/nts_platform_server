@@ -18,16 +18,10 @@ namespace nts_platform_server.Services
         Task<IEnumerable<Object>> AddAsync(ProjectModel newProjectModel);
         Task<IEnumerable<Object>> EditCodeAsync(ProjectEditModel projectEdit);
         Task<IEnumerable<Object>> RemoveCodeAsync(string name);
-
-
         Task<IEnumerable<Object>> AddUserProjectAsync(UserProjectModelList newUserProjectModelList);
         Task<IEnumerable<Object>> AddUserProjectHoursAsync(UserProjectModelHours newUserProject);
-
-
-        
         Company GetById(int id);
         Task<Project> Find(string code);
-
         Task<UserProject> FindUserProjectWeek(DownloadProjectUserWeekExelModel exelModel_UserProjectWeek);
     }
 

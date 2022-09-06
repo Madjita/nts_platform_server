@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using nts_platform_server.Entities;
 
+
+
+
 namespace nts_platform_server.Data
 {
     public class Context : DbContext
@@ -24,7 +27,11 @@ namespace nts_platform_server.Data
         public DbSet<Week> Week { get; set; }
         public DbSet<DocHour> DocHour { get; set; }
 
-        public DbSet<ReportCheck> ReportChecks { get; set; }
+        public DbSet<ReportCheck> ReportCheck { get; set; }
+        public DbSet<CheckPlane> CheckPlane { get; set; }
+        public DbSet<CheckTrain> CheckTrain { get; set; }
+        public DbSet<CheckHostel> CheckHostel { get; set; }
+        
 
 
         public Context(DbContextOptions<Context> options)
@@ -39,30 +46,15 @@ namespace nts_platform_server.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Add the shadow property to the model
-            modelBuilder.Entity<DocHour>()
-                .HasOne(p => p.Week);
+            modelBuilder.Entity<DocHour>().HasOne(p => p.Week);
 
-
-            modelBuilder.Entity<Week>()
-               .HasOne(p => p.MoHour);
-
-            modelBuilder.Entity<Week>()
-               .HasOne(p => p.ThHour);
-
-            modelBuilder.Entity<Week>()
-              .HasOne(p => p.TuHour);
-
-            modelBuilder.Entity<Week>()
-             .HasOne(p => p.WeHour);
-
-            modelBuilder.Entity<Week>()
-             .HasOne(p => p.FrHour);
-
-            modelBuilder.Entity<Week>()
-            .HasOne(p => p.SaHour);
-
-            modelBuilder.Entity<Week>()
-            .HasOne(p => p.SuHour);
+            modelBuilder.Entity<Week>().HasOne(p => p.MoHour);
+            modelBuilder.Entity<Week>().HasOne(p => p.ThHour);
+            modelBuilder.Entity<Week>().HasOne(p => p.TuHour);
+            modelBuilder.Entity<Week>().HasOne(p => p.WeHour);
+            modelBuilder.Entity<Week>().HasOne(p => p.FrHour);
+            modelBuilder.Entity<Week>().HasOne(p => p.SaHour);
+            modelBuilder.Entity<Week>().HasOne(p => p.SuHour);
 
 
 
@@ -131,6 +123,46 @@ namespace nts_platform_server.Data
                     RoleId = 1,
             },
             });
+
+
+
+           /* modelBuilder.Entity<CheckPlane>().HasData(
+            new CheckPlane
+            {
+                Id = 1,
+                Value = 100,
+                TicketPhotoName = "tiket",
+            });
+
+            modelBuilder.Entity<CheckTrain>().HasData(
+            new CheckTrain
+            {
+                Id = 2,
+                Value = 70,
+                BorderTicketPhotoName = "train",
+            });
+
+            modelBuilder.Entity<CheckHostel>().HasData(
+            new CheckHostel
+            {
+                Id = 3,
+                Value = 50,
+                BillPhotoName = "bill",
+            });
+
+
+
+            modelBuilder.Entity<ReportCheck>().HasData(
+            new ReportCheck[]
+            {
+               new ReportCheck
+               {
+                   Id = 4,
+                   Value = 1,
+                   CheckBankPhotoName = "bank"
+               }
+            }
+            );*/
 
         }
 

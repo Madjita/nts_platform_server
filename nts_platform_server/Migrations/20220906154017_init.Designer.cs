@@ -10,7 +10,7 @@ using nts_platform_server.Data;
 namespace nts_platform_server.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220906075902_init")]
+    [Migration("20220906154017_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -159,7 +159,7 @@ namespace nts_platform_server.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Inn")
@@ -168,10 +168,10 @@ namespace nts_platform_server.Migrations
                     b.Property<int>("IpCode")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("IpDateBack")
+                    b.Property<DateTime?>("IpDateBack")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("IpDateTaked")
+                    b.Property<DateTime?>("IpDateTaked")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("IpNumber")
@@ -198,7 +198,7 @@ namespace nts_platform_server.Migrations
                     b.Property<DateTime?>("PrfDateBack")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("PrfDateTaked")
+                    b.Property<DateTime?>("PrfDateTaked")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PrfNumber")
@@ -228,10 +228,10 @@ namespace nts_platform_server.Migrations
                     b.Property<int>("UlmCode")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UlmDateBack")
+                    b.Property<DateTime?>("UlmDateBack")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UlmDateTaked")
+                    b.Property<DateTime?>("UlmDateTaked")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UlmNumber")
@@ -343,23 +343,29 @@ namespace nts_platform_server.Migrations
                     b.Property<string>("CheckBankPhotoName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Descriptions")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("UserProjectId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Value")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserProjectId");
 
-                    b.ToTable("ReportChecks");
+                    b.ToTable("ReportCheck");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ReportCheck");
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.Role", b =>
@@ -441,7 +447,7 @@ namespace nts_platform_server.Migrations
                             Email = "xok",
                             FirstName = "Сергей",
                             MiddleName = "Юрьевич",
-                            Password = "$2a$11$tNGvsuImMSYbToS/tTxuIOM8CrXJlG7VEFV6BHKEg2zhbQ5JKEky2",
+                            Password = "$2a$11$3fXqU7LnNp6FD7hCku3Onulpo1GxLH.u3NQXXQn41qYFmo.4UDvbG",
                             ProfileId = 1,
                             RoleId = 1,
                             SecondName = "Смоглюк"
@@ -536,6 +542,53 @@ namespace nts_platform_server.Migrations
                     b.ToTable("Week");
                 });
 
+            modelBuilder.Entity("nts_platform_server.Entities.CheckHostel", b =>
+                {
+                    b.HasBaseType("nts_platform_server.Entities.ReportCheck");
+
+                    b.Property<byte[]>("BillPhotoByte")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("BillPhotoName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("CheckHostel");
+                });
+
+            modelBuilder.Entity("nts_platform_server.Entities.CheckPlane", b =>
+                {
+                    b.HasBaseType("nts_platform_server.Entities.ReportCheck");
+
+                    b.Property<byte[]>("BorderTicketPhotoByte")
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnName("CheckPlane_BorderTicketPhotoByte");
+
+                    b.Property<string>("BorderTicketPhotoName")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CheckPlane_BorderTicketPhotoName");
+
+                    b.Property<byte[]>("TicketPhotoByte")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("TicketPhotoName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("CheckPlane");
+                });
+
+            modelBuilder.Entity("nts_platform_server.Entities.CheckTrain", b =>
+                {
+                    b.HasBaseType("nts_platform_server.Entities.ReportCheck");
+
+                    b.Property<byte[]>("BorderTicketPhotoByte")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("BorderTicketPhotoName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("CheckTrain");
+                });
+
             modelBuilder.Entity("nts_platform_server.Entities.ContactProject", b =>
                 {
                     b.HasOne("nts_platform_server.Entities.Contact", "Contact")
@@ -582,9 +635,11 @@ namespace nts_platform_server.Migrations
 
             modelBuilder.Entity("nts_platform_server.Entities.ReportCheck", b =>
                 {
-                    b.HasOne("nts_platform_server.Entities.UserProject", null)
+                    b.HasOne("nts_platform_server.Entities.UserProject", "UserProject")
                         .WithMany("ReportChecks")
                         .HasForeignKey("UserProjectId");
+
+                    b.Navigation("UserProject");
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.User", b =>

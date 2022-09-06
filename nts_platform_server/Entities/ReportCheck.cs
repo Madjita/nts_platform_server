@@ -1,14 +1,19 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace nts_platform_server.Entities
 {
-    // новое добавил "Sergei" для отчетов по чекам на проект по конкретному пользователю
+    //для отчетов по чекам на проект по конкретному пользователю
     public class ReportCheck : BaseEntity
     {
-        public DateTime Date { get; set; } // дата оплаты
-        public string Value { get; set; }
+        
+        public DateTime? Date { get; set; } // дата оплаты
+        public int Value { get; set; }
         public string Descriptions { get; set; }
         public string CheckBankPhotoName { get; set; } //Название файла для чека который пришел от банка
         public byte[] CheckBankPhotoByte { get; set; } //Файл в байтах
+
+        public virtual UserProject UserProject { get; set; }
     }
 
     public class CheckPlane : ReportCheck
@@ -31,12 +36,5 @@ namespace nts_platform_server.Entities
         public string BillPhotoName { get; set; } //Название файла с его типом  счет из отеля
         public byte[] BillPhotoByte { get; set; } //Файл в байтах
     }
-
-    /*
-    public class CheckAnother : ReportCheck
-    {
-        public string CheckPhotoName { get; set; } //Название файла с его типом  любой чек из магазина
-        public byte[] CheckPhotoByte { get; set; } //Файл в байтах
-    }*/
 }
 

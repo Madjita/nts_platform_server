@@ -40,6 +40,7 @@
     <None Remove="Algorithms\" />
     <None Remove="iTextSharp" />
     <None Remove="IronPdf" />
+    <None Remove="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exel\" />
@@ -52,6 +53,7 @@
     <Folder Include="BadMessage\" />
     <Folder Include="zip\" />
     <Folder Include="Algorithms\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="6.0.4" />

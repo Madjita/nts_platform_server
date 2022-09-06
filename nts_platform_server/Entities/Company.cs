@@ -13,12 +13,9 @@ namespace nts_platform_server.Entities
         }
         public virtual List<User> Users { get; set; }
 
-        //public virtual List<UserProject> UserProjects { get; set; }
-
         public Company()
         {
             Users = new List<User>();
-            //UserProjects = new List<UserProject>();
         }
     }
 }

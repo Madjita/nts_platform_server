@@ -8,24 +8,29 @@ namespace nts_platform_server.Data
     public class Context : DbContext
     {
         public DbSet<Company> Companies { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Project> Projects { get; set; }
 
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<Profile> Profile { get; set; }
 
         public DbSet<Contact> Contact { get; set; }
         public DbSet<ContactProject> ContactProject { get; set; }
-        public DbSet<Role> Role { get; set; }
+
+
         public DbSet<UserProject> UserProject { get; set; }
+        public DbSet<Project> Projects { get; set; }
+
 
         public DbSet<Week> Week { get; set; }
         public DbSet<DocHour> DocHour { get; set; }
-        public DbSet<Profile> Profile { get; set; }
+
+        public DbSet<ReportCheck> ReportChecks { get; set; }
 
 
         public Context(DbContextOptions<Context> options)
         : base(options)
         {
-          // Database.EnsureDeleted();
+           //Database.EnsureDeleted();
            //Database.EnsureCreated();
         }
 
@@ -128,9 +133,6 @@ namespace nts_platform_server.Data
             });
 
            
-
-
-
 
         }
 

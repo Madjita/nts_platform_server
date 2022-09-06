@@ -15,8 +15,6 @@ namespace nts_platform_server.Entities
         [JsonIgnore]
         public override int Id { get; set; }
 
-        //[JsonIgnore]
-        //public int UserId { get; set; }
         public User User { get; set; }
         public bool Sex { get; set; }
         public DateTime Date { get; set; }

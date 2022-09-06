@@ -108,6 +108,7 @@ namespace nts_platform_server.Services
                     }
                 }
 
+                user.Profile = new Profile();
 
                 var addedUser = await _userRepository.Add(user);
             }

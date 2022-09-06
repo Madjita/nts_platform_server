@@ -14,10 +14,10 @@ namespace nts_platform_server.Entities
         public string Email { get; set; }
         public string Password { get; set; }
 
-        //public int RoleId { get; set; }
+        public int RoleId { get; set; }
         public virtual Role Role { get; set; }
 
-        //public int CompanyId { get; set; }
+        public int CompanyId { get; set; }
         public Company Company { get; set; }
 
         public int ProfileId { get; set; }

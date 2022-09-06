@@ -30,11 +30,11 @@ namespace nts_platform_server.Data
         public Context(DbContextOptions<Context> options)
         : base(options)
         {
-           //Database.EnsureDeleted();
-           //Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
 
-       
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -64,7 +64,7 @@ namespace nts_platform_server.Data
             modelBuilder.Entity<Week>()
             .HasOne(p => p.SuHour);
 
-            /*modelBuilder.Entity<User>()
+            modelBuilder.Entity<User>()
             .HasOne(a => a.Profile)
             .WithOne(a => a.User)
             .HasForeignKey<Profile>(c => c.User);
@@ -137,8 +137,6 @@ namespace nts_platform_server.Data
             },
             });
 
-           
-
         }
 
 
@@ -147,6 +145,7 @@ namespace nts_platform_server.Data
         public async Task<int> SaveChangesAsync()
         {
             return await base.SaveChangesAsync();
-        }*/
+        }
+       
     }
 }

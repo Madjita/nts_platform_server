@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using nts_platform_server.Auth.JWT;
 using nts_platform_server.Entities;
 using nts_platform_server.Models;
+using Profile = nts_platform_server.Entities.Profile;
 
 namespace nts_platform_server.Services
 {
@@ -140,6 +143,7 @@ namespace nts_platform_server.Services
                 e.Email,
                 e.UserProjects,
                 Company = e.Company.Name,
+                //Role = e.Role.Title,
                 e.Role,
             })
             .ToList();
@@ -195,9 +199,6 @@ namespace nts_platform_server.Services
             return null;
         }
 
-
-
-   
         public async Task<Object> Find(string email)
         {
             var check = _userRepository.Get()
@@ -217,7 +218,6 @@ namespace nts_platform_server.Services
                      e.Role,
                      e.Profile,
                 }).FirstOrDefault();
-
 
             if (check != null)
             {
@@ -242,6 +242,7 @@ namespace nts_platform_server.Services
                    e.Email,
                    e.UserProjects,
                    Company = e.Company.Name,
+                   //Role = e.Role.Title,
                    e.Role,
                })
                .Where(x => x.UserProjects.Where(s => s.Project.Title == project).Any())
@@ -266,13 +267,6 @@ namespace nts_platform_server.Services
 
             if (check != null)
             {
-                check.FirstName = changeUser.NewUser.FirstName;
-                check.SecondName = changeUser.NewUser.SecondName;
-                check.MiddleName = changeUser.NewUser.MiddleName;
-
-                
-
-
                 check.Profile.Sex = changeUser.NewUser.Profile.Sex;
                 check.Profile.Date = changeUser.NewUser.Profile.Date;
                 check.Profile.PrfSeries = changeUser.NewUser.Profile.PrfSeries;
@@ -305,6 +299,54 @@ namespace nts_platform_server.Services
                 return await Task.FromResult(check); ;
             }
 
+
+            return null;
+        }
+
+        public async Task<User> ChangePhoto(IFormFile file) //Берем файл фото и закидываем в базу
+        {
+
+            var check = _userRepository.Get() 
+                .Include(x => x.Profile)
+                .Where(x => x.Id == 1).FirstOrDefault();    //Заглушка по Id потом когда будет переделываться, то уже будет по авторизированному юзеру    
+
+            string extension = Path.GetExtension(file.FileName);          
+            var stream = new MemoryStream((int)file.Length);
+            file.CopyTo(stream);
+            var bytes = stream.ToArray();
+            
+            if (check != null)
+            {
+                check.Profile.PhotoName = extension;
+                check.Profile.PhotoByte = bytes;
+                await _userRepository.Save();
+
+                return await Task.FromResult(check); ;
+            }
+
+
+            return null;
+        }
+
+        public async Task<UserModelExtend> TakePhoto() //Сервис для взятия байтов с юзер профиля
+        {
+            var check = _userRepository.Get()
+                .Include(x => x.Profile)
+                .Select(e => new UserModelExtend
+                {
+                   FirstName = e.FirstName,
+                   Id = (int)e.Id,
+                   Profile = new Profile
+                   {
+                       PhotoName = e.Profile.PhotoName,
+                       PhotoByte = e.Profile.PhotoByte
+                   },
+                })                
+                .Where(x => x.Id == 1).FirstOrDefault(); //взял по Id для тренировке, так же как из прошлым методом потом нужно поменять
+
+
+            if (check != null)
+                    return await Task.FromResult(check);
 
             return null;
         }

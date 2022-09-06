@@ -30,17 +30,17 @@ namespace nts_platform_server.Data
         public Context(DbContextOptions<Context> options)
         : base(options)
         {
-           //Database.EnsureDeleted();
-           //Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
 
-       
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Add the shadow property to the model
             modelBuilder.Entity<DocHour>()
-                .HasOne(p=> p.Week);
+                .HasOne(p => p.Week);
 
 
             modelBuilder.Entity<Week>()
@@ -63,6 +63,11 @@ namespace nts_platform_server.Data
 
             modelBuilder.Entity<Week>()
             .HasOne(p => p.SuHour);
+
+            modelBuilder.Entity<User>()
+            .HasOne(a => a.Profile)
+            .WithOne(a => a.User)
+            .HasForeignKey<Profile>(c => c.User);
 
 
 
@@ -131,8 +136,6 @@ namespace nts_platform_server.Data
                     RoleId = 1,
             },
             });
-
-           
 
         }
 

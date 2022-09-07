@@ -126,7 +126,7 @@ namespace nts_platform_server.Data
 
 
 
-           /* modelBuilder.Entity<CheckPlane>().HasData(
+            modelBuilder.Entity<CheckPlane>().HasData(
             new CheckPlane
             {
                 Id = 1,
@@ -162,7 +162,7 @@ namespace nts_platform_server.Data
                    CheckBankPhotoName = "bank"
                }
             }
-            );*/
+            );
 
         }
 

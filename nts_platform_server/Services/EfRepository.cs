@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using nts_platform_server.Data;
@@ -20,6 +21,9 @@ namespace nts_platform_server.Services
 
         Context GetContext();
         Task<long> Save();
+
+
+        Task<IEnumerable<T>> toListAsync();
     }
 
     public class Repository<T> : IEfRepository<T> where T : BaseEntity
@@ -36,6 +40,10 @@ namespace nts_platform_server.Services
             return _context.Set<T>();
         }
 
+        public async Task<IEnumerable<T>> toListAsync()
+        {
+            return  await _context.Set<T>().ToListAsync();
+        }
 
         public Context GetContext()
         {

@@ -10,7 +10,7 @@ using nts_platform_server.Data;
 namespace nts_platform_server.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220906154017_init")]
+    [Migration("20220907035528_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -366,6 +366,14 @@ namespace nts_platform_server.Migrations
                     b.ToTable("ReportCheck");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("ReportCheck");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 4,
+                            CheckBankPhotoName = "bank",
+                            Value = 1
+                        });
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.Role", b =>
@@ -447,7 +455,7 @@ namespace nts_platform_server.Migrations
                             Email = "xok",
                             FirstName = "Сергей",
                             MiddleName = "Юрьевич",
-                            Password = "$2a$11$3fXqU7LnNp6FD7hCku3Onulpo1GxLH.u3NQXXQn41qYFmo.4UDvbG",
+                            Password = "$2a$11$cQCIxNpsuGVheM.irxNiIOsWnLyzC7MTnTZOin1Z1c587WwDwtCIK",
                             ProfileId = 1,
                             RoleId = 1,
                             SecondName = "Смоглюк"
@@ -553,6 +561,14 @@ namespace nts_platform_server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("CheckHostel");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            Value = 50,
+                            BillPhotoName = "bill"
+                        });
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.CheckPlane", b =>
@@ -574,6 +590,14 @@ namespace nts_platform_server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("CheckPlane");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = 100,
+                            TicketPhotoName = "tiket"
+                        });
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.CheckTrain", b =>
@@ -587,6 +611,14 @@ namespace nts_platform_server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("CheckTrain");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            Value = 70,
+                            BorderTicketPhotoName = "train"
+                        });
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.ContactProject", b =>

@@ -318,6 +318,26 @@ namespace nts_platform_server.Migrations
                 values: new object[] { 1, "NTS", null });
 
             migrationBuilder.InsertData(
+                table: "ReportCheck",
+                columns: new[] { "Id", "BillPhotoByte", "BillPhotoName", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "UserProjectId", "Value" },
+                values: new object[] { 3, null, "bill", null, null, null, null, "CheckHostel", null, 50 });
+
+            migrationBuilder.InsertData(
+                table: "ReportCheck",
+                columns: new[] { "Id", "CheckPlane_BorderTicketPhotoByte", "CheckPlane_BorderTicketPhotoName", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "TicketPhotoByte", "TicketPhotoName", "UserProjectId", "Value" },
+                values: new object[] { 1, null, null, null, null, null, null, "CheckPlane", null, "tiket", null, 100 });
+
+            migrationBuilder.InsertData(
+                table: "ReportCheck",
+                columns: new[] { "Id", "BorderTicketPhotoByte", "BorderTicketPhotoName", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "UserProjectId", "Value" },
+                values: new object[] { 2, null, "train", null, null, null, null, "CheckTrain", null, 70 });
+
+            migrationBuilder.InsertData(
+                table: "ReportCheck",
+                columns: new[] { "Id", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "UserProjectId", "Value" },
+                values: new object[] { 4, null, "bank", null, null, "ReportCheck", null, 1 });
+
+            migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "Title" },
                 values: new object[,]
@@ -330,7 +350,7 @@ namespace nts_platform_server.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CompanyId", "Email", "FirstName", "MiddleName", "Password", "ProfileId", "RoleId", "SecondName" },
-                values: new object[] { 1, 1, "xok", "Сергей", "Юрьевич", "$2a$11$3fXqU7LnNp6FD7hCku3Onulpo1GxLH.u3NQXXQn41qYFmo.4UDvbG", 1, 1, "Смоглюк" });
+                values: new object[] { 1, 1, "xok", "Сергей", "Юрьевич", "$2a$11$cQCIxNpsuGVheM.irxNiIOsWnLyzC7MTnTZOin1Z1c587WwDwtCIK", 1, 1, "Смоглюк" });
 
             migrationBuilder.InsertData(
                 table: "Profile",

@@ -56,10 +56,6 @@
               "target": "Package",
               "version": "[6.0.4, )"
             },
-            "IronPdf": {
-              "target": "Package",
-              "version": "[2022.8.8138, )"
-            },
             "JWT": {
               "target": "Package",
               "version": "[9.0.3, )"
@@ -103,10 +99,6 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
-            },
-            "iTextSharp": {
-              "target": "Package",
-              "version": "[5.5.13.3, )"
             }
           },
           "imports": [

@@ -10,10 +10,10 @@ namespace nts_platform_server.Entities
 {
     public class Profile : BaseEntity
     {
-        [Key]
-        [ForeignKey("User")]
-        [JsonIgnore]
-        public override long Id { get; set; }
+       // [Key]
+      //  [ForeignKey("User")]
+      //  [JsonIgnore]
+      //  public override int Id { get; set; }
 
         public User User { get; set; }
         public bool Sex { get; set; }

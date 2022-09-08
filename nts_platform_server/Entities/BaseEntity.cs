@@ -6,6 +6,6 @@ namespace nts_platform_server.Entities
     public class BaseEntity
     {
        // [JsonIgnore]
-        public virtual long Id { get; set; }
+        public virtual int Id { get; set; }
     }
 }

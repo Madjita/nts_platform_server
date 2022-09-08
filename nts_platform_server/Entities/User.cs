@@ -29,7 +29,6 @@ namespace nts_platform_server.Entities
         {
             UserProjects = new List<UserProject>();
             Weeks = new List<Week>();
-            Profile = new Profile ();
         }
 
 

@@ -64,8 +64,8 @@ namespace nts_platform_server.Data
             modelBuilder.Entity<Week>()
             .HasOne(p => p.SuHour);
 
-
-            modelBuilder.Entity<Role>().HasData(
+            
+           /* modelBuilder.Entity<Role>().HasData(
             new Role[]
             {
                 new Role{Id =1,Title= "admin"},
@@ -129,7 +129,7 @@ namespace nts_platform_server.Data
                     CompanyId = 1,
                     RoleId = 1,
                 },
-            });
+            });*/
 
         }
 

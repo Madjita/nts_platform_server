@@ -294,6 +294,12 @@ namespace nts_platform_server.Services
 
             if (check != null)
             {
+                if (changeUser.NewUser.FirstName != "" && changeUser.NewUser.SecondName != "")
+                {
+                    check.FirstName = changeUser.NewUser.FirstName;
+                    check.SecondName = changeUser.NewUser.SecondName;
+                }
+                check.MiddleName = changeUser.NewUser.MiddleName;
                 check.Profile.Sex = changeUser.NewUser.Profile.Sex;
                 check.Profile.Date = changeUser.NewUser.Profile.Date;
                 check.Profile.PrfSeries = changeUser.NewUser.Profile.PrfSeries;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using nts_platform_server.Entities;
@@ -57,7 +57,7 @@ namespace nts_platform_server.Data
             modelBuilder.Entity<Week>().HasOne(p => p.SuHour);
 
 
-
+            /*
             modelBuilder.Entity<Role>().HasData(
             new Role[]
             {
@@ -121,7 +121,7 @@ namespace nts_platform_server.Data
                     ProfileId = 1,
                     CompanyId = 1,
                     RoleId = 1,
-            },
+                },
             });
 
 
@@ -162,7 +162,7 @@ namespace nts_platform_server.Data
                    CheckBankPhotoName = "bank"
                }
             }
-            );
+            );*/
 
         }
 

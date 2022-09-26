@@ -40,7 +40,7 @@ namespace nts_platform_server.Entities
         public string UlmTaked { get; set; }
         public string UlmPlaceBorned { get; set; }
         public string Snils { get; set; }
-        public int Inn { get; set; }
+        public string Inn { get; set; }
         public string Phone { get; set; }
         public string PhotoName { get; set; }
         public byte[] PhotoByte { get; set; }

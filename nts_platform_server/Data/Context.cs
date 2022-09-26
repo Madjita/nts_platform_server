@@ -64,8 +64,8 @@ namespace nts_platform_server.Data
             modelBuilder.Entity<Week>()
             .HasOne(p => p.SuHour);
 
-            
-           /* modelBuilder.Entity<Role>().HasData(
+           /* 
+            modelBuilder.Entity<Role>().HasData(
             new Role[]
             {
                 new Role{Id =1,Title= "admin"},
@@ -109,8 +109,8 @@ namespace nts_platform_server.Data
                     UlmTaked = "МВД 24003",
                     UlmPlaceBorned = "Гор. КРАСНОЯСРК / RUSSIA",
                     Snils = "1111",
-                    Inn = 1111,
-                    Phone = "89832068482",
+                    Inn = "123412341234",
+                    Phone = "79832068482",
                     PhotoName = "ava",
                 },
            });

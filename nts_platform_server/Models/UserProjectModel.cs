@@ -23,5 +23,11 @@ namespace nts_platform_server.Models
         public List<Week> Weeks { get; set; }
 
     }
+
+
+    public class ListModel
+    {
+        public List<UserProjectModelHours> list;
+    }
 }
 

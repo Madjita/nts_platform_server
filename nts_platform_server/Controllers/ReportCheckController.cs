@@ -87,6 +87,20 @@ namespace nts_platform_server.Controllers
 
             return Ok(response);
         }
+
+
+
+        //Code for get all BusinessTrip
+
+       // [Authorize]
+        [HttpGet("BusinessTrips")] // ReportCheck/BusinessTrips
+        public async Task<IActionResult> GetBusinessTrip()
+        {
+            var response = await _reportCheck.GetAllBusinessTripAsync();
+
+            return Ok(response);
+        }
+
     }
 }
 

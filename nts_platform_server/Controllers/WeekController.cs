@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using nts_platform_server.Models;
 using nts_platform_server.Services;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -16,7 +17,6 @@ namespace nts_platform_server.Controllers
         private readonly IUserService _userService;
         private readonly ICompanyService _companyService;
         private readonly IProjectService _projectService;
-
         private readonly IDocHourseService _docHourService;
 
         public WeekController(IUserService userService, ICompanyService companyService, IProjectService projectService, IDocHourseService docHourService)
@@ -41,6 +41,8 @@ namespace nts_platform_server.Controllers
 
             return Ok(response);
         }
+
+
     }
 }
 

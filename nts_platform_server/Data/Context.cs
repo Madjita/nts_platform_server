@@ -27,6 +27,7 @@ namespace nts_platform_server.Data
         public DbSet<Week> Week { get; set; }
         public DbSet<DocHour> DocHour { get; set; }
 
+        public DbSet<BusinessTrip> BusinessTrip { get; set; }
         public DbSet<ReportCheck> ReportCheck { get; set; }
         public DbSet<CheckPlane> CheckPlane { get; set; }
         public DbSet<CheckTrain> CheckTrain { get; set; }
@@ -80,15 +81,15 @@ namespace nts_platform_server.Data
                     Id = 1,
                     Sex = false,
                     Date = new DateTime(1994,08,18),
-                    PrfSeries = 0414,
-                    PrfNumber = 652893,
+                    PrfSeries = 352,
+                    PrfNumber = 5252425,
                     PrfDateTaked = new DateTime(2014,09,03),
                     PrfDateBack = null,
-                    PrfCode = 240003,
+                    PrfCode = 235235,
                     PrfTaked = "Отделом УФМС РОССИИ ПО КРАСНОЯСРКОМУ КРАЮ В СОВЕТСКОМ Р-НЕ Г.КРАСНОЯСРКА",
                     PrfPlaceBorned = "ГОР. МИНСК БЕЛАРУСЬ",
-                    PrfPlaceRegistration = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 74",
-                    PrfPlaceLived = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 74",
+                    PrfPlaceRegistration = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 345",
+                    PrfPlaceLived = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 35",
                     IpNumber = 1111,
                     IpDateTaked = new DateTime(),
                     IpDateBack = new DateTime(),
@@ -99,11 +100,11 @@ namespace nts_platform_server.Data
                     UlmDateTaked = new DateTime(),
                     UlmDateBack = new DateTime(),
                     UlmCode = 111,
-                    UlmTaked = "МВД 24003",
+                    UlmTaked = "МВД 345",
                     UlmPlaceBorned = "Гор. КРАСНОЯСРК / RUSSIA",
                     Snils = "1111",
-                    Inn = 1111,
-                    Phone = "89832068482",
+                    Inn = "1111",
+                    Phone = "43532352235",
                     PhotoName = "ava",
                 },
            });
@@ -126,43 +127,82 @@ namespace nts_platform_server.Data
 
 
 
-            modelBuilder.Entity<CheckPlane>().HasData(
-            new CheckPlane
+              modelBuilder.Entity<CheckPlane>().HasData(
+              new CheckPlane
+              {
+                  Id = 1,
+                  Value = 100,
+                  TicketPhotoName = "tiket",
+              });
+
+              modelBuilder.Entity<CheckTrain>().HasData(
+              new CheckTrain
+              {
+                  Id = 2,
+                  Value = 70,
+                  BorderTicketPhotoName = "train",
+              });
+
+              modelBuilder.Entity<CheckHostel>().HasData(
+              new CheckHostel
+              {
+                  Id = 3,
+                  Value = 50,
+                  BillPhotoName = "bill",
+              });
+
+
+
+              modelBuilder.Entity<ReportCheck>().HasData(
+              new ReportCheck[]
+              {
+                 new ReportCheck
+                 {
+                     Id = 4,
+                     Value = 1,
+                     CheckBankPhotoName = "bank"
+                 }
+              }
+              );
+
+            /*
+            modelBuilder.Entity<BusinessTrip>().HasData(
+            new BusinessTrip[]
             {
-                Id = 1,
-                Value = 100,
-                TicketPhotoName = "tiket",
-            });
-
-            modelBuilder.Entity<CheckTrain>().HasData(
-            new CheckTrain
-            {
-                Id = 2,
-                Value = 70,
-                BorderTicketPhotoName = "train",
-            });
-
-            modelBuilder.Entity<CheckHostel>().HasData(
-            new CheckHostel
-            {
-                Id = 3,
-                Value = 50,
-                BillPhotoName = "bill",
-            });
-
-
-
-            modelBuilder.Entity<ReportCheck>().HasData(
-            new ReportCheck[]
-            {
-               new ReportCheck
+               new BusinessTrip
                {
-                   Id = 4,
-                   Value = 1,
-                   CheckBankPhotoName = "bank"
+                   Id = 1,
+                   UserProjectId = 1,
+                   ReportChecks = new System.Collections.Generic.List<ReportCheck>
+                   {
+                       new CheckPlane
+                       {
+                           // Id = 1,
+                            Value = 100,
+                            TicketPhotoName = "tiket",
+                       },
+                       new CheckTrain
+                       {
+                           // Id = 2,
+                            Value = 70,
+                            BorderTicketPhotoName = "train",
+                       },
+                       new CheckHostel
+                       {
+                            //Id = 3,
+                            Value = 50,
+                            BillPhotoName = "bill",
+                       },
+                       new ReportCheck
+                       {
+                           //Id = 4,
+                           Value = 1,
+                           CheckBankPhotoName = "bank"
+                       },
+                   }
                }
             }
-            );
+            );*/
 
         }
 

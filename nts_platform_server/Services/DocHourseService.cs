@@ -16,6 +16,7 @@ namespace nts_platform_server.Services
         Task<object> AddUserHoursInProjectAsync(Week newWeek);
         IEnumerable<Object> GetUserHours(string email);
         IEnumerable<Object> GetAll();
+
     }
 
     public class DocHourseService : IDocHourseService
@@ -65,6 +66,7 @@ namespace nts_platform_server.Services
             return null;
         }
 
+
         public IEnumerable<object> GetAll()
         {
             var list = _docHourRepository.Get()
@@ -84,19 +86,6 @@ namespace nts_platform_server.Services
         {
             var list = _docHourRepository.Get()
                 .Include(x => x.Week)
-               /* .OrderBy(x => x.User.Email)
-                .Where(x => x.User.Email == email)
-                .Select(e => new {
-                    e.Year,
-                    e.Week,
-                    e.MondayHour,
-                    e.TuesdayHour,
-                    e.WednesdayHour,
-                    e.ThursdayHour,
-                    e.FridayHour,
-                    e.SaturdayHour,
-                    e.SundayHour,
-                })*/
                 .ToList();
 
             if(list.Count < 1)
@@ -108,5 +97,7 @@ namespace nts_platform_server.Services
 
             //throw new NotImplementedException();
         }
+
+
     }
 }

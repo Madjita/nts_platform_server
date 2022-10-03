@@ -13,7 +13,7 @@ namespace nts_platform_server.Entities
         public string CheckBankPhotoName { get; set; } //Название файла для чека который пришел от банка
         public byte[] CheckBankPhotoByte { get; set; } //Файл в байтах
 
-        public virtual UserProject UserProject { get; set; }
+        public virtual BusinessTrip BusinessTrip { get; set; }
     }
 
     public class CheckPlane : ReportCheck

@@ -19,6 +19,26 @@ namespace nts_platform_server.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("nts_platform_server.Entities.BusinessTrip", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("UserProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("spent")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserProjectId");
+
+                    b.ToTable("BusinessTrip");
+                });
+
             modelBuilder.Entity("nts_platform_server.Entities.Company", b =>
                 {
                     b.Property<int>("Id")
@@ -157,19 +177,19 @@ namespace nts_platform_server.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Inn")
-                        .HasColumnType("int");
+                    b.Property<string>("Inn")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IpCode")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("IpDateBack")
+                    b.Property<DateTime>("IpDateBack")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("IpDateTaked")
+                    b.Property<DateTime>("IpDateTaked")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("IpNumber")
@@ -196,7 +216,7 @@ namespace nts_platform_server.Migrations
                     b.Property<DateTime?>("PrfDateBack")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("PrfDateTaked")
+                    b.Property<DateTime>("PrfDateTaked")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PrfNumber")
@@ -226,10 +246,10 @@ namespace nts_platform_server.Migrations
                     b.Property<int>("UlmCode")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UlmDateBack")
+                    b.Property<DateTime>("UlmDateBack")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("UlmDateTaked")
+                    b.Property<DateTime>("UlmDateTaked")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UlmNumber")
@@ -250,22 +270,22 @@ namespace nts_platform_server.Migrations
                         {
                             Id = 1,
                             Date = new DateTime(1994, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Inn = 1111,
+                            Inn = "1111",
                             IpCode = 111,
                             IpDateBack = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IpDateTaked = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IpNumber = 1111,
                             IpPlaceBorned = "Гор. КРАСНОЯСРК / RUSSIA",
                             IpTaked = "МВД 24003",
-                            Phone = "89832068482",
+                            Phone = "43532352235",
                             PhotoName = "ava",
-                            PrfCode = 240003,
+                            PrfCode = 235235,
                             PrfDateTaked = new DateTime(2014, 9, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PrfNumber = 652893,
+                            PrfNumber = 5252425,
                             PrfPlaceBorned = "ГОР. МИНСК БЕЛАРУСЬ",
-                            PrfPlaceLived = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 74",
-                            PrfPlaceRegistration = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 74",
-                            PrfSeries = 414,
+                            PrfPlaceLived = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 35",
+                            PrfPlaceRegistration = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 345",
+                            PrfSeries = 352,
                             PrfTaked = "Отделом УФМС РОССИИ ПО КРАСНОЯСРКОМУ КРАЮ В СОВЕТСКОМ Р-НЕ Г.КРАСНОЯСРКА",
                             Sex = false,
                             Snils = "1111",
@@ -274,7 +294,7 @@ namespace nts_platform_server.Migrations
                             UlmDateTaked = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UlmNumber = 111,
                             UlmPlaceBorned = "Гор. КРАСНОЯСРК / RUSSIA",
-                            UlmTaked = "МВД 24003"
+                            UlmTaked = "МВД 345"
                         });
                 });
 
@@ -335,6 +355,9 @@ namespace nts_platform_server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BusinessTripId")
+                        .HasColumnType("int");
+
                     b.Property<byte[]>("CheckBankPhotoByte")
                         .HasColumnType("varbinary(max)");
 
@@ -351,15 +374,12 @@ namespace nts_platform_server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserProjectId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Value")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserProjectId");
+                    b.HasIndex("BusinessTripId");
 
                     b.ToTable("ReportCheck");
 
@@ -453,7 +473,7 @@ namespace nts_platform_server.Migrations
                             Email = "xok",
                             FirstName = "Сергей",
                             MiddleName = "Юрьевич",
-                            Password = "$2a$11$cQCIxNpsuGVheM.irxNiIOsWnLyzC7MTnTZOin1Z1c587WwDwtCIK",
+                            Password = "$2a$11$m89SMB/gyX/FM2l1/NnZK.j/8y7eKxSB/3ApaNeG98dfNe0No0ZB.",
                             ProfileId = 1,
                             RoleId = 1,
                             SecondName = "Смоглюк"
@@ -619,6 +639,17 @@ namespace nts_platform_server.Migrations
                         });
                 });
 
+            modelBuilder.Entity("nts_platform_server.Entities.BusinessTrip", b =>
+                {
+                    b.HasOne("nts_platform_server.Entities.UserProject", "UserProject")
+                        .WithMany("BusinessTrips")
+                        .HasForeignKey("UserProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserProject");
+                });
+
             modelBuilder.Entity("nts_platform_server.Entities.ContactProject", b =>
                 {
                     b.HasOne("nts_platform_server.Entities.Contact", "Contact")
@@ -665,11 +696,11 @@ namespace nts_platform_server.Migrations
 
             modelBuilder.Entity("nts_platform_server.Entities.ReportCheck", b =>
                 {
-                    b.HasOne("nts_platform_server.Entities.UserProject", "UserProject")
+                    b.HasOne("nts_platform_server.Entities.BusinessTrip", "BusinessTrip")
                         .WithMany("ReportChecks")
-                        .HasForeignKey("UserProjectId");
+                        .HasForeignKey("BusinessTripId");
 
-                    b.Navigation("UserProject");
+                    b.Navigation("BusinessTrip");
                 });
 
             modelBuilder.Entity("nts_platform_server.Entities.User", b =>
@@ -763,6 +794,11 @@ namespace nts_platform_server.Migrations
                     b.Navigation("WeHour");
                 });
 
+            modelBuilder.Entity("nts_platform_server.Entities.BusinessTrip", b =>
+                {
+                    b.Navigation("ReportChecks");
+                });
+
             modelBuilder.Entity("nts_platform_server.Entities.Company", b =>
                 {
                     b.Navigation("Users");
@@ -791,7 +827,7 @@ namespace nts_platform_server.Migrations
 
             modelBuilder.Entity("nts_platform_server.Entities.UserProject", b =>
                 {
-                    b.Navigation("ReportChecks");
+                    b.Navigation("BusinessTrips");
 
                     b.Navigation("Weeks");
                 });

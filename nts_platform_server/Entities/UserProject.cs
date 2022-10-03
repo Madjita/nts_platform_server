@@ -10,13 +10,12 @@ namespace nts_platform_server.Entities
         public virtual User User { get; set; }
         public virtual Project Project { get; set; }
         public virtual List<Week> Weeks { get; set; }
-        public virtual List<ReportCheck> ReportChecks { get; set; } // для отчетов по чекам на проект по конкретному пользователю
-
+        public virtual List<BusinessTrip> BusinessTrips { get; set; } // для отчетов по чекам на проект по конкретному пользователю
 
         public UserProject()
         {
             Weeks = new List<Week>();
-            ReportChecks = new List<ReportCheck>();
+            BusinessTrips = new List<BusinessTrip>();
         }
 
     }

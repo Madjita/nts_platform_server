@@ -92,10 +92,10 @@ namespace nts_platform_server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     Sex = table.Column<bool>(type: "bit", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PrfSeries = table.Column<int>(type: "int", nullable: false),
                     PrfNumber = table.Column<int>(type: "int", nullable: false),
-                    PrfDateTaked = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PrfDateTaked = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PrfDateBack = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PrfCode = table.Column<int>(type: "int", nullable: false),
                     PrfTaked = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -103,19 +103,19 @@ namespace nts_platform_server.Migrations
                     PrfPlaceRegistration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PrfPlaceLived = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IpNumber = table.Column<int>(type: "int", nullable: false),
-                    IpDateTaked = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IpDateBack = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IpDateTaked = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IpDateBack = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IpCode = table.Column<int>(type: "int", nullable: false),
                     IpTaked = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IpPlaceBorned = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UlmNumber = table.Column<int>(type: "int", nullable: false),
-                    UlmDateTaked = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UlmDateBack = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UlmDateTaked = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UlmDateBack = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UlmCode = table.Column<int>(type: "int", nullable: false),
                     UlmTaked = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UlmPlaceBorned = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Snils = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Inn = table.Column<int>(type: "int", nullable: false),
+                    Inn = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhotoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhotoByte = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
@@ -214,6 +214,26 @@ namespace nts_platform_server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BusinessTrip",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserProjectId = table.Column<int>(type: "int", nullable: false),
+                    spent = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BusinessTrip", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BusinessTrip_UserProject_UserProjectId",
+                        column: x => x.UserProjectId,
+                        principalTable: "UserProject",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ReportCheck",
                 columns: table => new
                 {
@@ -224,7 +244,7 @@ namespace nts_platform_server.Migrations
                     Descriptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheckBankPhotoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheckBankPhotoByte = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    UserProjectId = table.Column<int>(type: "int", nullable: true),
+                    BusinessTripId = table.Column<int>(type: "int", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BillPhotoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BillPhotoByte = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
@@ -239,9 +259,9 @@ namespace nts_platform_server.Migrations
                 {
                     table.PrimaryKey("PK_ReportCheck", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ReportCheck_UserProject_UserProjectId",
-                        column: x => x.UserProjectId,
-                        principalTable: "UserProject",
+                        name: "FK_ReportCheck_BusinessTrip_BusinessTripId",
+                        column: x => x.BusinessTripId,
+                        principalTable: "BusinessTrip",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -319,23 +339,23 @@ namespace nts_platform_server.Migrations
 
             migrationBuilder.InsertData(
                 table: "ReportCheck",
-                columns: new[] { "Id", "BillPhotoByte", "BillPhotoName", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "UserProjectId", "Value" },
-                values: new object[] { 3, null, "bill", null, null, null, null, "CheckHostel", null, 50 });
+                columns: new[] { "Id", "BillPhotoByte", "BillPhotoName", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "Value" },
+                values: new object[] { 3, null, "bill", null, null, null, null, null, "CheckHostel", 50 });
 
             migrationBuilder.InsertData(
                 table: "ReportCheck",
-                columns: new[] { "Id", "CheckPlane_BorderTicketPhotoByte", "CheckPlane_BorderTicketPhotoName", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "TicketPhotoByte", "TicketPhotoName", "UserProjectId", "Value" },
-                values: new object[] { 1, null, null, null, null, null, null, "CheckPlane", null, "tiket", null, 100 });
+                columns: new[] { "Id", "CheckPlane_BorderTicketPhotoByte", "CheckPlane_BorderTicketPhotoName", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "TicketPhotoByte", "TicketPhotoName", "Value" },
+                values: new object[] { 1, null, null, null, null, null, null, null, "CheckPlane", null, "tiket", 100 });
 
             migrationBuilder.InsertData(
                 table: "ReportCheck",
-                columns: new[] { "Id", "BorderTicketPhotoByte", "BorderTicketPhotoName", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "UserProjectId", "Value" },
-                values: new object[] { 2, null, "train", null, null, null, null, "CheckTrain", null, 70 });
+                columns: new[] { "Id", "BorderTicketPhotoByte", "BorderTicketPhotoName", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "Value" },
+                values: new object[] { 2, null, "train", null, null, null, null, null, "CheckTrain", 70 });
 
             migrationBuilder.InsertData(
                 table: "ReportCheck",
-                columns: new[] { "Id", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "UserProjectId", "Value" },
-                values: new object[] { 4, null, "bank", null, null, "ReportCheck", null, 1 });
+                columns: new[] { "Id", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "Value" },
+                values: new object[] { 4, null, null, "bank", null, null, "ReportCheck", 1 });
 
             migrationBuilder.InsertData(
                 table: "Role",
@@ -350,12 +370,17 @@ namespace nts_platform_server.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CompanyId", "Email", "FirstName", "MiddleName", "Password", "ProfileId", "RoleId", "SecondName" },
-                values: new object[] { 1, 1, "xok", "Сергей", "Юрьевич", "$2a$11$cQCIxNpsuGVheM.irxNiIOsWnLyzC7MTnTZOin1Z1c587WwDwtCIK", 1, 1, "Смоглюк" });
+                values: new object[] { 1, 1, "xok", "Сергей", "Юрьевич", "$2a$11$m89SMB/gyX/FM2l1/NnZK.j/8y7eKxSB/3ApaNeG98dfNe0No0ZB.", 1, 1, "Смоглюк" });
 
             migrationBuilder.InsertData(
                 table: "Profile",
                 columns: new[] { "Id", "Date", "Inn", "IpCode", "IpDateBack", "IpDateTaked", "IpNumber", "IpPlaceBorned", "IpTaked", "Phone", "PhotoByte", "PhotoName", "PrfCode", "PrfDateBack", "PrfDateTaked", "PrfNumber", "PrfPlaceBorned", "PrfPlaceLived", "PrfPlaceRegistration", "PrfSeries", "PrfTaked", "Sex", "Snils", "UlmCode", "UlmDateBack", "UlmDateTaked", "UlmNumber", "UlmPlaceBorned", "UlmTaked" },
-                values: new object[] { 1, new DateTime(1994, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), 1111, 111, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1111, "Гор. КРАСНОЯСРК / RUSSIA", "МВД 24003", "89832068482", null, "ava", 240003, null, new DateTime(2014, 9, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 652893, "ГОР. МИНСК БЕЛАРУСЬ", "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 74", "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 74", 414, "Отделом УФМС РОССИИ ПО КРАСНОЯСРКОМУ КРАЮ В СОВЕТСКОМ Р-НЕ Г.КРАСНОЯСРКА", false, "1111", 111, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 111, "Гор. КРАСНОЯСРК / RUSSIA", "МВД 24003" });
+                values: new object[] { 1, new DateTime(1994, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "1111", 111, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1111, "Гор. КРАСНОЯСРК / RUSSIA", "МВД 24003", "43532352235", null, "ava", 235235, null, new DateTime(2014, 9, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 5252425, "ГОР. МИНСК БЕЛАРУСЬ", "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 35", "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 345", 352, "Отделом УФМС РОССИИ ПО КРАСНОЯСРКОМУ КРАЮ В СОВЕТСКОМ Р-НЕ Г.КРАСНОЯСРКА", false, "1111", 111, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 111, "Гор. КРАСНОЯСРК / RUSSIA", "МВД 345" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BusinessTrip_UserProjectId",
+                table: "BusinessTrip",
+                column: "UserProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ContactProject_ContactId",
@@ -378,9 +403,9 @@ namespace nts_platform_server.Migrations
                 column: "EnginerCreaterId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ReportCheck_UserProjectId",
+                name: "IX_ReportCheck_BusinessTripId",
                 table: "ReportCheck",
-                column: "UserProjectId");
+                column: "BusinessTripId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserProject_ProjectId",
@@ -507,8 +532,8 @@ namespace nts_platform_server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_UserProject_Projects_ProjectId",
-                table: "UserProject");
+                name: "FK_Week_UserProject_UserProjectId",
+                table: "Week");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_DocHour_Week_WeekId",
@@ -527,6 +552,12 @@ namespace nts_platform_server.Migrations
                 name: "Contact");
 
             migrationBuilder.DropTable(
+                name: "BusinessTrip");
+
+            migrationBuilder.DropTable(
+                name: "UserProject");
+
+            migrationBuilder.DropTable(
                 name: "Projects");
 
             migrationBuilder.DropTable(
@@ -534,9 +565,6 @@ namespace nts_platform_server.Migrations
 
             migrationBuilder.DropTable(
                 name: "DocHour");
-
-            migrationBuilder.DropTable(
-                name: "UserProject");
 
             migrationBuilder.DropTable(
                 name: "Users");

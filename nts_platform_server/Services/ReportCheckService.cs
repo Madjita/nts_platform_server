@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using nts_platform_server.Data;
 using nts_platform_server.Entities;
 
 namespace nts_platform_server.Services
@@ -23,6 +24,11 @@ namespace nts_platform_server.Services
         Task<IEnumerable<CheckHostel>> GetCheck_HostelAsync();
         Task<IEnumerable<ReportCheck>> GetCheck_ShopAsync();
 
+
+
+        Task<IEnumerable<BusinessTrip>> GetAllBusinessTripAsync();
+
+
     }
 
     public class ReportCheckService : IReportCheckService
@@ -32,17 +38,21 @@ namespace nts_platform_server.Services
         private readonly IEfRepository<CheckTrain> _checkTrain;
         private readonly IEfRepository<CheckHostel> _checkHostel;
 
+        private readonly IEfRepository<BusinessTrip> _businessTrip;
+
         public ReportCheckService (
             IEfRepository<ReportCheck> reportCheck,
             IEfRepository<CheckPlane> checkPlane,
             IEfRepository<CheckTrain> checkTrain,
-            IEfRepository<CheckHostel> checkHostel
+            IEfRepository<CheckHostel> checkHostel,
+            IEfRepository<BusinessTrip> businessTrip
         )
         {
             _reportCheck = reportCheck;
             _checkPlane = checkPlane;
             _checkTrain = checkTrain;
             _checkHostel = checkHostel;
+            _businessTrip = businessTrip;
         }
 
         public IEnumerable<ReportCheck> GetAll()
@@ -150,6 +160,24 @@ namespace nts_platform_server.Services
             return null;
         }
 
+        public async Task<IEnumerable<BusinessTrip>> GetAllBusinessTripAsync()
+        {
+            var check = await _businessTrip.toListAsync();
+
+            if (check.Any())
+            {
+                foreach(var item in check)
+                {
+                    _businessTrip.GetContext().Entry(item).Reference(x => x.UserProject).Load();
+                    _businessTrip.GetContext().Entry(item.UserProject).Reference(x => x.Project).Load();
+                    _businessTrip.GetContext().Entry(item).Collection(x => x.ReportChecks).Load();
+                }
+               
+                return check;
+            }
+
+            return null;
+        }
     }
 }
 

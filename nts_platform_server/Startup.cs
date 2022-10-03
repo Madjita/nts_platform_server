@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,8 +12,6 @@ using Microsoft.OpenApi.Models;
 using nts_platform_server.Algorithms;
 using nts_platform_server.Auth.JWT;
 using nts_platform_server.Data;
-using nts_platform_server.Entities;
-using nts_platform_server.Models;
 using nts_platform_server.Services;
 
 namespace nts_platform_server
@@ -94,9 +92,35 @@ namespace nts_platform_server
             services.AddControllers();
 
 
-           //test()
+           /* var p = new TreeNode();
+            p.val = 1;
+
+            p.left = new TreeNode();
+            p.left.val = 2;
+
+            p.right = new TreeNode();
+            p.right.val = 1;
+
+
+
+            var q = new TreeNode();
+            q.val = 1;
+
+            q.left = new TreeNode();
+            q.left.val = 1;
+
+            q.right = new TreeNode();
+            q.right.val = 2;
+
+
+            //p = [1,2,3], q = [1,2,3]
+
+            var flag = Solution.IsValid("(]");
+
+            Console.WriteLine();*/
 
         }
+
 
 
         private void test()
@@ -129,7 +153,7 @@ namespace nts_platform_server
             foreach (var item in inputArray)
             {
                 var o = new Entities.Profile();
-                o.Inn = item;
+                o.Inn = item.ToString();
                 profiles.Add(o);
             }
 

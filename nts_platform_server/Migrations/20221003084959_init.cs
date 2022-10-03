@@ -220,7 +220,11 @@ namespace nts_platform_server.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserProjectId = table.Column<int>(type: "int", nullable: false),
-                    spent = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Descriptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateStart = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Spent = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -370,7 +374,7 @@ namespace nts_platform_server.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CompanyId", "Email", "FirstName", "MiddleName", "Password", "ProfileId", "RoleId", "SecondName" },
-                values: new object[] { 1, 1, "xok", "Сергей", "Юрьевич", "$2a$11$m89SMB/gyX/FM2l1/NnZK.j/8y7eKxSB/3ApaNeG98dfNe0No0ZB.", 1, 1, "Смоглюк" });
+                values: new object[] { 1, 1, "xok", "Сергей", "Юрьевич", "$2a$11$GGzTQCQl4T7k0hpV1UpnFOSKuBvsByLyNEroylY1r1VrrNbn4inMC", 1, 1, "Смоглюк" });
 
             migrationBuilder.InsertData(
                 table: "Profile",

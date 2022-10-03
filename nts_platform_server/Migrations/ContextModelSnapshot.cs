@@ -26,10 +26,22 @@ namespace nts_platform_server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UserProjectId")
+                    b.Property<DateTime?>("DateEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descriptions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Spent")
                         .HasColumnType("int");
 
-                    b.Property<int>("spent")
+                    b.Property<int>("UserProjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -473,7 +485,7 @@ namespace nts_platform_server.Migrations
                             Email = "xok",
                             FirstName = "Сергей",
                             MiddleName = "Юрьевич",
-                            Password = "$2a$11$m89SMB/gyX/FM2l1/NnZK.j/8y7eKxSB/3ApaNeG98dfNe0No0ZB.",
+                            Password = "$2a$11$GGzTQCQl4T7k0hpV1UpnFOSKuBvsByLyNEroylY1r1VrrNbn4inMC",
                             ProfileId = 1,
                             RoleId = 1,
                             SecondName = "Смоглюк"

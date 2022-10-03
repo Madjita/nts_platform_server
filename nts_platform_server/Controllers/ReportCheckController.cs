@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using nts_platform_server.Auth.JWT;
+using nts_platform_server.Entities;
+using nts_platform_server.Models;
 using nts_platform_server.Services;
 
 namespace nts_platform_server.Controllers
@@ -92,11 +94,32 @@ namespace nts_platform_server.Controllers
 
         //Code for get all BusinessTrip
 
-       // [Authorize]
+        [Authorize]
         [HttpGet("BusinessTrips")] // ReportCheck/BusinessTrips
         public async Task<IActionResult> GetBusinessTrip()
         {
             var response = await _reportCheck.GetAllBusinessTripAsync();
+
+            return Ok(response);
+        }
+
+        [Authorize]
+        [HttpPost("BusinessTrips/finish")] // ReportCheck/BusinessTrips
+        public async Task<IActionResult> FinishBusinessTrip([FromBody] BusinessTripModel businessTripModel)
+        {
+            var response = await _reportCheck.FinishBusinessTripAsync(businessTripModel);
+
+            return Ok(response);
+        }
+
+
+        [Authorize]
+        [HttpPost("BusinessTrips")] // ReportCheck/BusinessTrips
+        public async Task<IActionResult> AddBusinessTripAsync([FromBody] BusinessTripModel businessTripModel)
+        {
+             var response = await _reportCheck.AddBusinessTripAsync(businessTripModel);
+
+             response = await _reportCheck.GetAllBusinessTripAsync();
 
             return Ok(response);
         }

@@ -29,5 +29,11 @@ namespace nts_platform_server.Models
     {
         public List<UserProjectModelHours> list;
     }
+
+    public class UserProjectOnlyModel
+    {
+        public ProjectModel Project { get; set; }
+        public UserModel User { get; set; }
+    }
 }
 

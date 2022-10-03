@@ -58,7 +58,7 @@ namespace nts_platform_server.Data
             modelBuilder.Entity<Week>().HasOne(p => p.SuHour);
 
 
-            /*
+            
             modelBuilder.Entity<Role>().HasData(
             new Role[]
             {

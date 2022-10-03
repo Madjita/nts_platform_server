@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using nts_platform_server.Data;
 using nts_platform_server.Entities;
+using nts_platform_server.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace nts_platform_server.Services
 {
@@ -27,6 +30,8 @@ namespace nts_platform_server.Services
 
 
         Task<IEnumerable<BusinessTrip>> GetAllBusinessTripAsync();
+        Task<Object> AddBusinessTripAsync(BusinessTripModel businessTripModel);
+        Task<Object> FinishBusinessTripAsync(BusinessTripModel businessTripModel);
 
 
     }
@@ -39,13 +44,15 @@ namespace nts_platform_server.Services
         private readonly IEfRepository<CheckHostel> _checkHostel;
 
         private readonly IEfRepository<BusinessTrip> _businessTrip;
+        private readonly IEfRepository<UserProject> _userProject;
 
         public ReportCheckService (
             IEfRepository<ReportCheck> reportCheck,
             IEfRepository<CheckPlane> checkPlane,
             IEfRepository<CheckTrain> checkTrain,
             IEfRepository<CheckHostel> checkHostel,
-            IEfRepository<BusinessTrip> businessTrip
+            IEfRepository<BusinessTrip> businessTrip,
+            IEfRepository<UserProject> userProject
         )
         {
             _reportCheck = reportCheck;
@@ -53,6 +60,7 @@ namespace nts_platform_server.Services
             _checkTrain = checkTrain;
             _checkHostel = checkHostel;
             _businessTrip = businessTrip;
+            _userProject = userProject;
         }
 
         public IEnumerable<ReportCheck> GetAll()
@@ -174,6 +182,63 @@ namespace nts_platform_server.Services
                 }
                
                 return check;
+            }
+
+            return null;
+        }
+
+        public async Task<Object> AddBusinessTripAsync(BusinessTripModel businessTripModel)
+        {
+            var get = _businessTrip.Get()
+                .Include(x => x.UserProject)
+                    .ThenInclude(x => x.Project)
+                .Include(x => x.UserProject)
+                    .ThenInclude(x => x.User);
+
+            //Проверить на существование юзера в  данном проекте в базе.
+            //Проверить на существование в базе командировки с одинаковым именем и датой отправления
+            var check = get.Any(x =>
+            x.UserProject.User.Email == businessTripModel.UserProject.User.Email &&
+            x.UserProject.Project.Code == businessTripModel.UserProject.Project.Code &&
+            x.Name == businessTripModel.Name &&
+            x.DateStart.Date == businessTripModel.DateStart.Date
+            );
+
+            if(check)
+            {
+                //В базе уже существует данная командировка
+                return null;
+            }
+
+
+            var newBusnesTrip = new BusinessTrip();
+            newBusnesTrip.DateStart = businessTripModel.DateStart;
+            newBusnesTrip.Descriptions = businessTripModel.Descriptions;
+            newBusnesTrip.Name = businessTripModel.Name;
+            newBusnesTrip.Spent = businessTripModel.Spent;
+            newBusnesTrip.UserProject = _userProject.Get().Where(x => x.Project.Code == businessTripModel.UserProject.Project.Code).FirstOrDefault();
+
+            await _businessTrip.Add(newBusnesTrip);
+
+            return await Task.FromResult(newBusnesTrip);
+        }
+
+        public async Task<object> FinishBusinessTripAsync(BusinessTripModel businessTripModel)
+        {
+            var get = _businessTrip.Get();
+
+            //Проверить на существование юзера в  данном проекте в базе.
+            //Проверить на существование в базе командировки с одинаковым именем и датой отправления
+            var check = get.Where(x =>
+            x.Id == businessTripModel.id
+            ).FirstOrDefault();
+
+            if (check != null)
+            {
+                check.DateEnd = businessTripModel.DateEnd;
+                await _businessTrip.Update(check);
+
+                return await Task.FromResult(check);
             }
 
             return null;

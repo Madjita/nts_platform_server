@@ -8,19 +8,13 @@ namespace nts_platform_server.Data
     public class Context : DbContext
     {
         public DbSet<Company> Companies { get; set; }
-
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<Profile> Profile { get; set; }
-
         public DbSet<Contact> Contact { get; set; }
         public DbSet<ContactProject> ContactProject { get; set; }
-
-
         public DbSet<UserProject> UserProject { get; set; }
         public DbSet<Project> Projects { get; set; }
-
-
         public DbSet<Week> Week { get; set; }
         public DbSet<DocHour> DocHour { get; set; }
 
@@ -64,7 +58,7 @@ namespace nts_platform_server.Data
             modelBuilder.Entity<Week>()
             .HasOne(p => p.SuHour);
 
-           /* 
+            /*
             modelBuilder.Entity<Role>().HasData(
             new Role[]
             {
@@ -90,8 +84,8 @@ namespace nts_platform_server.Data
                     PrfSeries = 0414,
                     PrfNumber = 652893,
                     PrfDateTaked = new DateTime(2014,09,03),
-                    PrfDateBack = null,
-                    PrfCode = 240003,
+                    PrfDateBack = new DateTime(2044,09,03),
+                    PrfCode = "240-003",
                     PrfTaked = "Отделом УФМС РОССИИ ПО КРАСНОЯСРКОМУ КРАЮ В СОВЕТСКОМ Р-НЕ Г.КРАСНОЯСРКА",
                     PrfPlaceBorned = "ГОР. МИНСК БЕЛАРУСЬ",
                     PrfPlaceRegistration = "Россия, г. Красняосрк, ул. Урванецва, д. 6А, кв. 74",
@@ -105,7 +99,6 @@ namespace nts_platform_server.Data
                     UlmNumber = 111,
                     UlmDateTaked = new DateTime(),
                     UlmDateBack = new DateTime(),
-                    UlmCode = 111,
                     UlmTaked = "МВД 24003",
                     UlmPlaceBorned = "Гор. КРАСНОЯСРК / RUSSIA",
                     Snils = "1111",

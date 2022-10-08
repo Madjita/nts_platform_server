@@ -21,8 +21,8 @@ namespace nts_platform_server.Entities
         public int PrfSeries { get; set; }
         public int PrfNumber { get; set; }
         public DateTime PrfDateTaked { get; set; }
-        public DateTime? PrfDateBack { get; set; }
-        public int PrfCode { get; set; }
+        public DateTime PrfDateBack { get; set; }
+        public string PrfCode { get; set; }
         public string PrfTaked { get; set; }
         public string PrfPlaceBorned { get; set; }
         public string PrfPlaceRegistration { get; set; }
@@ -36,7 +36,6 @@ namespace nts_platform_server.Entities
         public int UlmNumber { get; set; }
         public DateTime UlmDateTaked { get; set; }
         public DateTime UlmDateBack { get; set; }
-        public int UlmCode { get; set; }
         public string UlmTaked { get; set; }
         public string UlmPlaceBorned { get; set; }
         public string Snils { get; set; }

@@ -294,7 +294,6 @@ namespace nts_platform_server.Services
                 check.Profile.UlmNumber = changeUser.NewUser.Profile.UlmNumber;
                 check.Profile.UlmDateTaked = changeUser.NewUser.Profile.UlmDateTaked;
                 check.Profile.UlmDateBack = changeUser.NewUser.Profile.UlmDateBack;
-                check.Profile.UlmCode = changeUser.NewUser.Profile.UlmCode;
                 check.Profile.UlmTaked = changeUser.NewUser.Profile.UlmTaked;
                 check.Profile.UlmPlaceBorned = changeUser.NewUser.Profile.UlmPlaceBorned;
                 check.Profile.Snils = changeUser.NewUser.Profile.Snils;

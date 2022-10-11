@@ -11,8 +11,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
 using System.IO.Compression;
-
-
+using System.Text;
 
 namespace nts_platform_server
 {
@@ -163,8 +162,25 @@ namespace nts_platform_server
             //Создание даты на неделю по номеру недели
 
             int year = week.Year % 100;
-            string fileName = "cw" + year + week.NumberWeek + "_" + userProject.Project.Code + "_" + userProject.User.FirstName + "_" + userProject.User.SecondName + "_Hour_report";
-            fileName += ".xlsx";
+
+            StringBuilder fileName = new StringBuilder(50);
+
+            fileName.Append("cw");
+            fileName.Append(year);
+            fileName.Append(week.NumberWeek);
+            fileName.Append("_");
+            fileName.Append(userProject.Project.Code);
+            fileName.Append("_");
+            fileName.Append(userProject.User.FirstName);
+            fileName.Append("_");
+            fileName.Append(userProject.User.SecondName);
+            fileName.Append("_Hour_report");
+            fileName.Append(".xlsx");
+
+
+            
+            //string fileName = "cw" + year + week.NumberWeek + "_" + userProject.Project.Code + "_" + userProject.User.FirstName + "_" + userProject.User.SecondName + "_Hour_report";
+            //fileName += ".xlsx";
 
 
             byte[] bytes = null;
@@ -225,7 +241,7 @@ namespace nts_platform_server
 
                 if(zipMode)
                 {
-                    package.SaveAs(new FileInfo("zip/"+fileName));
+                    package.SaveAs(new FileInfo("zip/"+fileName.ToString()));
                 }
 
                 bytes = package.GetAsByteArray();
@@ -234,7 +250,7 @@ namespace nts_platform_server
             return new CreateExelType
             {
                 bytes = bytes,
-                fileName = fileName
+                fileName = fileName.ToString()
             };
         }
 

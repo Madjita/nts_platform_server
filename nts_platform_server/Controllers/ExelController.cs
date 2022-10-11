@@ -12,6 +12,8 @@ using Microsoft.Extensions.FileProviders;
 using System.Net.Http;
 using System.Net;
 using nts_platform_server.Services;
+using nts_platform_server.Algorithms;
+using System.Text;
 
 namespace nts_platform_server.Controllers
 {
@@ -78,16 +80,13 @@ namespace nts_platform_server.Controllers
             }
 
 
-            //int year = exelModel_UserProjectWeek.YearWeek % 100;
-
-           // string nameFile = "cw"+year+ exelModel_UserProjectWeek.NumberWeek + "_"+ response.Project.Code + "_" + response.User.FirstName + "_" + response.User.SecondName + "_Hour_report";
-            //nameFile += ".xlsx";
+            Translit translit = new Translit();
 
             string template = "template_hours1.xlsx";
             Exel exel = new Exel();
             var bytes = exel.createExelHour(template, response.Weeks.FirstOrDefault(),response,false);
 
-            return File(bytes.bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", bytes.fileName);
+            return File(bytes.bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", translit.TranslitFileName(bytes.fileName.ToLower()));
 
         }
 
@@ -111,10 +110,21 @@ namespace nts_platform_server.Controllers
             }
 
 
-            int year = exelModel_UserProjectWeek.YearWeek % 100;
+            StringBuilder nameFile = new StringBuilder(50);
 
-            string nameFile = response.Project.Code + "_" + response.User.FirstName + "_" + response.User.SecondName + "_ALL_Hour_report";
-            nameFile += ".zip";
+            nameFile.Append(response.Project.Code);
+            nameFile.Append("_");
+            nameFile.Append(response.User.FirstName);
+            nameFile.Append("_");
+            nameFile.Append(response.User.SecondName);
+            nameFile.Append("_ALL_Hour_report");
+            nameFile.Append(".zip");
+
+
+            //int year = exelModel_UserProjectWeek.YearWeek % 100;
+
+           // string nameFile = response.Project.Code.ToString() + "_" + response.User.FirstName.ToString() + "_" + response.User.SecondName.ToString() + "_ALL_Hour_report";
+           // nameFile += ".zip";
 
             string template = "template_hours1.xlsx";
             Exel exel = new Exel();
@@ -127,7 +137,9 @@ namespace nts_platform_server.Controllers
 
             var bytes = exel.CreateZipArchive();
 
-            return File(bytes, "application/zip", nameFile);
+            Translit translit = new Translit();
+
+            return File(bytes, "application/zip;charset=utf-8", translit.TranslitFileName(nameFile.ToString().ToLower()));
         }
 
     }

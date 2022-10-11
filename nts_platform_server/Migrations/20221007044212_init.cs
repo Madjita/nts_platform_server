@@ -222,8 +222,8 @@ namespace nts_platform_server.Migrations
                     UserProjectId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Descriptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateStart = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateStart = table.Column<DateTime>(type: "date", nullable: false),
+                    DateEnd = table.Column<DateTime>(type: "date", nullable: true),
                     Spent = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -243,13 +243,14 @@ namespace nts_platform_server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Value = table.Column<int>(type: "int", nullable: false),
                     Descriptions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheckBankPhotoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheckBankPhotoByte = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     BusinessTripId = table.Column<int>(type: "int", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BillPhotoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BillPhotoByte = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     TicketPhotoName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -343,23 +344,23 @@ namespace nts_platform_server.Migrations
 
             migrationBuilder.InsertData(
                 table: "ReportCheck",
-                columns: new[] { "Id", "BillPhotoByte", "BillPhotoName", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "Value" },
-                values: new object[] { 3, null, "bill", null, null, null, null, null, "CheckHostel", 50 });
+                columns: new[] { "Id", "BillPhotoByte", "BillPhotoName", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "Name", "Value" },
+                values: new object[] { 3, null, "bill", null, null, null, null, null, "CheckHostel", "Чек отеля", 50 });
 
             migrationBuilder.InsertData(
                 table: "ReportCheck",
-                columns: new[] { "Id", "CheckPlane_BorderTicketPhotoByte", "CheckPlane_BorderTicketPhotoName", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "TicketPhotoByte", "TicketPhotoName", "Value" },
-                values: new object[] { 1, null, null, null, null, null, null, null, "CheckPlane", null, "tiket", 100 });
+                columns: new[] { "Id", "CheckPlane_BorderTicketPhotoByte", "CheckPlane_BorderTicketPhotoName", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "Name", "TicketPhotoByte", "TicketPhotoName", "Value" },
+                values: new object[] { 1, null, null, null, null, null, null, null, "CheckPlane", "Чек на самолет", null, "tiket", 100 });
 
             migrationBuilder.InsertData(
                 table: "ReportCheck",
-                columns: new[] { "Id", "BorderTicketPhotoByte", "BorderTicketPhotoName", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "Value" },
-                values: new object[] { 2, null, "train", null, null, null, null, null, "CheckTrain", 70 });
+                columns: new[] { "Id", "BorderTicketPhotoByte", "BorderTicketPhotoName", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "Name", "Value" },
+                values: new object[] { 2, null, "train", null, null, null, null, null, "CheckTrain", "Чек на поезд", 70 });
 
             migrationBuilder.InsertData(
                 table: "ReportCheck",
-                columns: new[] { "Id", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "Value" },
-                values: new object[] { 4, null, null, "bank", null, null, "ReportCheck", 1 });
+                columns: new[] { "Id", "BusinessTripId", "CheckBankPhotoByte", "CheckBankPhotoName", "Date", "Descriptions", "Discriminator", "Name", "Value" },
+                values: new object[] { 4, null, null, "bank", null, null, "ReportCheck", "Чек с магазина", 1 });
 
             migrationBuilder.InsertData(
                 table: "Role",
@@ -374,7 +375,7 @@ namespace nts_platform_server.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CompanyId", "Email", "FirstName", "MiddleName", "Password", "ProfileId", "RoleId", "SecondName" },
-                values: new object[] { 1, 1, "xok", "Сергей", "Юрьевич", "$2a$11$GGzTQCQl4T7k0hpV1UpnFOSKuBvsByLyNEroylY1r1VrrNbn4inMC", 1, 1, "Смоглюк" });
+                values: new object[] { 1, 1, "xok", "Сергей", "Юрьевич", "$2a$11$Djz6uC7df41MuQEcBQQxC.Welx3/2UsLjW8odCBryz3.Kz/n/DUWi", 1, 1, "Смоглюк" });
 
             migrationBuilder.InsertData(
                 table: "Profile",

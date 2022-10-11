@@ -179,7 +179,7 @@ namespace nts_platform_server
                         x.AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowAnyOrigin()
-                        //.WithExposedHeaders("Content-Disposition")
+                        .WithExposedHeaders("Content-Disposition")
             );
 
             app.UseMiddleware<JwtMiddleware>();

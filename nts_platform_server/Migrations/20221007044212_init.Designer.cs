@@ -10,7 +10,7 @@ using nts_platform_server.Data;
 namespace nts_platform_server.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221003084959_init")]
+    [Migration("20221007044212_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,10 +29,10 @@ namespace nts_platform_server.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("DateEnd")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
-                    b.Property<DateTime?>("DateStart")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("DateStart")
+                        .HasColumnType("date");
 
                     b.Property<string>("Descriptions")
                         .HasColumnType("nvarchar(max)");
@@ -388,6 +388,9 @@ namespace nts_platform_server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Value")
                         .HasColumnType("int");
 
@@ -404,6 +407,7 @@ namespace nts_platform_server.Migrations
                         {
                             Id = 4,
                             CheckBankPhotoName = "bank",
+                            Name = "Чек с магазина",
                             Value = 1
                         });
                 });
@@ -487,7 +491,7 @@ namespace nts_platform_server.Migrations
                             Email = "xok",
                             FirstName = "Сергей",
                             MiddleName = "Юрьевич",
-                            Password = "$2a$11$GGzTQCQl4T7k0hpV1UpnFOSKuBvsByLyNEroylY1r1VrrNbn4inMC",
+                            Password = "$2a$11$Djz6uC7df41MuQEcBQQxC.Welx3/2UsLjW8odCBryz3.Kz/n/DUWi",
                             ProfileId = 1,
                             RoleId = 1,
                             SecondName = "Смоглюк"
@@ -598,6 +602,7 @@ namespace nts_platform_server.Migrations
                         new
                         {
                             Id = 3,
+                            Name = "Чек отеля",
                             Value = 50,
                             BillPhotoName = "bill"
                         });
@@ -627,6 +632,7 @@ namespace nts_platform_server.Migrations
                         new
                         {
                             Id = 1,
+                            Name = "Чек на самолет",
                             Value = 100,
                             TicketPhotoName = "tiket"
                         });
@@ -648,6 +654,7 @@ namespace nts_platform_server.Migrations
                         new
                         {
                             Id = 2,
+                            Name = "Чек на поезд",
                             Value = 70,
                             BorderTicketPhotoName = "train"
                         });

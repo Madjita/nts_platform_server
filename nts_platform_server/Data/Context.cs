@@ -131,6 +131,7 @@ namespace nts_platform_server.Data
               new CheckPlane
               {
                   Id = 1,
+                  Name = "Чек на самолет",
                   Value = 100,
                   TicketPhotoName = "tiket",
               });
@@ -139,6 +140,7 @@ namespace nts_platform_server.Data
               new CheckTrain
               {
                   Id = 2,
+                  Name = "Чек на поезд",
                   Value = 70,
                   BorderTicketPhotoName = "train",
               });
@@ -147,6 +149,7 @@ namespace nts_platform_server.Data
               new CheckHostel
               {
                   Id = 3,
+                  Name = "Чек отеля",
                   Value = 50,
                   BillPhotoName = "bill",
               });
@@ -159,6 +162,7 @@ namespace nts_platform_server.Data
                  new ReportCheck
                  {
                      Id = 4,
+                     Name = "Чек с магазина",
                      Value = 1,
                      CheckBankPhotoName = "bank"
                  }

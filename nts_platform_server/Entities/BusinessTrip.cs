@@ -33,6 +33,7 @@ namespace nts_platform_server.Entities
                     result = ReportChecks
                         .GroupBy(x => x.Id)
                         .Select(n => n.Sum(m => m.Value)).Sum();
+                    
                 }
                 else
                 {

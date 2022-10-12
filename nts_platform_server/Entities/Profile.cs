@@ -18,8 +18,8 @@ namespace nts_platform_server.Entities
         public User User { get; set; }
         public bool Sex { get; set; }
         public DateTime Date { get; set; }
-        public int PrfSeries { get; set; }
-        public int PrfNumber { get; set; }
+        public string PrfSeries { get; set; }
+        public string PrfNumber { get; set; }
         public DateTime PrfDateTaked { get; set; }
         public DateTime PrfDateBack { get; set; }
         public string PrfCode { get; set; }
@@ -27,13 +27,13 @@ namespace nts_platform_server.Entities
         public string PrfPlaceBorned { get; set; }
         public string PrfPlaceRegistration { get; set; }
         public string PrfPlaceLived { get; set; }
-        public int IpNumber { get; set; }
+        public string IpNumber { get; set; }
         public DateTime IpDateTaked { get; set; }
         public DateTime IpDateBack { get; set; }
-        public int IpCode { get; set; }
+        public string IpCode { get; set; }
         public string IpTaked { get; set; }
         public string IpPlaceBorned { get; set; }
-        public int UlmNumber { get; set; }
+        public string UlmNumber { get; set; }
         public DateTime UlmDateTaked { get; set; }
         public DateTime UlmDateBack { get; set; }
         public string UlmTaked { get; set; }

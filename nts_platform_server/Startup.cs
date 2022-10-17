@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+
 using nts_platform_server.Algorithms;
 using nts_platform_server.Auth.JWT;
 using nts_platform_server.Data;
